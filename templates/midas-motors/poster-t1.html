@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<title>Midas Motors T1 постер</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/poster-base.css">
+<style>
+/* T1 · one car, one photo. Photo fills the top 900px and fades into navy; text block sits on the bottom 578px. */
+.photo { position: absolute; left: 0; top: 0; width: 1080px; height: 900px; }
+.photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5,8,23,.85) 0px, rgba(5,8,23,.7) 110px, rgba(5,8,23,0) 220px, rgba(5,8,23,0) 600px, rgba(5,8,23,.85) 820px, var(--ink) 900px); }
+.placeholder { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 210px; }
+.placeholder svg { width: 860px; filter: drop-shadow(0 18px 16px rgba(0,0,0,.6)); }
+.placeholder span { position: absolute; left: 64px; top: 150px; font: 600 22px/1 var(--f-body); letter-spacing: .1em; color: var(--steel);
+  border: 2px dashed rgba(138,145,171,.6); padding: 10px 16px; }
+.content { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 64px 44px; display: flex; flex-direction: column; gap: 20px; z-index: 2; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="car" viewBox="0 0 400 130">
+    <path fill="#0A0D1E" stroke="rgba(243,244,249,.25)" stroke-width="1.2" d="M14 100 C14 88 20 82 34 79 L92 72 L168 38 C176 34 186 33 196 33 L246 34 C262 35 280 42 300 54 L356 74 C370 78 384 84 386 94 L386 104 L14 104 Z"/>
+    <path fill="#28304F" d="M104 71 L170 42 C178 38 186 37 196 37 L222 37 L222 71 Z M230 37 L246 38 C260 39 274 45 290 54 L320 71 L230 71 Z"/>
+    <circle cx="90" cy="104" r="21" fill="#03040A" stroke="#3A4266" stroke-width="5"/>
+    <circle cx="318" cy="104" r="21" fill="#03040A" stroke="#3A4266" stroke-width="5"/>
+  </symbol>
+</svg>
+
+<div class="poster" id="poster">
+  <div class="photo ph" id="photo"></div>
+  <div class="swoosh"></div>
+  <div class="top">
+    <img src="assets/midas-wordmark.png" alt="MIDAS">
+    <div class="badge chamfer new" id="badge"></div>
+  </div>
+  <div class="content">
+    <div class="accent"></div>
+    <div class="model" id="model"></div>
+    <div class="sub" id="sub"></div>
+    <div class="specs" id="specs"></div>
+    <div class="price-row">
+      <div class="price chamfer" id="price"></div>
+      <div class="lease" id="lease"></div>
+    </div>
+    <div class="foot"><b id="phone"></b><span id="address"></span></div>
+  </div>
+</div>
+
+<script src="assets/poster-base.js"></script>
+<script>
+const DEMO = {
+  model: "PRIUS", gen: "51", trim: "S Touring", year_made: "2017", year_import: "2025", color: "Цагаан сувд",
+  specs: [["Явсан", "98,000 км"], ["Мотор", "1.8 Hybrid"], ["Хөтлөгч", "2WD"], ["Дугаар", "Аваагүй"]],
+  price: "38.5", price_old: "", badge: "new", badge_text: "ШИНЭ ИРСЭН",
+  lease_title: "ЛИЗИНГТЭЙ", lease_sub: "Урьдчилгаа 30%-иас",
+  phone: "XXXX-XXXX", address: "Хаяг: {{ hayag }}", photo: "", photo_position: "50% 55%"
+};
+window.renderPoster = async function (d) {
+  d = Object.assign({}, DEMO, d || {});
+  window.posterReady = false;
+  const frame = document.getElementById("photo");
+  const first = MM.photoList(d)[0];
+  if (first) await MM.photo(frame, first.src, first.pos || d.photo_position, first.scale || d.photo_scale, first.fit);
+  else frame.innerHTML = '<div class="placeholder"><svg viewBox="0 0 400 130"><use href="#car"/></svg><span>ЗУРАГ · 3/4 УРД ӨНЦӨГ</span></div>';
+  MM.badge(document.getElementById("badge"), d.badge, d.badge_text);
+  document.getElementById("model").innerHTML = MM.modelHtml(d);
+  document.getElementById("sub").innerHTML = MM.subHtml(d);
+  document.getElementById("specs").innerHTML = MM.specsHtml(d.specs);
+  document.getElementById("price").innerHTML = MM.priceHtml(d);
+  MM.lease(document.getElementById("lease"), d);
+  document.getElementById("phone").textContent = d.phone || "";
+  document.getElementById("address").textContent = d.address || "";
+  await MM.done(d);
+};
+if (!window.__external) window.renderPoster(DEMO);
+</script>
+</body>
+</html>

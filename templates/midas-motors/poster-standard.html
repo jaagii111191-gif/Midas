@@ -1,0 +1,968 @@
+<title>Midas Motors Постерын Стандарт</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+/* Layout: one reading column (max 1120px); poster mockups are drawn on a 1080px canvas scaled with container units (--u = 1px of the real poster). */
+:root {
+  /* page tokens (light) */
+  --bg: #F2F3F5;
+  --surface: #FFFFFF;
+  --fg: #16181D;
+  --muted: #5A606A;
+  --line: #D8DBE0;
+  --accent: #A50F27;
+  --accent-soft: #FBE8EB;
+  --ok: #17775A;
+  --bad: #B3352C;
+
+  /* brand tokens (poster artwork, same in both themes) */
+  --mm-ink: #050817;
+  --mm-ink-2: #0D1330;
+  --mm-accent: #C8102E;
+  --mm-red-deep: #610A1A;
+  --mm-white: #F3F4F9;
+  --mm-silver: #A7ACC6;
+  --mm-steel: #8A91AB;
+  --mm-green: #14A39A;
+  --mm-red: #C8102E;
+
+  /* type */
+  --f-display: "Tektur", "Arial Narrow", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1013; --surface: #161920; --fg: #E9EAEC; --muted: #9AA1AB; --line: #2A2F37;
+    --accent: #FF6B7D; --accent-soft: #2A1018; --ok: #4CC79A; --bad: #F06B60;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1013; --surface: #161920; --fg: #E9EAEC; --muted: #9AA1AB; --line: #2A2F37;
+  --accent: #FF6B7D; --accent-soft: #2A1018; --ok: #4CC79A; --bad: #F06B60;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-inline: 16px;
+  padding-block: 0;
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 48px 96px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(30px, 5vw, 52px); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 700; }
+h3 { font-size: 17px; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+section { display: grid; gap: 24px; min-width: 0; }
+.sec-head { display: grid; gap: 8px; }
+.sec-head p { color: var(--muted); }
+
+/* header */
+.hero { display: grid; gap: 18px; padding-bottom: 32px; border-bottom: 1px solid var(--line); }
+.hero .lead { font-size: 18px; color: var(--muted); max-width: 64ch; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.meta-row b { color: var(--fg); font-weight: 600; }
+
+/* rule grid */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.rule { background: var(--surface); padding: 20px; display: grid; gap: 6px; align-content: start; }
+.rule h3 { font-size: 15px; }
+.rule p { font-size: 14px; color: var(--muted); }
+.rule code, .mono { font-family: var(--f-display); font-size: 0.86em; font-weight: 700; color: var(--fg); }
+
+/* tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--bg); }
+tr:last-child td { border-bottom: 0; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* insight pairs */
+.insights { display: grid; gap: 12px; }
+.insight { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); border: 1px solid var(--line); background: var(--surface); }
+.insight > div { padding: 16px 18px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.insight > div + div { border-left: 1px solid var(--line); background: var(--accent-soft); }
+.insight .lbl { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--muted); }
+.insight > div + div .lbl { color: var(--accent); }
+.insight p { font-size: 15px; }
+@media (max-width: 640px) {
+  .insight { grid-template-columns: 1fr; }
+  .insight > div + div { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+.note { border-left: 3px solid var(--accent); padding: 12px 16px; background: var(--surface); font-size: 14px; color: var(--muted); }
+.note b { color: var(--fg); }
+
+/* swatches */
+.swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 640px) { .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sw { border: 1px solid var(--line); background: var(--surface); display: grid; align-content: start; }
+#brand .two-col td.num { white-space: normal; }
+.sw .chip { height: 84px; }
+.sw .info { padding: 10px 12px; display: grid; gap: 2px; font-size: 13px; }
+.sw .info b { font-size: 14px; }
+.sw .hex { font-variant-numeric: tabular-nums; color: var(--muted); letter-spacing: 0.04em; }
+
+.two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start; }
+.specimen { background: var(--mm-ink); color: var(--mm-white); padding: 24px; display: grid; gap: 14px; }
+.specimen .s-disp { font-family: var(--f-display); font-weight: 800; font-size: 32px; line-height: 1; }
+.specimen .s-disp span { color: var(--mm-accent); }
+.specimen .s-body { font-family: var(--f-body); font-size: 18px; }
+.specimen .s-cap { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mm-steel); }
+
+/* ========== POSTER SYSTEM ========== */
+.pf { container-type: inline-size; width: 100%; max-width: 100%; }
+.poster {
+  --u: calc(100cqw / 1080);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: var(--mm-ink);
+  color: var(--mm-white);
+  font-family: var(--f-body);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: calc(64 * var(--u)) 1fr calc(166 * var(--u)) calc(108 * var(--u)) calc(168 * var(--u)) calc(36 * var(--u));
+  row-gap: calc(20 * var(--u));
+  padding: calc(44 * var(--u)) calc(64 * var(--u));
+  line-height: 1.1;
+}
+.poster.sq { aspect-ratio: 1 / 1; }
+.poster.story { aspect-ratio: 9 / 16; }
+.poster > * { min-width: 0; position: relative; }
+
+.p-top { display: flex; align-items: center; justify-content: space-between; gap: calc(16 * var(--u)); }
+.logo { display: flex; align-items: center; gap: calc(16 * var(--u)); }
+.logo img { height: calc(52 * var(--u)); width: auto; display: block; }
+.chamfer, .badge, .price { clip-path: polygon(calc(14 * var(--u)) 0, 100% 0, 100% calc(100% - 14 * var(--u)), calc(100% - 14 * var(--u)) 100%, 0 100%, 0 calc(14 * var(--u))); }
+.logo .word { display: grid; line-height: 1; gap: calc(6 * var(--u)); }
+.logo .word b { font-family: var(--f-display); font-weight: 800; font-size: calc(32 * var(--u)); letter-spacing: 0.04em; }
+.logo .word i { font-style: normal; font-size: calc(18 * var(--u)); letter-spacing: 0.42em; color: var(--mm-steel); font-weight: 600; }
+
+.badge {
+  font-family: var(--f-display); font-weight: 800; font-size: calc(26 * var(--u));
+  letter-spacing: 0.06em; padding: calc(16 * var(--u)) calc(26 * var(--u));
+  white-space: nowrap; line-height: 1;
+}
+.b-new { background: var(--mm-accent); color: var(--mm-white); }
+.b-lease { background: var(--mm-green); color: var(--mm-white); }
+.b-drop { background: var(--mm-red); color: var(--mm-white); }
+.b-out { border: calc(3 * var(--u)) solid var(--mm-silver); color: var(--mm-white); padding: calc(11 * var(--u)) calc(19 * var(--u)); clip-path: none; }
+
+.p-photo {
+  margin-inline: calc(-64 * var(--u));
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 62%, #3B414B 0%, rgba(59, 65, 75, 0) 70%),
+    linear-gradient(180deg, #1B1E24 0%, #1B1E24 66%, #24282F 66%, #1A1D22 100%);
+  display: grid; place-items: end center;
+  padding-bottom: 8%;
+  overflow: hidden;
+}
+/* 4:5 mocks: the photo spans y 0–900 behind the header and the title block, then fades into navy (as in T1) */
+.poster:not(.sq):not(.story) > .p-photo { margin-top: calc(-128 * var(--u)); margin-bottom: calc(-152 * var(--u)); padding-bottom: calc(230 * var(--u)); z-index: 0; }
+.poster:not(.sq):not(.story) > .p-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5, 8, 23, 0.7) 0%, rgba(5, 8, 23, 0) 22%, rgba(5, 8, 23, 0) 66%, var(--mm-ink) 100%); }
+.poster > .p-top, .poster > .p-title, .poster > .p-specs, .poster > .p-price, .poster > .p-lease, .poster > .p-foot { z-index: 1; }
+.p-photo svg { width: 84%; height: auto; display: block; filter: drop-shadow(0 calc(18 * var(--u)) calc(16 * var(--u)) rgba(0, 0, 0, 0.55)); }
+.slot-tag {
+  position: absolute; left: calc(64 * var(--u)); top: calc(150 * var(--u)); z-index: 1;
+  font-size: calc(22 * var(--u)); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--mm-steel); border: calc(2 * var(--u)) dashed rgba(154, 161, 171, 0.6);
+  padding: calc(8 * var(--u)) calc(14 * var(--u));
+}
+
+.p-title { display: grid; align-content: end; gap: calc(14 * var(--u)); }
+.p-title .accent { width: calc(110 * var(--u)); height: calc(10 * var(--u)); background: var(--mm-accent); transform: skewX(-35deg); margin: 0 0 calc(6 * var(--u)) calc(4 * var(--u)); }
+.p-title .model { font-family: var(--f-display); font-weight: 800; font-size: calc(84 * var(--u)); line-height: 0.92; letter-spacing: -0.01em; white-space: nowrap; }
+.p-title .model { background: linear-gradient(180deg, #FFFFFF 30%, var(--mm-silver) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.p-title .model span { -webkit-text-fill-color: var(--mm-accent); color: var(--mm-accent); }
+.p-title .sub { font-size: calc(34 * var(--u)); font-weight: 600; color: var(--mm-steel); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p-title .sub b { color: var(--mm-white); font-weight: 700; }
+
+.p-specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); border-bottom: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); }
+.p-specs > div { display: grid; align-content: center; gap: calc(10 * var(--u)); padding-inline: calc(18 * var(--u)); }
+.p-specs > div:first-child { padding-left: 0; }
+.p-specs > div + div { border-left: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); }
+.p-specs .k { font-size: calc(22 * var(--u)); text-transform: uppercase; letter-spacing: 0.08em; color: var(--mm-steel); font-weight: 600; white-space: nowrap; }
+.p-specs .v { font-size: calc(32 * var(--u)); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+
+.p-price { display: flex; align-items: stretch; justify-content: space-between; gap: calc(24 * var(--u)); }
+.price { display: grid; gap: calc(8 * var(--u)); }
+.price { background: var(--mm-accent); align-content: center; padding: 0 calc(30 * var(--u)); }
+.price .k { font-size: calc(22 * var(--u)); letter-spacing: 0.14em; text-transform: uppercase; color: rgba(243, 244, 249, 0.85); font-weight: 600; }
+.price .v { font-family: var(--f-display); font-weight: 800; font-size: calc(124 * var(--u)); line-height: 0.9; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price .v small { font-size: calc(46 * var(--u)); font-weight: 700; margin-left: calc(12 * var(--u)); }
+.price .was { font-size: calc(28 * var(--u)); color: rgba(243, 244, 249, 0.75); text-decoration: line-through; text-decoration-thickness: calc(3 * var(--u)); font-variant-numeric: tabular-nums; }
+.pill {
+  display: grid; align-content: center;
+  font-size: calc(24 * var(--u)); font-weight: 700; padding: calc(16 * var(--u)) calc(22 * var(--u));
+  border: calc(2 * var(--u)) solid var(--mm-green); color: var(--mm-white); text-align: right; line-height: 1.2;
+}
+.pill span { display: block; font-size: calc(22 * var(--u)); font-weight: 500; color: var(--mm-steel); }
+.pill.red { border-color: var(--mm-red); }
+
+.p-foot { display: flex; align-items: center; justify-content: space-between; gap: calc(16 * var(--u)); font-size: calc(24 * var(--u)); color: var(--mm-steel); white-space: nowrap; }
+.p-foot b { color: var(--mm-white); font: 800 calc(32 * var(--u)) / 1 var(--f-display); letter-spacing: 0.04em; }
+
+/* leasing panel (T2) */
+.p-lease { display: grid; grid-template-columns: 1fr 0.8fr 1.5fr; background: var(--mm-ink-2); }
+.p-lease > div { display: grid; align-content: center; gap: calc(8 * var(--u)); padding-inline: calc(22 * var(--u)); }
+.p-lease > div:first-child { background: var(--mm-green); }
+.p-lease .k { font-size: calc(22 * var(--u)); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: var(--mm-steel); white-space: nowrap; }
+.p-lease > div:first-child .k, .p-lease > div:last-child .k { color: rgba(246, 246, 244, 0.85); }
+.p-lease > div:last-child { background: var(--mm-accent); }
+.p-lease > div:last-child .v { font-size: calc(104 * var(--u)); }
+.p-lease > div:last-child .v small { font-size: calc(32 * var(--u)); }
+.p-lease > div:not(:last-child) .v { font-size: calc(48 * var(--u)); }
+.p-lease .v { font-family: var(--f-display); font-weight: 800; font-size: calc(58 * var(--u)); line-height: 1; white-space: nowrap; }
+.p-lease .v small { font-size: calc(24 * var(--u)); font-family: var(--f-body); font-weight: 600; }
+
+/* zones overlay (anatomy) */
+.zoned [data-zone] { outline: calc(3 * var(--u)) dashed rgba(243, 244, 249, 0.8); outline-offset: calc(-2 * var(--u)); }
+.zoned [data-zone]::before {
+  content: attr(data-zone);
+  position: absolute; right: calc(-56 * var(--u)); top: 0; z-index: 3;
+  background: var(--mm-white); color: var(--mm-ink);
+  font: 700 calc(28 * var(--u)) / 1 var(--f-display); padding: calc(8 * var(--u)) calc(12 * var(--u));
+}
+.zoned [data-zone="B"]::before { right: calc(72 * var(--u)); top: calc(140 * var(--u)); }
+.zoned::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: calc(64 * var(--u)); right: calc(64 * var(--u));
+  border-inline: calc(2 * var(--u)) dashed rgba(246, 246, 244, 0.35); pointer-events: none;
+}
+
+/* sold square (T4) */
+.poster.sold { grid-template-rows: calc(64 * var(--u)) 1fr calc(170 * var(--u)); }
+.poster.sold .p-photo { margin-bottom: calc(-24 * var(--u)); }
+.poster.sold .p-photo svg { opacity: 0.55; }
+.stamp {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%) rotate(-7deg);
+  border: calc(8 * var(--u)) solid var(--mm-red); color: var(--mm-red);
+  font: 800 calc(96 * var(--u)) / 1 var(--f-display); letter-spacing: 0.04em;
+  padding: calc(22 * var(--u)) calc(40 * var(--u)); background: rgba(22, 24, 29, 0.55); white-space: nowrap;
+}
+.sold-foot { display: grid; align-content: end; gap: calc(12 * var(--u)); }
+.sold-foot .model { font-family: var(--f-display); font-weight: 800; font-size: calc(64 * var(--u)); line-height: 1; white-space: nowrap; }
+.sold-foot .model span { color: var(--mm-accent); }
+.sold-foot p { font-size: calc(30 * var(--u)); color: var(--mm-steel); max-width: none; white-space: nowrap; }
+.sold-foot p b { color: var(--mm-white); }
+
+/* story (T5) */
+.poster.story {
+  grid-template-rows: calc(64 * var(--u)) 1fr calc(170 * var(--u)) calc(230 * var(--u)) calc(168 * var(--u)) calc(92 * var(--u));
+  padding-block: calc(282 * var(--u));
+}
+.poster.story .p-title .model { font-size: calc(88 * var(--u)); }
+.p-specs.grid2 { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, 1fr); }
+.p-specs.grid2 > div:nth-child(3) { padding-left: 0; border-left: 0; }
+.p-specs.grid2 > div:nth-child(n+3) { border-top: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); }
+.cta { display: grid; place-items: center; background: var(--mm-accent); color: var(--mm-white); font: 700 calc(32 * var(--u)) / 1 var(--f-display); letter-spacing: 0.04em; }
+.safe { position: absolute; left: 0; right: 0; height: calc(250 * var(--u)); background: repeating-linear-gradient(135deg, rgba(217, 68, 58, 0.22) 0 calc(14 * var(--u)), rgba(217, 68, 58, 0.08) calc(14 * var(--u)) calc(28 * var(--u))); display: grid; place-items: center; font-size: calc(24 * var(--u)); letter-spacing: 0.1em; text-transform: uppercase; color: #F2B6B0; z-index: 4; }
+.safe.top { top: 0; }
+.safe.bot { bottom: 0; }
+.nosafe .safe { display: none; }
+
+/* weekly list (T6) */
+.poster.list { grid-template-rows: calc(64 * var(--u)) calc(150 * var(--u)) 1fr calc(36 * var(--u)); }
+.list-head { display: grid; align-content: end; gap: calc(10 * var(--u)); }
+.list-head .k { font-size: calc(24 * var(--u)); letter-spacing: 0.12em; text-transform: uppercase; color: var(--mm-silver); font-weight: 600; }
+.list-head h4 { margin: 0; font: 800 calc(48 * var(--u)) / 1 var(--f-display); }
+.rows { display: grid; grid-template-rows: repeat(5, 1fr); border-top: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); }
+.row { display: grid; grid-template-columns: calc(230 * var(--u)) 1fr auto; align-items: center; gap: calc(24 * var(--u)); border-bottom: calc(2 * var(--u)) solid rgba(246, 246, 244, 0.16); }
+.row .thumb { background: radial-gradient(ellipse 70% 60% at 50% 65%, #3B414B, #1B1E24 75%); height: 80%; display: grid; place-items: center; }
+.row .thumb svg { width: 86%; }
+.row .t { display: grid; gap: calc(8 * var(--u)); min-width: 0; }
+.row .t b { font: 800 calc(36 * var(--u)) / 1 var(--f-display); white-space: nowrap; }
+.row .t b span { color: var(--mm-accent); }
+.row .t i { font-style: normal; font-size: calc(24 * var(--u)); color: var(--mm-steel); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.row .pr { font: 800 calc(68 * var(--u)) / 1 var(--f-display); white-space: nowrap; font-variant-numeric: tabular-nums; text-align: right; }
+.row .pr small { display: block; font: 600 calc(22 * var(--u)) / 1.4 var(--f-body); color: var(--mm-steel); }
+
+/* carousel strip */
+.strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 720px) { .strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { display: grid; gap: 8px; align-content: start; }
+.tile .sqr { aspect-ratio: 1 / 1; max-width: 100%; background: var(--mm-ink); color: var(--mm-white); display: grid; grid-template-rows: auto 1fr; padding: 10px; position: relative; }
+.tile .sqr .n { font: 700 13px / 1 var(--f-display); color: var(--mm-accent); }
+.tile .sqr .ill { display: grid; place-items: center; }
+.tile .sqr .ill svg { width: 88%; }
+.tile .sqr .lbl { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mm-steel); text-align: center; }
+.tile p { font-size: 13px; color: var(--muted); }
+.tile p b { color: var(--fg); }
+
+/* gallery */
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px 24px; align-items: start; }
+.card:has(.poster.story) .pf { width: 72%; margin-inline: auto; }
+.card { display: grid; gap: 12px; min-width: 0; }
+.card .cap { display: grid; gap: 4px; }
+.card .cap h3 { font-size: 15px; }
+.card .cap p { font-size: 14px; color: var(--muted); }
+.tag { display: inline-block; font: 700 11px / 1 var(--f-display); letter-spacing: 0.06em; padding: 5px 7px; border: 1px solid var(--line); color: var(--muted); margin-right: 6px; vertical-align: 1px; }
+
+/* real-photo examples */
+.ex-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; align-items: start; }
+.ex { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.ex img { width: 100%; height: auto; aspect-ratio: 4 / 5; max-width: 100%; display: block; border: 1px solid var(--line); background: var(--mm-ink); }
+.ex figcaption { font-size: 14px; color: var(--muted); }
+.ex figcaption b { color: var(--fg); }
+
+/* anatomy */
+.anatomy { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 820px) { .anatomy { grid-template-columns: minmax(0, 1fr); } }
+.zone-list { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.zone-list > div { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.zone-list .z { font: 700 14px / 1 var(--f-display); color: var(--accent); }
+.zone-list .d b { display: block; font-size: 15px; }
+.zone-list .d span { font-size: 14px; color: var(--muted); }
+.zone-list .px { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.btn {
+  font: 600 14px / 1 var(--f-body); padding: 10px 14px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--surface); color: var(--fg);
+}
+.btn:hover { border-color: var(--accent); }
+.btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* flow */
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); background: var(--surface); }
+.flow > div { padding: 16px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.flow > div + div { border-left: 1px solid var(--line); }
+.flow .when { font: 700 12px / 1.3 var(--f-display); color: var(--accent); letter-spacing: 0.02em; }
+.flow b { font-size: 15px; }
+.flow p { font-size: 13px; color: var(--muted); }
+@media (max-width: 820px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow > div + div { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* do / dont */
+.dd { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.dd ul { margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); background: var(--surface); }
+.dd li { padding: 12px 16px 12px 40px; border-bottom: 1px solid var(--line); position: relative; font-size: 15px; }
+.dd li:last-child { border-bottom: 0; }
+.dd li::before { position: absolute; left: 16px; top: 12px; font-weight: 700; }
+.dd .do li::before { content: "✓"; color: var(--ok); }
+.dd .dont li::before { content: "✕"; color: var(--bad); }
+.dd h3 { margin-bottom: 10px; }
+
+/* caption */
+.caption-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+.cbox { border: 1px solid var(--line); background: var(--surface); display: grid; min-width: 0; }
+.cbox header { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.cbox header h3 { font-size: 14px; }
+.cbox pre { margin: 0; padding: 16px; font: 14px / 1.65 var(--f-body); white-space: pre-wrap; overflow-wrap: anywhere; }
+.copied { font-size: 13px; color: var(--ok); }
+
+/* checklist */
+.check { border: 1px solid var(--line); background: var(--surface); }
+.check label { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: 15px; align-items: start; }
+.check label:last-child { border-bottom: 0; }
+.check input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--accent); }
+.check input:checked + span { color: var(--muted); text-decoration: line-through; }
+.progress { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+ol.shots { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+ol.shots li { counter-increment: s; background: var(--surface); padding: 14px 16px 14px 52px; position: relative; font-size: 14px; color: var(--muted); }
+ol.shots li::before { content: counter(s); position: absolute; left: 16px; top: 13px; font: 700 15px / 1 var(--f-display); color: var(--accent); }
+ol.shots li b { display: block; color: var(--fg); font-size: 15px; }
+
+.sources { font-size: 14px; color: var(--muted); display: grid; gap: 6px; }
+.sources ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+footer.end { border-top: 1px solid var(--line); padding-top: 24px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: border-color .15s ease, background .15s ease; }
+}
+</style>
+
+<!-- car silhouettes: placeholders for the real photo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="car-hatch" viewBox="0 0 400 130">
+      <path fill="#0B0C0F" stroke="rgba(246,246,244,.22)" stroke-width="1.2" d="M14 100 C14 88 20 82 34 79 L92 72 L168 38 C176 34 186 33 196 33 L246 34 C262 35 280 42 300 54 L356 74 C370 78 384 84 386 94 L386 104 L14 104 Z"/>
+      <path fill="#2A3038" d="M104 71 L170 42 C178 38 186 37 196 37 L222 37 L222 71 Z M230 37 L246 38 C260 39 274 45 290 54 L320 71 L230 71 Z"/>
+      <circle cx="90" cy="104" r="21" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+      <circle cx="318" cy="104" r="21" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+    </symbol>
+    <symbol id="car-wagon" viewBox="0 0 400 130">
+      <path fill="#0B0C0F" stroke="rgba(246,246,244,.22)" stroke-width="1.2" d="M14 100 C14 88 20 82 34 79 L92 72 L150 40 C158 36 168 35 180 35 L340 36 C352 36 360 42 364 52 L374 76 C382 80 388 86 388 96 L388 104 L14 104 Z"/>
+      <path fill="#2A3038" d="M104 71 L152 44 C160 40 168 39 178 39 L214 39 L214 71 Z M222 39 L290 39 L290 71 L222 71 Z M298 39 L338 40 C346 40 352 44 356 52 L364 71 L298 71 Z"/>
+      <circle cx="90" cy="104" r="21" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+      <circle cx="320" cy="104" r="21" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+    </symbol>
+    <symbol id="car-sedan" viewBox="0 0 400 130">
+      <path fill="#0B0C0F" stroke="rgba(246,246,244,.22)" stroke-width="1.2" d="M14 98 C14 86 20 80 34 77 L96 70 L150 42 C160 37 172 35 186 35 L250 35 C266 35 280 39 292 47 L330 70 L372 76 C384 78 390 86 390 96 L390 102 L14 102 Z"/>
+      <path fill="#2A3038" d="M106 69 L154 45 C162 41 172 40 184 40 L214 40 L214 69 Z M222 40 L250 40 C262 40 274 44 284 50 L314 69 L222 69 Z"/>
+      <circle cx="92" cy="102" r="22" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+      <circle cx="318" cy="102" r="22" fill="#050506" stroke="#3A3F48" stroke-width="5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Midas Motors · Брэнд стандарт v1.2 · 2026.10</div>
+    <h1>Машины постерын стандарт</h1>
+    <p class="lead">Prius 40/41, Prius 50/51/55, Camry 50/70 зарлах бүх постер нэг бүтэц, нэг өнгө, нэг хэллэгээр гарна. Худалдан авагч лентээ гүйлгэж явахдаа 3 секундэд загвар, он, км, үнэ, лизингийг уншиж, энэ бол Midas Motors-ын постер гэдгийг танина.</p>
+    <div class="meta-row">
+      <span><b>Суваг:</b> Facebook page, Instagram, Marketplace</span>
+      <span><b>Үндсэн формат:</b> 1080×1350 (4:5)</span>
+      <span><b>Ашиглах хүн:</b> дизайнер, борлуулагч, page админ</span>
+    </div>
+  </header>
+
+  <!-- 1 -->
+  <section id="rules">
+    <div class="sec-head">
+      <div class="eyebrow">Товч</div>
+      <h2>Гол зургаан дүрэм</h2>
+      <p>Доорх бүх хэсэг эдгээрийг нарийвчилж тайлбарлана. Цаг багатай бол эндээс эхэл.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><h3>Загварыг кузов кодоор нь нэрлэ</h3><p><code>PRIUS 51</code>, <code>CAMRY 70</code> гэж бичнэ. Худалдан авагч, unegui.mn-ийн ангилал, өрсөлдөгчид бүгд ингэж ярьдаг.</p></div>
+      <div class="rule"><h3>Үнэ үргэлж харагдана, хамгийн том (T4-өөс бусад)</h3><p><code>38.5 сая₮</code> хэлбэрээр, постер дээрх хамгийн том бичиг. Загварын нэр үнээс жижиг. «Үнэ чатаар» гэвэл зөвхөн сонирхсон хүмүүсийн мессеж ихэсч, жинхэнэ худалдан авагч алга болдог.</p></div>
+      <div class="rule"><h3>Нэг постерт нэг машин</h3><p>Нэг гол зураг, 3/4 урд өнцгөөс. Олон машиныг зөвхөн долоо хоногийн жагсаалт (T6) эсвэл олон машинтай постер (T8) дээр харуулна.</p></div>
+      <div class="rule"><h3>Мэдээлэл тогтсон байрандаа</h3><p>Гарчгийн доор хувилбар · он · өнгө. Үзүүлэлтийн мөрийн эхний нүд үргэлж явсан км, үлдсэн гурав нь «Юуг онцлох вэ» хүснэгтийн дагуу. Нэг загварын постер бүрт ижил дараалал, ижил байрлалтай тул хэрэглэгч хаанаас хайхаа сурна.</p></div>
+      <div class="rule"><h3>Хоёр фонт, хоёр гол өнгө</h3><p>Хар хөх дэвсгэр, Midas улаан, хром үсэг. Tektur ба Manrope. Өөр фонт, өөр өнгө нэмэхгүй.</p></div>
+      <div class="rule"><h3>Лизинг байвал шошгоор харуул</h3><p>Монголд лизинг бол сонголтын гол шалгуур. Боломжтой машин бүрт шошго буюу T2 загвар хэрэглэнэ.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="research">
+    <div class="sec-head">
+      <div class="eyebrow">Судалгаа</div>
+      <h2>Өрсөлдөгч page-үүд юу хийж байна</h2>
+      <p>2026 оны 10-р сарын 4-нд Meta Ad Library-ээс Монголд явж буй зарыг «Prius» (ойролцоогоор 660 зар) ба «Camry» түлхүүр үгээр хайж, авто худалдааны page-үүдийг ялгалаа. Мөн 1000mashin.mn, unegui.mn-ийн Prius 50/51 зарын бүтцийг харьцуулав.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Page</th><th>Ажигласан зүйл</th><th>Зар</th></tr></thead>
+        <tbody>
+          <tr><td>Standart Motors</td><td>Каталог/карусел зар. Гарчиг нь кузов кодоор: «Toyota_Prius_55_S», «Toyota_Harrier_65_Ser2».</td><td><a href="https://www.facebook.com/ads/library/?id=1691924291904184" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Hybrid Center 8501-6666</td><td>Утасны дугаарыг page-ийн нэрэндээ шингээсэн.</td><td><a href="https://www.facebook.com/ads/library/?id=2420887425316331" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>0084 Хайлааст Авто худалдаа лизинг</td><td>«Лизинг» гэдэг үгийг page-ийн нэрэнд оруулсан.</td><td><a href="https://www.facebook.com/ads/library/?id=4051322888503364" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Prius 888</td><td>Зөвхөн Prius-т төвлөрсөн нэр. Hybrid чиглэлийн өрсөлдөөн нарийн мэргэшсэн.</td><td><a href="https://www.facebook.com/ads/library/?id=28555989460677556" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Наран Авто Худалдаа</td><td>Нэг минутын дотор 3 тусдаа зар үүсгэсэн. Машин бүрт тусдаа пост, өндөр давтамжтай.</td><td><a href="https://www.facebook.com/ads/library/?id=1451859040190758" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Хүннү Моторс / Hunnu Motors</td><td>Prius түлхүүр үгтэй идэвхтэй зар.</td><td><a href="https://www.facebook.com/ads/library/?id=2404470490385618" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Munkh Motors / Мөнх Моторс</td><td>Prius, Camry аль алины хайлтад гарсан.</td><td><a href="https://www.facebook.com/ads/library/?id=27797468959927924" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Yokozuna Motors in Mongolia</td><td>Camry хайлтад гарсан.</td><td><a href="https://www.facebook.com/ads/library/?id=1100366582949242" target="_blank" rel="noopener">Нээх</a></td></tr>
+          <tr><td>Бусад</td><td>United Motors, Гранд Авто Худалдаа, Ruby Motors, AV авто худалдаа, Дорнод Авто, Aaya's car, AutoZone, 7727 Car dealership, SS Auto Salon, Toyota Ulaanbaatar.</td><td><a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=MN&q=Prius" target="_blank" rel="noopener">Хайлт</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insights">
+      <div class="insight">
+        <div><span class="lbl">Ажиглалт</span><p>Утасны дугаараа page-ийн нэрэнд хүртэл оруулдаг. Энэ зах зээлд утас бол гол үйлдэл.</p></div>
+        <div><span class="lbl">Midas-ын шийдэл</span><p>Хөл хэсэгт утас 32px тод. Story-д «Мессеж бичих» товч.</p></div>
+      </div>
+      <div class="insight">
+        <div><span class="lbl">Ажиглалт</span><p>«Лизинг», «Лизингтэй» гэдэг үг page-ийн нэр, зарын сайтын талбарт байнга гардаг.</p></div>
+        <div><span class="lbl">Midas-ын шийдэл</span><p>Лизингийн шошго, тусгай T2 загвар. Урьдчилгааны хувийг тод, үнэ хамгийн том.</p></div>
+      </div>
+      <div class="insight">
+        <div><span class="lbl">Ажиглалт</span><p>Дилерүүд «Prius 55 S», «Harrier 65» гэх мэтээр кузов кодоор нэрлэдэг. unegui.mn ч «Prius 50», «Prius 51» гэж ангилдаг.</p></div>
+        <div><span class="lbl">Midas-ын шийдэл</span><p>Гарчиг нь <span class="mono">PRIUS 51</span>, үеийн дугаар нь Midas улаан.</p></div>
+      </div>
+      <div class="insight">
+        <div><span class="lbl">Ажиглалт</span><p>Дилерүүд машин бүрт тусдаа, өдөрт олон пост гаргадаг.</p></div>
+        <div><span class="lbl">Midas-ын шийдэл</span><p>Давхарга нь түгжигдсэн мастер загвар. Зураг ба 9 талбар солиход 10 минутад нэг постер гарна.</p></div>
+      </div>
+      <div class="insight">
+        <div><span class="lbl">Ажиглалт</span><p>«Prius» түлхүүр үгтэй зарын ихэнх нь сэлбэг, амортизатор, батерей, засварын page-үүд. Ленте дээр олон төрлийн машины зураг өрсөлддөг.</p></div>
+        <div><span class="lbl">Midas-ын шийдэл</span><p>Тогтмол хар хөх + улаан харагдах байдал. Брэнд нь машины зургаас биш, хүрээнээсээ танигдана.</p></div>
+      </div>
+    </div>
+
+    <h3>Зарын сайтуудын нэр томьёо (постер дээр яг ингэж бичнэ)</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Талбар</th><th>Бичих хэлбэр</th><th>Тайлбар</th></tr></thead>
+        <tbody>
+          <tr><td>Үйлдвэрлэсэн / Орж ирсэн он</td><td class="num">2017/2025</td><td>Зарын сайтууд хоёуланг нь «/»-ээр зэрэгцүүлж бичдэг. Постер дээр мөн адил.</td></tr>
+          <tr><td>Явсан км</td><td class="num">131,000 км</td><td>Мянгатыг таслалаар тусгаарлана.</td></tr>
+          <tr><td>Үнэ</td><td class="num">33.8 сая₮</td><td>Нэг аравтын оронтой, «сая» гэж бичнэ.</td></tr>
+          <tr><td>Жолоо</td><td>Буруу / Зөв</td><td>Японоос орж ирсэн машин ихэнхдээ «Буруу».</td></tr>
+          <tr><td>Дугаар</td><td>Дугаар аваагүй</td><td>Монголд улсын дугаар аваагүй, «Монголд явж үзээгүй» гэсэн утгатай. Худалдан авагчид чухал.</td></tr>
+          <tr><td>Лизинг</td><td>Лизингтэй</td><td>Шошго болгож харуулна.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note"><b>Судалгааны хязгаар.</b> Facebook-ийн пост ба зарын зургийг нэвтрэлгүйгээр нээх боломжгүй байсан тул дээрх дүгнэлт нь Ad Library-гийн page нэр, зарын гарчиг, огноо, мөн зарын сайтуудын бүтэц дээр үндэслэсэн. Хүснэгтийн «Нээх» холбоосоор өрсөлдөгчдийн бодит постерыг нүдээр шалгаж, энэ стандартыг шаардлагатай бол тохируулаарай.</p>
+  </section>
+
+  <!-- 3 -->
+  <section id="brand">
+    <div class="sec-head">
+      <div class="eyebrow">Брэнд суурь</div>
+      <h2>Өнгө ба фонт</h2>
+      <p>Өнгийг Midas Motors-ын логоос авсан: хар хөх дэвсгэр, диагональ улаан зурвас, хром өнгийн үсэг. Улаан бол брэндийн ганц тод өнгө. Бусад нь машины зургийг тодруулах хар хөх ба мөнгөлөг саарал.</p>
+    </div>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#050817"></div><div class="info"><b>Хар хөх</b><span class="hex">#050817</span><span class="muted">Дэвсгэр (логоны дэвсгэр)</span></div></div>
+      <div class="sw"><div class="chip" style="background:#0D1330"></div><div class="info"><b>Хар хөх 2</b><span class="hex">#0D1330</span><span class="muted">Самбар, хүрээ</span></div></div>
+      <div class="sw"><div class="chip" style="background:#C8102E"></div><div class="info"><b>Midas улаан</b><span class="hex">#C8102E</span><span class="muted">Үеийн дугаар, үнийн хайрцаг, шошго</span></div></div>
+      <div class="sw"><div class="chip" style="background:#610A1A"></div><div class="info"><b>Гүн улаан</b><span class="hex">#610A1A</span><span class="muted">Логоны зурвас, дэвсгэрийн диагональ</span></div></div>
+      <div class="sw"><div class="chip" style="background:#F3F4F9"></div><div class="info"><b>Хром цагаан</b><span class="hex">#F3F4F9</span><span class="muted">Үндсэн текст</span></div></div>
+      <div class="sw"><div class="chip" style="background:#A7ACC6"></div><div class="info"><b>Мөнгөлөг</b><span class="hex">#A7ACC6</span><span class="muted">Гарчгийн хром градиент</span></div></div>
+      <div class="sw"><div class="chip" style="background:#8A91AB"></div><div class="info"><b>Ган саарал</b><span class="hex">#8A91AB</span><span class="muted">Шошго, хоёрдогч текст</span></div></div>
+      <div class="sw"><div class="chip" style="background:#14A39A"></div><div class="info"><b>Лизинг ногоон</b><span class="hex">#14A39A</span><span class="muted">Зөвхөн лизинг</span></div></div>
+    </div>
+    <p class="small muted">Улааныг нэг постер дээр үеийн дугаар, үнийн хайрцаг, статусын шошго ба нэг нимгэн чимэг зураасаас өөр газар хэрэглэхгүй. Ногоон-цэнхрийг зөвхөн лизингт хэрэглэнэ. Лого үргэлж хром цагаан, өнгө өөрчлөхгүй. Зураг дээр гарвал логоны ард хар хөх градиент (≈70%) байна. Цайвар хана, тэнгэр дээр шууд тавихгүй.</p>
+
+    <div class="two-col">
+      <div class="specimen">
+        <div class="s-cap">Гарчиг, үнэ · Tektur 800</div>
+        <div class="s-disp">PRIUS <span>51</span></div>
+        <div class="s-disp" style="font-size:56px">38.5 <span style="color:inherit;font-size:24px;font-weight:700">сая₮</span></div>
+        <div class="s-cap">Бусад бүх текст · Manrope 500–800</div>
+        <div class="s-body">Явсан 98,000 км · Өнгө: Цагаан сувд · Дугаар аваагүй</div>
+      </div>
+      <div class="table-scroll">
+        <table style="min-width:0">
+          <thead><tr><th>Элемент</th><th>Фонт</th><th>Хэмжээ (1080 өргөнд)</th></tr></thead>
+          <tbody>
+            <tr><td><b>Үнэ</b> (хамгийн том)</td><td>Tektur 800</td><td class="num">124 px · лизинггүй 132 · T2 104 · олон машинтай 68–84</td></tr>
+            <tr><td>Загварын нэр</td><td>Tektur 800</td><td class="num">84 px · T7 72 · олон машинтай 36–50</td></tr>
+            <tr><td>Дэд мөр (хувилбар, он)</td><td>Manrope 600</td><td class="num">34 px</td></tr>
+            <tr><td>Үзүүлэлтийн утга</td><td>Manrope 800</td><td class="num">32 px</td></tr>
+            <tr><td>Хөл (утас)</td><td>Tektur 800</td><td class="num">32 px</td></tr>
+            <tr><td>Статусын шошго</td><td>Tektur 800</td><td class="num">26 px · картын шошго 22</td></tr>
+            <tr><td>Жижиг гарчиг, нүдний нэр</td><td>Manrope 700, ТОМ ҮСЭГ</td><td class="num">22 px</td></tr>
+            <tr><td><b>Доод хязгаар</b></td><td>Бүх текст</td><td class="num"><b>22 px</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="small muted">Хоёр фонт хоёулаа Google Fonts-ийн үнэгүй фонт (репод <span class="mono">assets/fonts/</span>-д хадгалсан) бөгөөд монгол Ө, Ү болон ₮ тэмдэгтэй (фонтын файлаас шалгасан). Tektur-ийн ирмэглэг хэлбэр Midas-ын логотой ижил. Анхаар: Unbounded, Russo One, Jura зэрэг олон кирилл фонтод Ө, Ү байхгүй тул шинэ фонт нэмэхээс өмнө заавал шалга.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="anatomy">
+    <div class="sec-head">
+      <div class="eyebrow">Бүтэц</div>
+      <h2>4:5 постерын бүс</h2>
+      <p>1080×1350 px канвас. Хажуугийн зай 64 px, дээд/доод 44 px, бүс хоорондын зай 20 px. Машины зураг дээд 900 px-ийг бүтэн өргөнөөр эзэлж, толгой ба гарчгийн ард бараан өнгө рүү уусна. Утгууд нь T1 загвартай (<span class="mono">poster-t1.html</span>) яг таарна.</p>
+    </div>
+    <div class="anatomy">
+      <div style="display:grid;gap:12px">
+        <div class="toolbar"><button class="btn" id="zoneToggle" type="button" aria-pressed="true">Бүсийг харуулах</button></div>
+        <div class="pf">
+          <div class="poster zoned" id="anatomyPoster">
+            <div class="p-top" data-zone="A">
+              <div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div>
+              <div class="badge b-new">ШИНЭ ИРСЭН</div>
+            </div>
+            <div class="p-photo" data-zone="B">
+              <span class="slot-tag">Зураг · 3/4 урд өнцөг</span>
+              <svg viewBox="0 0 400 130" role="img" aria-label="Prius 51 зургийн байр"><use href="#car-hatch"/></svg>
+            </div>
+            <div class="p-title" data-zone="C">
+              <div class="accent"></div>
+              <div class="model">PRIUS <span>51</span></div>
+              <div class="sub"><b>S Touring</b> · 2017/2025 · Цагаан сувд</div>
+            </div>
+            <div class="p-specs" data-zone="D">
+              <div><span class="k">Явсан</span><span class="v">98,000 км</span></div>
+              <div><span class="k">Мотор</span><span class="v">1.8 Hybrid</span></div>
+              <div><span class="k">Хөтлөгч</span><span class="v">2WD</span></div>
+              <div><span class="k">Дугаар</span><span class="v">Аваагүй</span></div>
+            </div>
+            <div class="p-price" data-zone="E">
+              <div class="price"><span class="k">Үнэ</span><span class="v">38.5<small>сая₮</small></span></div>
+              <div class="pill">Лизингтэй<span>Урьдчилгаа 30%-иас</span></div>
+            </div>
+            <div class="p-foot" data-zone="F"><b>XXXX-XXXX</b><span>Хаяг: {{ hayag }}</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="zone-list">
+        <div><span class="z">A</span><span class="d"><b>Толгой</b><span>Лого зүүн талд (52 px өндөр, x 64), статусын шошго баруун талд. Өөр юу ч орохгүй.</span></span><span class="px">y 44–108</span></div>
+        <div><span class="z">B</span><span class="d"><b>Машины зураг</b><span>Бүтэн өргөнөөр. Машин канвасын өргөний 80–85%-ийг эзэлнэ. Дугуйн доод ирмэг ойролцоогоор y 580–700-д, гарчгаас (C, y 768) дээш байна.</span></span><span class="px">y 0–900</span></div>
+        <div><span class="z">C</span><span class="d"><b>Гарчиг</b><span>Улаан зураас, загвар (хром, 84 px) + үеийн дугаар (улаан). Доор нь хувилбар · он · өнгө.</span></span><span class="px">y 768–934</span></div>
+        <div><span class="z">D</span><span class="d"><b>Үзүүлэлтийн мөр</b><span>Яг дөрвөн нүд. Эхний нүд үргэлж «Явсан км». Бусдыг загвараас хамаарч сонгоно («Юуг онцлох вэ» хэсэг).</span></span><span class="px">y 954–1062</span></div>
+        <div><span class="z">E</span><span class="d"><b>Үнэ ба нөхцөл</b><span>Үнэ зүүн талд, постерын хамгийн том бичиг (124 px, лизинггүй үед 132 px). Баруун талд лизинг эсвэл хөнгөлөлтийн хайрцаг.</span></span><span class="px">y 1082–1250</span></div>
+        <div><span class="z">F</span><span class="d"><b>Хөл</b><span>Утас (тод) ба хаяг. Facebook хаяг, хэштэгийг пост бичвэрт бичнэ.</span></span><span class="px">y 1270–1306</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="templates">
+    <div class="sec-head">
+      <div class="eyebrow">Загварын багц</div>
+      <h2>Зургаан загвар, нэг гэр бүл</h2>
+      <p>Бүгд ижил толгой, ижил фонт, ижил хөлтэй. Ялгаа нь зөвхөн статусын шошго ба E бүсийн агуулга. Доорх тоо, үнэ бүгд <b>жишээ утга</b>. T1, T7, T8-ыг <span class="mono">npm run poster</span> командаар автоматаар гаргана. T2–T6 нь дизайны загвар.</p>
+    </div>
+
+    <div class="gallery">
+      <div class="card">
+        <div class="pf">
+          <div class="poster">
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-new">ШИНЭ ИРСЭН</div></div>
+            <div class="p-photo"><svg viewBox="0 0 400 130" role="img" aria-label="Prius 51"><use href="#car-hatch"/></svg></div>
+            <div class="p-title"><div class="accent"></div><div class="model">PRIUS <span>51</span></div><div class="sub"><b>S Touring</b> · 2017/2025 · Цагаан сувд</div></div>
+            <div class="p-specs"><div><span class="k">Явсан</span><span class="v">98,000 км</span></div><div><span class="k">Мотор</span><span class="v">1.8 Hybrid</span></div><div><span class="k">Хөтлөгч</span><span class="v">2WD</span></div><div><span class="k">Аукшн</span><span class="v">4.5</span></div></div>
+            <div class="p-price"><div class="price"><span class="k">Үнэ</span><span class="v">38.5<small>сая₮</small></span></div><div class="pill">Лизингтэй<span>Урьдчилгаа 30%-иас</span></div></div>
+            <div class="p-foot"><b>XXXX-XXXX</b><span>Хаяг: {{ hayag }}</span></div>
+          </div>
+        </div>
+        <div class="cap"><h3><span class="tag">T1</span>Шинэ ирсэн</h3><p>Машин салонд орж ирсэн өдөр. Үндсэн, хамгийн их хэрэглэгдэх загвар.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="pf">
+          <div class="poster">
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-lease">ЛИЗИНГТЭЙ</div></div>
+            <div class="p-photo"><svg viewBox="0 0 400 130" role="img" aria-label="Camry 70"><use href="#car-sedan"/></svg></div>
+            <div class="p-title"><div class="accent"></div><div class="model">CAMRY <span>70</span></div><div class="sub"><b>WS</b> · 2018/2025 · Хар</div></div>
+            <div class="p-specs"><div><span class="k">Явсан</span><span class="v">61,000 км</span></div><div><span class="k">Мотор</span><span class="v">2.5 Hybrid</span></div><div><span class="k">Аукшн</span><span class="v">4.5</span></div><div><span class="k">Дугаар</span><span class="v">Аваагүй</span></div></div>
+            <div class="p-lease"><div><span class="k">Урьдчилгаа</span><span class="v">30%<small>-иас</small></span></div><div><span class="k">Хугацаа</span><span class="v">36<small> сар</small></span></div><div><span class="k">Үнэ</span><span class="v">79.0<small> сая₮</small></span></div></div>
+            <div class="p-foot"><b>XXXX-XXXX</b><span>Банк, ББСБ-ын лизинг</span></div>
+          </div>
+        </div>
+        <div class="cap"><h3><span class="tag">T2</span>Лизингийн санал</h3><p>Үнэ хамгийн том, урьдчилгаа ба хугацаа нь хажууд тод. Нөхцөлийг тухайн банк/ББСБ-тай тулгаж бичнэ.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="pf">
+          <div class="poster">
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-drop">ҮНЭ БУУРЛАА</div></div>
+            <div class="p-photo"><svg viewBox="0 0 400 130" role="img" aria-label="Prius 41"><use href="#car-wagon"/></svg></div>
+            <div class="p-title"><div class="accent"></div><div class="model">PRIUS <span>41</span></div><div class="sub"><b>Prius α S</b> · 2014/2024 · Мөнгөлөг</div></div>
+            <div class="p-specs"><div><span class="k">Явсан</span><span class="v">132,000 км</span></div><div><span class="k">Суудал</span><span class="v">5</span></div><div><span class="k">Батерей</span><span class="v">Шинэ</span></div><div><span class="k">Жолоо</span><span class="v">Буруу</span></div></div>
+            <div class="p-price"><div class="price"><span class="was">29.9 сая₮</span><span class="v">27.5<small>сая₮</small></span></div><div class="pill red">−2.4 сая₮<span>10-р сарын 31 хүртэл</span></div></div>
+            <div class="p-foot"><b>XXXX-XXXX</b><span>Хаяг: {{ hayag }}</span></div>
+          </div>
+        </div>
+        <div class="cap"><h3><span class="tag">T3</span>Үнэ буурсан</h3><p>Хуучин үнийг зурж, хөнгөлөлтийн хэмжээ ба дуусах хугацааг заавал бичнэ.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="pf">
+          <div class="poster sq sold">
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-out">E-FOUR 4WD</div></div>
+            <div class="p-photo"><svg viewBox="0 0 400 130" role="img" aria-label="Prius 55"><use href="#car-hatch"/></svg></div>
+            <div class="stamp">ЗАРАГДЛАА</div>
+            <div class="sold-foot"><div class="model">PRIUS <span>55</span></div><p>Шинэ эзэндээ хүрлээ · <b>Энэ сарын 12 дахь машин</b></p></div>
+          </div>
+        </div>
+        <div class="cap"><h3><span class="tag">T4</span>Зарагдлаа · 1:1</h3><p>Зарагдсанаас хойш 24 цагийн дотор. Итгэл төрүүлэх гол пост. Худалдан авагчийн зургийг зөвхөн зөвшөөрлөөр нь оруулна.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="pf">
+          <div class="poster story" id="storyPoster">
+            <div class="safe top">Хоосон · 250 px</div>
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-out">E-FOUR 4WD</div></div>
+            <div class="p-photo"><svg viewBox="0 0 400 130" role="img" aria-label="Prius 55"><use href="#car-hatch"/></svg></div>
+            <div class="p-title"><div class="accent"></div><div class="model">PRIUS <span>55</span></div><div class="sub"><b>A Premium</b> · 2019/2025</div></div>
+            <div class="p-specs grid2"><div><span class="k">Явсан</span><span class="v">74,000 км</span></div><div><span class="k">Хөтлөгч</span><span class="v">4WD</span></div><div><span class="k">Мотор</span><span class="v">1.8 Hybrid</span></div><div><span class="k">Өнгө</span><span class="v">Хар</span></div></div>
+            <div class="p-price"><div class="price"><span class="k">Үнэ</span><span class="v">46.9<small>сая₮</small></span></div><div class="pill">Лизингтэй<span>30%-иас</span></div></div>
+            <div class="cta">МЕССЕЖ БИЧИХ ↑</div>
+            <div class="safe bot">Хоосон · 250 px</div>
+          </div>
+        </div>
+        <div class="toolbar"><button class="btn" id="safeToggle" type="button" aria-pressed="true">Аюулгүй бүсийг харуулах</button></div>
+        <div class="cap"><h3><span class="tag">T5</span>Story · 9:16</h3><p>1080×1920. Дээд, доод 250 px-д текст, лого оруулахгүй (Facebook/Instagram-ын товч, нэр тэнд гарна).</p></div>
+      </div>
+
+      <div class="card">
+        <div class="pf">
+          <div class="poster list">
+            <div class="p-top"><div class="logo"><img src="assets/midas-wordmark.png" alt="MIDAS"></div><div class="badge b-new">10.06 – 10.12</div></div>
+            <div class="list-head"><span class="k">Энэ долоо хоногт</span><h4>Бэлэн 5 машин</h4></div>
+            <div class="rows">
+              <div class="row"><div class="thumb"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-hatch"/></svg></div><div class="t"><b>PRIUS <span>51</span></b><i>2017/2025 · 98,000 км</i></div><div class="pr">38.5<small>сая₮</small></div></div>
+              <div class="row"><div class="thumb"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-hatch"/></svg></div><div class="t"><b>PRIUS <span>55</span></b><i>2019/2025 · 74,000 км · 4WD</i></div><div class="pr">46.9<small>сая₮</small></div></div>
+              <div class="row"><div class="thumb"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-wagon"/></svg></div><div class="t"><b>PRIUS <span>41</span></b><i>2014/2024 · 132,000 км</i></div><div class="pr">27.5<small>сая₮</small></div></div>
+              <div class="row"><div class="thumb"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-sedan"/></svg></div><div class="t"><b>CAMRY <span>70</span></b><i>2018/2025 · 61,000 км</i></div><div class="pr">79.0<small>сая₮</small></div></div>
+              <div class="row"><div class="thumb"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-sedan"/></svg></div><div class="t"><b>CAMRY <span>50</span></b><i>2016/2024 · 120,000 км</i></div><div class="pr">41.0<small>сая₮</small></div></div>
+            </div>
+            <div class="p-foot"><b>XXXX-XXXX</b><span>Бүгд лизингтэй</span></div>
+          </div>
+        </div>
+        <div class="cap"><h3><span class="tag">T6</span>Долоо хоногийн жагсаалт</h3><p>Баасан гараг бүр. 5 машинаас илүүгүй, бүгд ижил мөр бүтэцтэй.</p></div>
+      </div>
+    </div>
+
+    <h3>Карусел · 1:1 · слайдын дараалал</h3>
+    <div class="strip">
+      <div class="tile"><div class="sqr"><span class="n">1</span><div class="ill"><svg viewBox="0 0 400 130" aria-hidden="true"><use href="#car-hatch"/></svg></div></div><p><b>Нүүр.</b> T1-ийн 1:1 хувилбар: 3/4 урд, загвар, үнэ.</p></div>
+      <div class="tile"><div class="sqr"><span class="n">2</span><div class="ill"><span class="lbl">Хажуу ба ар</span></div></div><p><b>Гадна тал.</b> Хажуу профиль, 3/4 ар.</p></div>
+      <div class="tile"><div class="sqr"><span class="n">3</span><div class="ill"><span class="lbl">Самбар · км</span></div></div><p><b>Одометр.</b> Км тод харагдана. Итгэлийн гол зураг.</p></div>
+      <div class="tile"><div class="sqr"><span class="n">4</span><div class="ill"><span class="lbl">Салон · тээш</span></div></div><p><b>Дотор тал.</b> Суудал, тээш. Prius 41-д тээшийг заавал.</p></div>
+      <div class="tile"><div class="sqr"><span class="n">5</span><div class="ill"><span class="lbl">Лизинг · утас</span></div></div><p><b>Үйлдэл.</b> Лизингийн нөхцөл, утас, хаяг, газрын зураг.</p></div>
+    </div>
+  </section>
+
+  <!-- 5b -->
+  <section id="examples">
+    <div class="sec-head">
+      <div class="eyebrow">Бодит зурагтай жишээ</div>
+      <h2>Нэг зурагтай, олон зурагтай, олон машинтай</h2>
+      <p>T7 нь нэг машиныг 1 гол, 3 жижиг зургаар харуулна. 4-өөс олон зураг өгвөл «+N зураг» гэж гарна. T8 нь нэг постерт 2–6 машин багтаана. Жишээг 1000mashin.mn-ийн 3 зарын түүхий зургаар (талбай, угаалгын газар) гаргасан бөгөөд зургийг загвар өөрөө тайрч багтаана. Утас, хаяг нь орлуулах талбар.</p>
+    </div>
+    <h3>T1 · 1 постер, 1 машин, 1 зураг</h3>
+    <div class="ex-grid">
+      <figure class="ex"><img src="examples/example-prius51-t1.jpg" alt="Prius 51 нэг зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T1</span><b>Prius 51</b> · «Гаалиас шууд» · 33.8 сая₮</figcaption></figure>
+      <figure class="ex"><img src="examples/example-prius41-t1.jpg" alt="Prius 41 нэг зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T1</span><b>Prius 41</b> · хажуу талын зураг · 36.0 сая₮</figcaption></figure>
+      <figure class="ex"><img src="examples/example-camry50-t1.jpg" alt="Camry 50 нэг зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T1</span><b>Camry 50</b> · лизинггүй үед үнэ 132 px</figcaption></figure>
+    </div>
+    <h3>T7 ба T8 · олон зураг, олон машин</h3>
+    <div class="ex-grid">
+      <figure class="ex"><img src="examples/example-prius41-multi.jpg" alt="Prius 41 олон зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T7</span><b>Prius 41</b> · 2016/2025 · 36.0 сая₮ · «+1 зураг»</figcaption></figure>
+      <figure class="ex"><img src="examples/example-prius51-multi.jpg" alt="Prius 51 олон зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T7</span><b>Prius 51</b> · «Гаалиас шууд» шошго · 2 жижиг зураг</figcaption></figure>
+      <figure class="ex"><img src="examples/example-camry50-multi.jpg" alt="Camry 50 олон зурагтай постер" width="1080" height="1350"><figcaption><span class="tag">T7</span><b>Camry 50</b> · лизинггүй үед үнэ ганцаараа</figcaption></figure>
+      <figure class="ex"><img src="examples/example-lineup-3.jpg" alt="3 машинтай постер" width="1080" height="1350"><figcaption><span class="tag">T8</span><b>Бэлэн 3 машин</b> · эхнийх нь том, бусад нь жижиг</figcaption></figure>
+    </div>
+    <p class="small muted">Өгөгдөл: <span class="mono">data/midas-examples-1000mashin.json</span>. Midas-ын зураг, мэдээллээр солиод <span class="mono">node templates/midas-motors/render-posters.js &lt;файл&gt;</span> ажиллуулна.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="models">
+    <div class="sec-head">
+      <div class="eyebrow">Загвар тус бүр</div>
+      <h2>Юуг онцлох вэ</h2>
+      <p>Үзүүлэлтийн мөрийн эхний нүд үргэлж «Явсан км». Үлдсэн гурван нүдийг худалдан авагчийн тухайн загварт асуудаг зүйлээр бөглөнө.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Загвар</th><th>Кузов</th><th>Худалдан авагч юуг сонирхдог</th><th>Үзүүлэлтийн 2–4-р нүд</th><th>Шошго</th></tr></thead>
+        <tbody>
+          <tr><td><b>Prius 40 / 41</b><br><span class="muted">Prius α</span></td><td class="num">ZVW40W · ZVW41W</td><td>Гэр бүл, том тээш. 40 нь 7 суудалтай, 41 нь 5 суудалтай. Батерейны төлөв.</td><td>Суудал · Батерей · Жолоо</td><td>«7 СУУДАЛТАЙ» (40-д)</td></tr>
+          <tr><td><b>Prius 50 / 51</b></td><td class="num">ZVW50 · ZVW51</td><td>Шатахууны хэмнэлт, хувилбар (S, A, Touring), гүйлт бага эсэх.</td><td>Мотор · Хөтлөгч · Аукшн</td><td>«ШИНЭ ИРСЭН», «ДУГААР АВААГҮЙ»</td></tr>
+          <tr><td><b>Prius 55</b></td><td class="num">ZVW55</td><td>E-Four 4WD. Өвлийн хальтиргаатай замд давуу талтай гэдгийг онцол.</td><td>Хөтлөгч 4WD · Мотор · Өнгө</td><td>«E-FOUR 4WD» (мөнгөлөг хүрээтэй)</td></tr>
+          <tr><td><b>Camry 70</b></td><td class="num">AXVH70</td><td>2.5 Hybrid, том салон, бизнес ба гэр бүл. Хувилбар (G, WS), тоноглол.</td><td>Мотор · Хувилбар · Аукшн</td><td>«ЛИЗИНГТЭЙ» (үнэ өндөр тул)</td></tr>
+          <tr><td><b>Camry 50</b></td><td class="num">AVV50</td><td>Хямд үнэтэй том седан. Гүйлт, засвар үйлчилгээний түүх.</td><td>Мотор · Жолоо · Өнгө</td><td>«ҮНЭ БУУРЛАА» (хөнгөлөлттэй үед)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="photo">
+    <div class="sec-head">
+      <div class="eyebrow">Зураг авалт</div>
+      <h2>Машин бүрт авах 8 зураг</h2>
+      <p>Нэг байршил, нэг цагт (өглөө эсвэл бүрхэг өдөр) авбал бүх пост нэг гэр бүл шиг харагдана. Утсаар авахдаа 1× линз хэрэглэ, өргөн өнцгийн линз машиныг гажуудуулна.</p>
+    </div>
+    <ol class="shots">
+      <li><b>3/4 урд</b>Постерын гол зураг. 1.2 м өндрөөс, урд дугуйг бага зэрэг гадагш эргүүлсэн.</li>
+      <li><b>Хажуу профиль</b>Яг хажуунаас, машины голоос.</li>
+      <li><b>3/4 ар</b>Гэрэл асаалттай.</li>
+      <li><b>Самбар ба одометр</b>Км уншигдахуйц тод. Асаалттай байдалд.</li>
+      <li><b>Урд суудал</b>Жолоочийн хаалганаас.</li>
+      <li><b>Ар суудал, тээш</b>Prius 41-д тээш заавал.</li>
+      <li><b>Хөдөлгүүрийн хэсэг</b>Цэвэрлэсэн байдалд.</li>
+      <li><b>Аукшны хуудас</b>Байгаа бол. Хувийн мэдээллийг нууна.</li>
+    </ol>
+    <p class="small muted">Улсын дугаарыг бүдгэрүүлэх эсвэл Midas Motors-ын хавтан наана. Фильтр, хэт ханасан өнгө хэрэглэхгүй: зурган дээрх өнгө «Өнгө» талбарт бичсэнтэй таарах ёстой.</p>
+  </section>
+
+  <!-- 8 -->
+  <section id="caption">
+    <div class="sec-head">
+      <div class="eyebrow">Пост бичвэр</div>
+      <h2>Постерын доор бичих текст</h2>
+      <p>Эхний мөр нь постер дээрх гарчигтай ижил. Facebook бичвэрийн эхний 2–3 мөрийг л «Цааш үзэх» дарахаас өмнө харуулдаг.</p>
+    </div>
+    <div class="caption-grid">
+      <div class="cbox">
+        <header><h3>Жишээ</h3></header>
+<pre>PRIUS 51 · 2017/2025 · 38.5 сая₮
+S Touring · Цагаан сувд · Дугаар аваагүй
+
+▪ Явсан: 98,000 км (одометрийн зураг 3-р слайдад)
+▪ Мотор: 1.8 Hybrid · 2WD
+▪ Жолоо: Буруу
+▪ Аукшны үнэлгээ: 4.5
+▪ Лизинг: урьдчилгаа 30%-иас, 36 сар хүртэл
+
+Утас: XXXX-XXXX
+Хаяг: {{ hayag }}
+#MidasMotors #Prius51</pre>
+      </div>
+      <div class="cbox">
+        <header><h3>Хоосон загвар</h3><span class="copied" id="copyMsg" role="status"></span><button class="btn" id="copyBtn" type="button">Хуулах</button></header>
+<pre id="captionTpl">{{ zagvar }} · {{ uildverlesen_on }}/{{ orj_irsen_on }} · {{ une }} сая₮
+{{ huvilbar }} · {{ ungu }} · {{ dugaar }}
+
+▪ Явсан: {{ km }} км
+▪ Мотор: {{ hudulguur }} · {{ hutlugch }}
+▪ Жолоо: {{ joloo }}
+▪ Аукшны үнэлгээ: {{ auction }}
+▪ Лизинг: {{ lizing }}
+
+Утас: {{ utas }}
+Хаяг: {{ hayag }}
+#MidasMotors #{{ zagvar_tag }}</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="flow">
+    <div class="sec-head">
+      <div class="eyebrow">Нийтлэх хэмнэл</div>
+      <h2>Нэг машины амьдралын мөчлөг</h2>
+    </div>
+    <div class="flow">
+      <div><span class="when">0 дэх өдөр</span><b>T1 + T5</b><p>Орж ирсэн өдрөө feed пост ба story.</p></div>
+      <div><span class="when">2–3 дахь өдөр</span><b>Карусел</b><p>5 слайд, одометр ба салонтой.</p></div>
+      <div><span class="when">14 дэх өдөр</span><b>T2 эсвэл T3</b><p>Зарагдаагүй бол лизингийн санал эсвэл үнэ бууруулалт.</p></div>
+      <div><span class="when">Зарагдсан өдөр</span><b>T4</b><p>24 цагийн дотор. Анхны постыг «Зарагдсан» гэж засна.</p></div>
+      <div><span class="when">Баасан гараг бүр</span><b>T6 / T8</b><p>Бэлэн байгаа машинуудын жагсаалт.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section id="dodont">
+    <div class="sec-head">
+      <div class="eyebrow">Хийх ба хийхгүй</div>
+      <h2>Ангилалд түгээмэл алдаа</h2>
+    </div>
+    <div class="dd">
+      <div><h3>Хийх</h3><ul class="do">
+        <li>Үнэ, он, км гурвыг постер бүрт тод бичих</li>
+        <li>Лого зөвхөн A бүсэд, нэг хэмжээгээр</li>
+        <li>Машиныг цэвэр, жигд дэвсгэртэй байршилд авах</li>
+        <li>Км-ийг одометрийн зургаар баталгаажуулах</li>
+        <li>Зарагдсан машиныг T4-өөр мэдэгдэж, анхны постыг засах</li>
+      </ul></div>
+      <div><h3>Хийхгүй</h3><ul class="dont">
+        <li>«Үнэ чатаар», «Үнэ тохиролцоно» гэж бичих</li>
+        <li>Машин дээгүүр том watermark, лого татах</li>
+        <li>Гурав ба түүнээс олон фонт, солонгын өнгө хэрэглэх</li>
+        <li>Нэг постерт 2–3 машин шахах (T6, T8-аас бусад)</li>
+        <li>Интернэтээс авсан, өөр машины зураг ашиглах</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="checklist">
+    <div class="sec-head">
+      <div class="eyebrow">Шалгах хуудас</div>
+      <h2>Нийтлэхийн өмнө</h2>
+      <p>Тэмдэглэгээ зөвхөн таны хөтөч дээр хадгалагдана.</p>
+    </div>
+    <div class="toolbar"><span class="progress" id="progress">0 / 10</span><button class="btn" id="resetBtn" type="button">Цэвэрлэх</button></div>
+    <div class="check" id="checkList">
+      <label><input type="checkbox" id="c1"><span>Үнэ, он (2017/2025), км гурав постер дээр байна</span></label>
+      <label><input type="checkbox" id="c2"><span>Загварыг кузов кодоор бичсэн (PRIUS 51, CAMRY 70)</span></label>
+      <label><input type="checkbox" id="c3"><span>Статусын шошго зөв (Шинэ ирсэн / Лизингтэй / Үнэ буурлаа)</span></label>
+      <label><input type="checkbox" id="c4"><span>Улсын дугаарыг бүдгэрүүлсэн эсвэл нуусан</span></label>
+      <label><input type="checkbox" id="c5"><span>Лого зөвхөн толгой хэсэгт, машин дээр watermark байхгүй</span></label>
+      <label><input type="checkbox" id="c6"><span>Хоёр фонт л байна, хамгийн жижиг текст 22 px-ээс багагүй</span></label>
+      <label><input type="checkbox" id="c7"><span>Гол зураг 3/4 урд өнцгөөс, фильтргүй, тод</span></label>
+      <label><input type="checkbox" id="c8"><span>Пост бичвэр загварын дагуу, утас ба хаяг зөв</span></label>
+      <label><input type="checkbox" id="c9"><span>Story хувилбарт дээд, доод 250 px хоосон</span></label>
+      <label><input type="checkbox" id="c10"><span>Файлын нэр стандартын дагуу (доор)</span></label>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section id="production">
+    <div class="sec-head">
+      <div class="eyebrow">Үйлдвэрлэл</div>
+      <h2>Мастер файл ба нэршил</h2>
+    </div>
+    <div class="two-col">
+      <div class="table-scroll">
+        <table style="min-width:0">
+          <thead><tr><th>Формат</th><th>Хэмжээ</th><th>Хэрэглээ</th></tr></thead>
+          <tbody>
+            <tr><td>Feed 4:5</td><td class="num">1080×1350</td><td>T1, T2, T3, T6, T7, T8</td></tr>
+            <tr><td>Дөрвөлжин 1:1</td><td class="num">1080×1080</td><td>T4, карусел, Marketplace</td></tr>
+            <tr><td>Story 9:16</td><td class="num">1080×1920</td><td>T5</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:grid;gap:10px">
+        <p>Figma эсвэл Canva-д нэг мастер файл. Лого, хүрээ, фонт, өнгөний давхаргыг түгжинэ. Солих талбар: зураг, загвар, үеийн дугаар, хувилбар, он, өнгө, 4 үзүүлэлт, үнэ, статус, лизинг.</p>
+        <p>PNG, sRGB-ээр экспортлоно. Текст илүү тод гарахын тулд 2× (2160×2700) экспортлож болно.</p>
+        <p>Автомат хувилбар: <span class="mono">npm run poster -- url &lt;1000mashin холбоос&gt;</span> (T7), <span class="mono">lineup &lt;холбоосууд&gt;</span> (T8) эсвэл <span class="mono">render &lt;файл.json&gt;</span> (T1, T7, T8) командаар PNG постер <span class="mono">reports/midas-posters/</span>-д гарна. T2–T6 одоогоор зөвхөн дизайны загвар бөгөөд автомат гаргагчид ороогүй.</p>
+        <p class="mono" style="font-size:14px;overflow-wrap:anywhere">MM_P51_2017_WHT_T1_4x5_v1.png</p>
+        <p class="small muted">Midas Motors · загвар · үйлдвэрлэсэн он · өнгөний код · загварын дугаар · формат · хувилбар</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="end sources">
+    <b style="color:var(--fg)">Эх сурвалж</b>
+    <ul>
+      <li>Meta Ad Library, Монгол, «Prius» ба «Camry» хайлт, 2026.10.04: <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=MN&q=Prius" target="_blank" rel="noopener">facebook.com/ads/library</a></li>
+      <li>1000mashin.mn, Toyota Prius 51 зар (2017/2025, 131,000 км, 33.8 сая, лизингтэй, дугаар аваагүй): <a href="https://www.1000mashin.mn/car-view/10318/toyota-prius-51-automashin-zarna" target="_blank" rel="noopener">1000mashin.mn</a></li>
+      <li>unegui.mn, Prius 50 / Prius 51 ангилал: <a href="https://www.unegui.mn/avto-mashin/-avtomashin-zarna/toyota/50/" target="_blank" rel="noopener">unegui.mn</a></li>
+      <li>Лого: Midas Motors-оос ирүүлсэн эх файл (ил тод PNG), зөвхөн хоосон захыг тайрсан (<span class="mono">assets/midas-wordmark.png</span>). Сунгах, өнгө өөрчлөх, дахин зурахгүй.</li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+(function () {
+  function toggler(btnId, targetId, cls, onWhenPressed) {
+    var btn = document.getElementById(btnId);
+    var el = document.getElementById(targetId);
+    if (!btn || !el) return;
+    btn.addEventListener('click', function () {
+      var pressed = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!pressed));
+      el.classList.toggle(cls, onWhenPressed ? !pressed : pressed);
+    });
+  }
+  toggler('zoneToggle', 'anatomyPoster', 'zoned', true);
+  toggler('safeToggle', 'storyPoster', 'nosafe', false);
+
+  var copyBtn = document.getElementById('copyBtn');
+  var msg = document.getElementById('copyMsg');
+  var tpl = document.getElementById('captionTpl');
+  copyBtn.addEventListener('click', function () {
+    var text = tpl.textContent;
+    function selectFallback() {
+      var r = document.createRange(); r.selectNodeContents(tpl);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      msg.textContent = 'Сонгогдлоо. Ctrl+C дарна уу';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { msg.textContent = 'Хуулагдлаа'; }, selectFallback);
+    } catch (e) { selectFallback(); }
+  });
+
+  var KEY = 'mm-poster-checklist';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checkList input'));
+  var progress = document.getElementById('progress');
+  function render() {
+    var n = boxes.filter(function (b) { return b.checked; }).length;
+    progress.textContent = n + ' / ' + boxes.length;
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(boxes.map(function (b) { return b.checked; }))); } catch (e) {}
+  }
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+    boxes.forEach(function (b, i) { b.checked = !!saved[i]; });
+  } catch (e) {}
+  boxes.forEach(function (b) { b.addEventListener('change', function () { save(); render(); }); });
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; }); save(); render();
+  });
+  render();
+})();
+</script>

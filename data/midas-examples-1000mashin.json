@@ -1,0 +1,353 @@
+{
+  "_readme": "Жишээ постер: 1000mashin.mn-ийн нийтэд нээлттэй 3 зарын зураг, мэдээлэл (2026.10.04-нд татсан). Зөвхөн загварыг харуулах зорилготой. Midas-ын page-д нийтлэхгүй. Утас, хаяг нь орлуулах талбар. Ажиллуулах: node templates/midas-motors/render-posters.js data/midas-examples-1000mashin.json",
+  "cars": [
+    {
+      "id": "example-prius51-t1",
+      "_source": "https://www.1000mashin.mn/car-view/10318/toyota-prius-51-automashin-zarna",
+      "template": "t1",
+      "model": "PRIUS",
+      "gen": "51",
+      "trim": "Hybrid",
+      "year_made": "2017",
+      "year_import": "2025",
+      "color": "Алтлаг",
+      "specs": [
+        [
+          "Явсан",
+          "131,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Хөтлөгч",
+          "2WD"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "33.8",
+      "badge": "customs",
+      "badge_text": "ГААЛИАС ШУУД",
+      "lease_title": "ЛИЗИНГТЭЙ",
+      "lease_sub": "Банк, ББСБ-ын лизинг",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}",
+      "photo": {
+        "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1746069248-0.jpg",
+        "pos": "50% 25%",
+        "scale": 1.1
+      }
+    },
+    {
+      "id": "example-prius41-t1",
+      "_source": "https://www.1000mashin.mn/car-view/11918/toyota-prius-alpha-automashin-zarna",
+      "template": "t1",
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "Prius α",
+      "year_made": "2016",
+      "year_import": "2025",
+      "color": "Мөнгөлөг",
+      "specs": [
+        [
+          "Явсан",
+          "77,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Суудал",
+          "5"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "36.0",
+      "badge": "new",
+      "badge_text": "ШИНЭ ИРСЭН",
+      "lease_title": "ЛИЗИНГТЭЙ",
+      "lease_sub": "Банк, ББСБ-ын лизинг",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}",
+      "photo": {
+        "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-3.jpg",
+        "pos": "50% 25%",
+        "scale": 1.1
+      }
+    },
+    {
+      "id": "example-camry50-t1",
+      "_source": "https://www.1000mashin.mn/car-view/11945/toyota-camry-hybrid-automashin-zarna",
+      "template": "t1",
+      "model": "CAMRY",
+      "gen": "50",
+      "trim": "Hybrid",
+      "year_made": "2015",
+      "year_import": "2025",
+      "color": "Саарал",
+      "specs": [
+        [
+          "Явсан",
+          "170,000 км"
+        ],
+        [
+          "Мотор",
+          "2.5 Hybrid"
+        ],
+        [
+          "Хөтлөгч",
+          "2WD"
+        ],
+        [
+          "Жолоо",
+          "Зөв"
+        ]
+      ],
+      "price": "40.0",
+      "badge": "out",
+      "badge_text": "ЗӨВ ЖОЛООТОЙ",
+      "lease_title": "",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}",
+      "photo": {
+        "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605555-3.jpg",
+        "pos": "50% 50%"
+      }
+    },
+    {
+      "id": "example-prius41-multi",
+      "_source": "https://www.1000mashin.mn/car-view/11918/toyota-prius-alpha-automashin-zarna",
+      "template": "multi",
+      "photos": [
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-3.jpg",
+          "pos": "50% 42%"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-0.jpg",
+          "pos": "50% 50%",
+          "label": "Урд тал"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-4.jpg",
+          "pos": "50% 45%",
+          "label": "Салон"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-2.jpg",
+          "pos": "50% 45%",
+          "label": "Ар тал"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-1.jpg",
+          "label": "Хажуу"
+        }
+      ],
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "Prius α",
+      "year_made": "2016",
+      "year_import": "2025",
+      "color": "Мөнгөлөг",
+      "specs": [
+        [
+          "Явсан",
+          "77,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Суудал",
+          "5"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "36.0",
+      "badge": "new",
+      "badge_text": "ШИНЭ ИРСЭН",
+      "lease_title": "ЛИЗИНГТЭЙ",
+      "lease_sub": "Банк, ББСБ-ын лизинг",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}"
+    },
+    {
+      "id": "example-prius51-multi",
+      "_source": "https://www.1000mashin.mn/car-view/10318/toyota-prius-51-automashin-zarna",
+      "template": "multi",
+      "photos": [
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1746069248-0.jpg",
+          "pos": "50% 28%"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1746069248-1.jpg",
+          "pos": "50% 55%",
+          "label": "Ар тал"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1746069248-2.jpg",
+          "pos": "55% 20%",
+          "scale": 1.35,
+          "label": "Самбар"
+        }
+      ],
+      "model": "PRIUS",
+      "gen": "51",
+      "trim": "Hybrid",
+      "year_made": "2017",
+      "year_import": "2025",
+      "color": "Алтлаг",
+      "specs": [
+        [
+          "Явсан",
+          "131,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Хөтлөгч",
+          "2WD"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "33.8",
+      "badge": "customs",
+      "badge_text": "ГААЛИАС ШУУД",
+      "lease_title": "ЛИЗИНГТЭЙ",
+      "lease_sub": "Банк, ББСБ-ын лизинг",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}"
+    },
+    {
+      "id": "example-camry50-multi",
+      "_source": "https://www.1000mashin.mn/car-view/11945/toyota-camry-hybrid-automashin-zarna",
+      "template": "multi",
+      "photos": [
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605555-3.jpg",
+          "pos": "50% 72%"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605554-1.jpg",
+          "pos": "50% 65%",
+          "label": "Хажуу"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605554-0.jpg",
+          "pos": "50% 60%",
+          "label": "Урд тал"
+        },
+        {
+          "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605555-4.jpg",
+          "pos": "50% 70%",
+          "label": "Салон"
+        }
+      ],
+      "model": "CAMRY",
+      "gen": "50",
+      "trim": "Hybrid",
+      "year_made": "2015",
+      "year_import": "2025",
+      "color": "Саарал",
+      "specs": [
+        [
+          "Явсан",
+          "170,000 км"
+        ],
+        [
+          "Мотор",
+          "2.5 Hybrid"
+        ],
+        [
+          "Хөтлөгч",
+          "2WD"
+        ],
+        [
+          "Жолоо",
+          "Зөв"
+        ]
+      ],
+      "price": "40.0",
+      "badge": "out",
+      "badge_text": "ЗӨВ ЖОЛООТОЙ",
+      "lease_title": "",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}"
+    },
+    {
+      "id": "example-lineup-3",
+      "template": "lineup",
+      "badge": "new",
+      "badge_text": "10.06 – 10.12",
+      "eyebrow": "Энэ долоо хоногт ирсэн",
+      "title": "Бэлэн 3 машин",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}",
+      "cars": [
+        {
+          "photo": {
+            "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1746069248-0.jpg",
+            "pos": "50% 60%"
+          },
+          "model": "PRIUS",
+          "gen": "51",
+          "year_made": "2017",
+          "year_import": "2025",
+          "km": "131,000 км",
+          "price": "33.8",
+          "tag": "customs",
+          "tag_text": "ГААЛИАС ШУУД"
+        },
+        {
+          "photo": {
+            "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1756869397-0.jpg",
+            "pos": "50% 30%",
+            "scale": 1.14,
+            "wide": {
+              "pos": "50% 56%",
+              "scale": 1
+            }
+          },
+          "model": "PRIUS",
+          "gen": "41",
+          "year_made": "2016",
+          "year_import": "2025",
+          "km": "77,000 км",
+          "price": "36.0",
+          "tag": "lease",
+          "tag_text": "ЛИЗИНГТЭЙ"
+        },
+        {
+          "photo": {
+            "src": "https://www.1000mashin.mn/uploads/zar/middle/img-1757605555-3.jpg",
+            "pos": "35% 75%"
+          },
+          "model": "CAMRY",
+          "gen": "50",
+          "year_made": "2015",
+          "year_import": "2025",
+          "km": "170,000 км",
+          "price": "40.0"
+        }
+      ]
+    }
+  ]
+}

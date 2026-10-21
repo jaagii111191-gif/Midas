@@ -1,0 +1,18 @@
+{
+  "name": "midas-motors",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Midas Motors машины зарын постер ба зах зээлийн судалгаа",
+  "scripts": {
+    "setup": "npm install && npx playwright install chromium",
+    "poster": "node bin/midas-poster.js",
+    "poster:demo": "node bin/midas-poster.js demo",
+    "poster:examples": "node bin/midas-poster.js render data/midas-examples-1000mashin.json"
+  },
+  "bin": {
+    "midas-poster": "bin/midas-poster.js"
+  },
+  "dependencies": {
+    "playwright": "^1.56.1"
+  }
+}

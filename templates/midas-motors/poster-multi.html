@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<title>Midas Motors T7 олон зурагтай постер</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/poster-base.css">
+<style>
+/* T7 · one car, several raw photos. Hero 0–600, thumbnail strip 606–826, text block from 850 down. */
+.hero { position: absolute; left: 0; top: 0; width: 1080px; height: 600px; }
+.hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5,8,23,.85) 0px, rgba(5,8,23,.7) 110px, rgba(5,8,23,0) 220px, rgba(5,8,23,0) 480px, rgba(5,8,23,.35) 600px); }
+.thumbs { position: absolute; left: 0; right: 0; top: 606px; height: 220px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; }
+.thumbs .ph::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,8,23,0) 55%, rgba(5,8,23,.7) 100%); pointer-events: none; }
+.thumbs .lbl { position: absolute; left: 18px; bottom: 16px; z-index: 1; font: 700 22px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--chrome); }
+.thumbs .more { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: rgba(5,8,23,.62);
+  font: 800 54px/1 var(--f-display); color: var(--chrome); }
+.thumbs .more small { display: block; font: 700 22px/1.6 var(--f-body); letter-spacing: .12em; text-align: center; color: var(--silver); }
+/* red bar under the first thumbnail; it follows the cell width and hides with the strip */
+.thumbs .ph:first-child::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: var(--red); z-index: 3; }
+.content { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 64px 40px; display: flex; flex-direction: column; gap: 16px; z-index: 2; }
+.content .model { font-size: 72px; }
+.content .specs { height: 96px; }
+.content .price-row { height: 164px; }
+</style>
+</head>
+<body>
+<div class="poster" id="poster">
+  <div class="hero ph" id="hero"></div>
+  <div class="thumbs" id="thumbs"></div>
+  <div class="swoosh"></div>
+  <div class="top">
+    <img src="assets/midas-wordmark.png" alt="MIDAS">
+    <div class="badge chamfer new" id="badge"></div>
+  </div>
+  <div class="content">
+    <div class="model" id="model"></div>
+    <div class="sub" id="sub"></div>
+    <div class="specs" id="specs"></div>
+    <div class="price-row">
+      <div class="price chamfer" id="price"></div>
+      <div class="lease" id="lease"></div>
+    </div>
+    <div class="foot"><b id="phone"></b><span id="address"></span></div>
+  </div>
+</div>
+
+<script src="assets/poster-base.js"></script>
+<script>
+const MAX_THUMBS = 3;
+window.renderPoster = async function (d) {
+  d = d || {};
+  window.posterReady = false;
+  const photos = MM.photoList(d);
+  const hero = photos[0] || {};
+  const jobs = [MM.photo(document.getElementById("hero"), hero.src, hero.pos, hero.scale, hero.fit)];
+  const rest = photos.slice(1);
+  const shown = rest.slice(0, MAX_THUMBS);
+  const hidden = rest.length - shown.length;
+  const strip = document.getElementById("thumbs");
+  strip.innerHTML = "";
+  strip.hidden = shown.length === 0;
+  shown.forEach((p, i) => {
+    const cell = document.createElement("div");
+    cell.className = "ph";
+    strip.appendChild(cell);
+    jobs.push(MM.photo(cell, p.src, p.pos, p.scale, p.fit).then(() => {
+      if (p.label) cell.insertAdjacentHTML("beforeend", '<span class="lbl">' + MM.esc(p.label) + "</span>");
+      if (hidden > 0 && i === shown.length - 1) cell.insertAdjacentHTML("beforeend", '<div class="more"><div>+' + hidden + "<small>ЗУРАГ</small></div></div>");
+    }));
+  });
+  await Promise.all(jobs);
+  MM.badge(document.getElementById("badge"), d.badge, d.badge_text);
+  document.getElementById("model").innerHTML = MM.modelHtml(d);
+  document.getElementById("sub").innerHTML = MM.subHtml(d);
+  document.getElementById("specs").innerHTML = MM.specsHtml(d.specs);
+  document.getElementById("price").innerHTML = MM.priceHtml(d);
+  MM.lease(document.getElementById("lease"), d);
+  document.getElementById("phone").textContent = d.phone || "";
+  document.getElementById("address").textContent = d.address || "";
+  await MM.done(d);
+};
+if (!window.__external) window.renderPoster({ model: "PRIUS", gen: "51", trim: "S", year_made: "2017", year_import: "2025", color: "Мөнгөлөг",
+  specs: [["Явсан", "98,000 км"], ["Мотор", "1.8 Hybrid"], ["Хөтлөгч", "2WD"], ["Жолоо", "Буруу"]], price: "38.5",
+  badge: "customs", badge_text: "ГААЛИАС ШУУД", lease_title: "ЛИЗИНГТЭЙ", lease_sub: "Урьдчилгаа 30%-иас",
+  phone: "XXXX-XXXX", address: "Хаяг: {{ hayag }}", photos: ["", "", "", ""] });
+</script>
+</body>
+</html>

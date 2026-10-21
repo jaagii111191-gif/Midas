@@ -1,0 +1,74 @@
+/* Shared brand layer for every Midas Motors poster template (1080px wide canvas). */
+:root {
+  --ink: #050817;      /* logo background navy */
+  --ink-2: #0D1330;
+  --red: #C8102E;      /* Midas red (swoosh, brightened) */
+  --red-deep: #610A1A; /* swoosh as it appears in the logo */
+  --chrome: #F3F4F9;   /* wordmark highlight */
+  --silver: #A7ACC6;   /* wordmark shading */
+  --steel: #8A91AB;
+  --teal: #14A39A;     /* leasing only */
+  --hair: rgba(243, 244, 249, 0.16);
+  --f-display: "Tektur", "Arial Narrow", sans-serif;
+  --f-body: "Manrope", "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; background: #1b1d22; }
+.poster {
+  width: 1080px; height: 1350px; position: relative; overflow: hidden;
+  background: var(--ink); color: var(--chrome); font-family: var(--f-body);
+}
+
+/* photo frame: any raw photo (yard, customs, phone shot) is cropped to fill */
+.ph { position: relative; overflow: hidden; background: radial-gradient(ellipse 60% 55% at 50% 62%, #1C2550 0%, var(--ink) 72%); }
+.ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; display: block; }
+.ph img.bg { filter: blur(28px) brightness(.5); transform: scale(1.2); }
+.ph img.fg { object-fit: contain; }
+.ph .missing { position: absolute; inset: 0; display: grid; place-items: center; font: 600 22px/1 var(--f-body); letter-spacing: .1em; color: var(--steel); }
+
+/* diagonal echo of the logo's red band */
+.swoosh { position: absolute; left: -260px; bottom: -120px; width: 900px; height: 260px; transform: rotate(-32deg); transform-origin: left bottom;
+  background: linear-gradient(90deg, rgba(97,10,26,0) 0%, rgba(97,10,26,.55) 45%, rgba(97,10,26,0) 100%); pointer-events: none; }
+
+/* top bar */
+.top { position: absolute; left: 64px; right: 64px; top: 44px; height: 64px; display: flex; align-items: center; justify-content: space-between; z-index: 3; }
+.top img { height: 52px; width: auto; display: block; filter: drop-shadow(0 2px 8px rgba(0,0,0,.45)); }
+.chamfer { clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.badge { font: 800 26px/1 var(--f-display); letter-spacing: .06em; padding: 16px 26px; white-space: nowrap; }
+.badge.new, .badge.drop { background: var(--red); color: var(--chrome); }
+.badge.lease { background: var(--teal); color: var(--chrome); }
+.badge.customs { background: var(--chrome); color: var(--ink); }
+.badge.out { background: rgba(5,8,23,.55); color: var(--chrome); box-shadow: inset 0 0 0 3px var(--silver); clip-path: none; }
+
+/* text */
+.accent { width: 110px; height: 10px; background: var(--red); transform: skewX(-35deg); margin-left: 4px; }
+.model { font: 800 84px/0.92 var(--f-display); letter-spacing: .005em; white-space: nowrap;
+  background: linear-gradient(180deg, #FFFFFF 30%, var(--silver) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.model .gen { background: none; -webkit-text-fill-color: var(--red); color: var(--red); }
+.sub { font: 600 34px/1.15 var(--f-body); color: var(--steel); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-bottom: .12em; margin-bottom: -.12em; }
+.sub b { color: var(--chrome); font-weight: 800; }
+.specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); height: 108px; border-top: 2px solid var(--hair); border-bottom: 2px solid var(--hair); }
+.specs > div { display: grid; align-content: center; gap: 10px; padding-inline: 18px; min-width: 0; }
+.specs > div:first-child { padding-left: 0; }
+.specs > div + div { border-left: 2px solid var(--hair); }
+.specs .k { font: 700 22px/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--steel); white-space: nowrap; }
+.specs .v { font: 800 32px/1.25 var(--f-body); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.price-row { display: flex; align-items: stretch; justify-content: space-between; gap: 24px; height: 168px; }
+.price { background: var(--red); display: grid; align-content: center; gap: 6px; padding: 0 40px 0 34px; }
+.price .k { font: 700 22px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: rgba(243,244,249,.85); }
+.price .v { font: 800 124px/0.9 var(--f-display); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.price .v small { font: 700 46px/1 var(--f-body); margin-left: 12px; }
+/* no leasing box: the price takes the extra room */
+.price-row:has(.lease[hidden]) .price .v { font-size: 132px; }
+.price .was { font: 600 30px/1 var(--f-body); color: rgba(243,244,249,.75); text-decoration: line-through; text-decoration-thickness: 3px; }
+.lease { display: grid; align-content: center; text-align: right; gap: 8px; padding: 0 26px; box-shadow: inset 0 0 0 3px var(--teal); }
+.lease b { font: 800 32px/1 var(--f-display); letter-spacing: .02em; }
+.lease span { font: 600 22px/1.2 var(--f-body); color: var(--steel); }
+.foot { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; height: 36px; white-space: nowrap; }
+.foot b { font: 800 32px/1 var(--f-display); letter-spacing: .04em; }
+.foot span { font: 600 24px/1.35 var(--f-body); color: var(--steel); overflow: hidden; text-overflow: ellipsis; }
+
+/* source credit for borrowed example photos, read top-to-bottom along the right edge */
+.credit { position: absolute; right: 16px; top: 150px; z-index: 4; writing-mode: vertical-rl; font: 600 22px/1 var(--f-body); letter-spacing: .08em;
+  color: rgba(243,244,249,.75); text-shadow: 0 1px 4px rgba(0,0,0,.7); }

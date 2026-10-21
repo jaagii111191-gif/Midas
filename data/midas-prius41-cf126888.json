@@ -1,0 +1,98 @@
+{
+  "_readme": "Prius α ZVW41-3017076 (2011/09, HYBRID S L SELECTION, 157,490 км, хар, USS Tokyo 2026-10-08 lot 86429). Зураг: BE FORWARD CF126888, усан тэмдгийг тайрч, хойд дугаарыг бүдгэрүүлсэн (data/midas-photos/prius41-cf126888/). 12 сард буух, 22 сая₮. Ажиллуулах: npm run poster -- render data/midas-prius41-cf126888.json",
+  "cars": [
+    {
+      "id": "prius41-cf126888-t1",
+      "template": "t1",
+      "photo": {
+        "src": "data/midas-photos/prius41-cf126888/1.jpg",
+        "fit": "contain"
+      },
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "S L Selection",
+      "year_made": "2011",
+      "year_import": "2026",
+      "color": "Хар",
+      "specs": [
+        [
+          "Явсан",
+          "157,490 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Суудал",
+          "5"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "22.0",
+      "badge": "new",
+      "badge_text": "12 САРД БУУНА",
+      "lease_title": "",
+      "phone": "9910-9653",
+      "address": ""
+    },
+    {
+      "id": "prius41-cf126888-multi",
+      "template": "multi",
+      "photos": [
+        {
+          "src": "data/midas-photos/prius41-cf126888/1.jpg",
+          "fit": "contain"
+        },
+        {
+          "src": "data/midas-photos/prius41-cf126888/2.jpg",
+          "pos": "50% 60%",
+          "label": "Хажуу"
+        },
+        {
+          "src": "data/midas-photos/prius41-cf126888/3.jpg",
+          "pos": "50% 55%",
+          "label": "Ар тал"
+        },
+        {
+          "src": "data/midas-photos/prius41-cf126888/4.jpg",
+          "pos": "50% 50%",
+          "label": "Салон"
+        }
+      ],
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "S L Selection",
+      "year_made": "2011",
+      "year_import": "2026",
+      "color": "Хар",
+      "specs": [
+        [
+          "Явсан",
+          "157,490 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Суудал",
+          "5"
+        ],
+        [
+          "Жолоо",
+          "Буруу"
+        ]
+      ],
+      "price": "22.0",
+      "badge": "new",
+      "badge_text": "12 САРД БУУНА",
+      "lease_title": "",
+      "phone": "9910-9653",
+      "address": ""
+    }
+  ]
+}

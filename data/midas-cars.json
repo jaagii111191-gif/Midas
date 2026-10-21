@@ -1,0 +1,26 @@
+{
+  "_readme": "Машин бүрт нэг мөр. photo: data/midas-photos/ доторх файл эсвэл https:// холбоос. Хоосон бол дүрс харагдана. badge: new | lease | drop | out. price_old бөглөвөл хуучин үнэ зураастай гарна.",
+  "cars": [
+    {
+      "id": "preview-prius51",
+      "_note": "Жишээ утга. Бодит машины мэдээллээр солино.",
+      "photo": "",
+      "photo_position": "50% 55%",
+      "model": "PRIUS",
+      "gen": "51",
+      "trim": "S Touring",
+      "year_made": "2017",
+      "year_import": "2025",
+      "color": "Цагаан сувд",
+      "specs": [["Явсан", "98,000 км"], ["Мотор", "1.8 Hybrid"], ["Хөтлөгч", "2WD"], ["Дугаар", "Аваагүй"]],
+      "price": "38.5",
+      "price_old": "",
+      "badge": "new",
+      "badge_text": "ШИНЭ ИРСЭН",
+      "lease_title": "ЛИЗИНГТЭЙ",
+      "lease_sub": "Урьдчилгаа 30%-иас",
+      "phone": "XXXX-XXXX",
+      "address": "Хаяг: {{ hayag }}"
+    }
+  ]
+}

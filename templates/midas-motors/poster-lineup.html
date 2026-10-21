@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8">
+<title>Midas Motors T8 олон машинтай постер</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/poster-base.css">
+<style>
+/* T8 · 2–6 cars in one post. Header 44–232, card grid 252–1232, footer 1252–1306. */
+.head { position: absolute; left: 64px; right: 64px; top: 136px; display: grid; gap: 10px; z-index: 2; }
+.head .k { font: 700 24px/1 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--silver); }
+.head h1 { margin: 0; font: 800 52px/1 var(--f-display); white-space: nowrap;
+  background: linear-gradient(180deg, #FFFFFF 30%, var(--silver) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grid { position: absolute; left: 40px; right: 40px; top: 252px; height: 980px; display: grid; gap: 12px; z-index: 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.n2 { grid-template-columns: 1fr; grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.grid.n3 { grid-template-rows: 1.2fr 1fr; }
+.grid.n3 .card:first-child { grid-column: 1 / -1; }
+.grid.n4 { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.grid.n5, .grid.n6 { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+.grid.n5 .card:first-child { grid-column: 1 / -1; }
+
+.card { position: relative; min-width: 0; min-height: 0; }
+.card .ph { position: absolute; inset: 0; }
+.card .ph::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(5,8,23,.35) 0%, rgba(5,8,23,0) 22%, rgba(5,8,23,0) 48%, rgba(5,8,23,.92) 100%); }
+.card .tag { font: 800 22px/1 var(--f-display); letter-spacing: .06em; padding: 10px 16px; background: var(--ink-2); color: var(--chrome); }
+.card > .tag { position: absolute; left: 18px; top: 18px; z-index: 1; }
+.card .tag.lease { background: var(--teal); color: var(--chrome); }
+.card .tag.new, .card .tag.drop { background: var(--red); color: var(--chrome); }
+.card .tag.customs { background: var(--chrome); color: var(--ink); }
+.card .tag.out { background: rgba(5,8,23,.78); color: var(--chrome); box-shadow: inset 0 0 0 2px var(--silver); clip-path: none; }
+.card .info { position: absolute; left: 22px; right: 22px; bottom: 20px; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.card .t { display: grid; gap: 8px; min-width: 0; }
+.card .m { font: 800 36px/0.95 var(--f-display); white-space: nowrap;
+  background: linear-gradient(180deg, #FFFFFF 30%, var(--silver) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.card .m .gen { -webkit-text-fill-color: var(--red); color: var(--red); }
+.card .meta { font: 700 22px/1.2 var(--f-body); color: var(--chrome); opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+.card .pr { background: var(--red); padding: 14px 20px; font: 800 68px/1 var(--f-display); white-space: nowrap; font-variant-numeric: tabular-nums; flex: none; }
+.card .pr small { font: 700 26px/1 var(--f-body); margin-left: 8px; }
+/* narrow cards: price pinned to the card's top-right corner so it stays the biggest text without covering the car;
+   the status tag moves down next to the name */
+.card:not(.wide) > .pr { position: absolute; top: 0; right: 0; z-index: 1; }
+.card:not(.wide) .info { flex-direction: column; align-items: flex-start; gap: 10px; }
+.card .info .tag { align-self: flex-start; }
+.grid.n2 .card .pr { font-size: 84px; padding: 16px 26px; }
+.grid.n2 .card .pr small { font-size: 32px; }
+.grid.n2 .card .meta { font-size: 24px; }
+.card.big .m { font-size: 50px; }
+.card.big .meta { font-size: 26px; }
+.card.big .pr { font-size: 80px; padding: 16px 26px; }
+.card.big .pr small { font-size: 30px; }
+.foot { position: absolute; left: 64px; right: 64px; top: 1260px; z-index: 2; }
+</style>
+</head>
+<body>
+<div class="poster" id="poster">
+  <div class="swoosh"></div>
+  <div class="top">
+    <img src="assets/midas-wordmark.png" alt="MIDAS">
+    <div class="badge chamfer new" id="badge"></div>
+  </div>
+  <div class="head"><span class="k" id="eyebrow"></span><h1 id="title"></h1></div>
+  <div class="grid" id="grid"></div>
+  <div class="foot"><b id="phone"></b><span id="address"></span></div>
+</div>
+
+<script src="assets/poster-base.js"></script>
+<script>
+window.renderPoster = async function (d) {
+  d = d || {};
+  window.posterReady = false;
+  const cars = (d.cars || []).slice(0, 6);
+  const grid = document.getElementById("grid");
+  grid.className = "grid n" + Math.max(2, cars.length);
+  grid.innerHTML = "";
+  const jobs = cars.map((c, i) => {
+    const big = (cars.length === 3 || cars.length === 5) && i === 0;
+    const wide = big || cars.length === 2;
+    const card = document.createElement("div");
+    card.className = "card chamfer" + (big ? " big" : "") + (wide ? " wide" : "");
+    // A photo may carry a "wide" override ({pos, scale}) for full-width cards, since one crop rarely suits both shapes.
+    const base = MM.photoList(c)[0] || {};
+    const p = wide && base.wide ? Object.assign({}, base, base.wide) : base;
+    const meta = [MM.years(c), c.km, c.note].filter(Boolean).join(" · ");
+    const tag = c.tag_text ? '<span class="tag chamfer ' + MM.esc(c.tag || "lease") + '">' + MM.esc(c.tag_text) + "</span>" : "";
+    const name = '<div class="t"><span class="m">' + MM.modelHtml(c) + '</span><span class="meta">' + MM.esc(meta) + "</span></div>";
+    const price = '<span class="pr chamfer">' + MM.esc(c.price) + "<small>сая₮</small></span>";
+    card.innerHTML = '<div class="ph"></div>' +
+      (wide ? tag + '<div class="info">' + name + price + "</div>" : price + '<div class="info">' + tag + name + "</div>");
+    grid.appendChild(card);
+    return MM.photo(card.querySelector(".ph"), p.src, p.pos, p.scale, p.fit);
+  });
+  await Promise.all(jobs);
+  MM.badge(document.getElementById("badge"), d.badge, d.badge_text);
+  document.getElementById("eyebrow").textContent = d.eyebrow || "";
+  document.getElementById("title").textContent = d.title || "";
+  document.getElementById("phone").textContent = d.phone || "";
+  document.getElementById("address").textContent = d.address || "";
+  await MM.done(d);
+};
+if (!window.__external) window.renderPoster({ badge: "new", badge_text: "10.06 – 10.12", eyebrow: "Энэ долоо хоногт ирсэн", title: "Бэлэн 3 машин",
+  phone: "XXXX-XXXX", address: "Бүгд лизингтэй",
+  cars: [{ model: "PRIUS", gen: "51", year_made: "2017", year_import: "2025", km: "98,000 км", price: "38.5", tag: "lease", tag_text: "ЛИЗИНГТЭЙ" },
+         { model: "PRIUS", gen: "41", year_made: "2016", year_import: "2025", km: "77,000 км", price: "36.0" },
+         { model: "CAMRY", gen: "50", year_made: "2015", year_import: "2025", km: "170,000 км", price: "40.0" }] });
+</script>
+</body>
+</html>

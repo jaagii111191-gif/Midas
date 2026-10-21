@@ -1,0 +1,12 @@
+{{ zagvar }} · {{ uildverlesen_on }}/{{ orj_irsen_on }} · {{ une }} сая₮
+{{ huvilbar }} · {{ ungu }} · {{ dugaar }}
+
+▪ Явсан: {{ km }} км
+▪ Мотор: {{ hudulguur }} · {{ hutlugch }}
+▪ Жолоо: {{ joloo }}
+▪ Аукшны үнэлгээ: {{ auction }}
+▪ Лизинг: {{ lizing }}
+
+Утас: {{ utas }}
+Хаяг: {{ hayag }}
+#MidasMotors #{{ zagvar_tag }}

@@ -1,0 +1,98 @@
+{
+  "_readme": "12 сард буух Prius α (ZVW41W, 2012, S Touring Selection, 198,000 км, аукшн 3.5, хар). Зураг: аукшны зураг, Японы дугаарыг бүдгэрүүлсэн (data/midas-photos/prius41-dec/). Ажиллуулах: npm run poster -- render data/midas-prius41-dec.json",
+  "cars": [
+    {
+      "id": "prius41-dec-t1",
+      "template": "t1",
+      "photo": {
+        "src": "data/midas-photos/prius41-dec/1.jpg",
+        "pos": "50% 50%"
+      },
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "S Touring Selection",
+      "year_made": "2012",
+      "year_import": "2026",
+      "color": "Хар",
+      "specs": [
+        [
+          "Явсан",
+          "198,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Аукшн",
+          "3.5"
+        ],
+        [
+          "Суудал",
+          "5"
+        ]
+      ],
+      "price": "23.0",
+      "badge": "new",
+      "badge_text": "12 САРД БУУНА",
+      "lease_title": "",
+      "phone": "9910-9653",
+      "address": ""
+    },
+    {
+      "id": "prius41-dec-multi",
+      "template": "multi",
+      "photos": [
+        {
+          "src": "data/midas-photos/prius41-dec/1.jpg",
+          "fit": "contain"
+        },
+        {
+          "src": "data/midas-photos/prius41-dec/2.jpg",
+          "pos": "50% 60%",
+          "label": "Урд тал"
+        },
+        {
+          "src": "data/midas-photos/prius41-dec/3.jpg",
+          "pos": "50% 40%",
+          "label": "Самбар"
+        },
+        {
+          "src": "data/midas-photos/prius41-dec/4.jpg",
+          "pos": "50% 50%",
+          "label": "Салон"
+        }
+      ],
+      "model": "PRIUS",
+      "gen": "41",
+      "trim": "S Touring Selection",
+      "year_made": "2012",
+      "year_import": "2026",
+      "color": "Хар",
+      "specs": [
+        [
+          "Явсан",
+          "198,000 км"
+        ],
+        [
+          "Мотор",
+          "1.8 Hybrid"
+        ],
+        [
+          "Аукшн",
+          "3.5"
+        ],
+        [
+          "Суудал",
+          "5"
+        ]
+      ],
+      "price": "23.0",
+      "badge": "new",
+      "badge_text": "12 САРД БУУНА",
+      "lease_title": "",
+      "phone": "9910-9653",
+      "address": ""
+    }
+  ]
+}
