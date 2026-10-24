@@ -1,0 +1,401 @@
+<title>Toyota үнэлгээний тооцоолуур</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: зүүн талд оролт (маягт), баруун талд наалддаг үнийн самбар; утсан дээр нэг багана */
+:root{
+  --bg:#eef1f4; --paper:#ffffff; --sunk:#f6f8fa; --ink:#17212b; --muted:#5a6977; --line:#d5dce3;
+  --accent:#c2700a; --accent-ink:#ffffff; --accent-soft:#f7e7cf;
+  --good:#2d7a4c; --warn:#a8670c; --bad:#b33d2c;
+  --display:"Unbounded","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --paper:#172029; --sunk:#121a22; --ink:#e3e9ef; --muted:#93a2b0; --line:#2a3642;
+  --accent:#e9a23b; --accent-ink:#1a1206; --accent-soft:#3a2a14; --good:#62c18a; --warn:#e3a54a; --bad:#e57c69; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --paper:#172029; --sunk:#121a22; --ink:#e3e9ef; --muted:#93a2b0; --line:#2a3642;
+  --accent:#e9a23b; --accent-ink:#1a1206; --accent-soft:#3a2a14; --good:#62c18a; --warn:#e3a54a; --bad:#e57c69; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+.wrap{max-width:1080px;margin:0 auto;padding:32px 16px 56px;display:flex;flex-direction:column;gap:24px}
+header{display:flex;flex-direction:column;gap:8px}
+h1{font:700 clamp(1.4rem,3.6vw,2rem)/1.2 var(--display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);max-width:70ch;margin:0}
+.eyebrow{font:500 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:20px;align-items:start}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:20px;min-width:0}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+legend,.lbl{font:500 .72rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label{display:flex;flex-direction:column;padding:8px 12px;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--sunk);line-height:1.25;min-width:0}
+.seg label small{font:.7rem var(--mono);color:var(--muted)}
+.seg input:checked+label{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.seg input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fixed{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:8px 12px;border:1px dashed var(--line);border-radius:6px;background:var(--sunk);font-size:.9rem}
+.fixed .lbl{margin:0}
+.row3{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:620px){.row3{grid-template-columns:1fr}}
+@media (max-width:520px){.row2{grid-template-columns:1fr}}
+select,input[type=number]{width:100%;font:500 .95rem var(--body);padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--sunk);color:var(--ink)}
+select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.hint{font-size:.78rem;color:var(--muted)}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.checks label{display:flex;gap:8px;align-items:center;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--sunk);cursor:pointer;font-size:.9rem}
+.checks input{accent-color:var(--accent);width:16px;height:16px;flex:none}
+.checks label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.res{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);gap:16px}
+.price{display:flex;flex-direction:column;gap:2px}
+.price b{font:700 clamp(2rem,6vw,2.8rem)/1.05 var(--display);font-variant-numeric:tabular-nums}
+.price span{color:var(--muted);font-size:.85rem}
+.band{position:relative;height:36px;margin-top:4px}
+.band .rail{position:absolute;left:0;right:0;top:15px;height:6px;border-radius:3px;background:var(--line)}
+.band .iqr{position:absolute;top:13px;height:10px;border-radius:5px;background:var(--accent);opacity:.9}
+.band .p80{position:absolute;top:15px;height:6px;border-radius:3px;background:var(--accent);opacity:.35}
+.band .mid{position:absolute;top:8px;width:3px;height:20px;margin-left:-1.5px;background:var(--ink);border-radius:2px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.tri div{background:var(--paper);padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tri b{font:500 1.05rem var(--mono);font-variant-numeric:tabular-nums}
+.tri span{font-size:.74rem;color:var(--muted);line-height:1.3}
+.conf{display:flex;gap:10px;align-items:center;font-size:.85rem}
+.pill{font:500 .72rem var(--mono);padding:3px 9px;border-radius:99px;white-space:nowrap}
+.pill.good{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.pill.bad{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.brk{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.brk div{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.88rem;align-items:baseline}
+.brk div:last-child{border-bottom:0}
+.brk .p,.brk .t{font:.82rem var(--mono);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.brk .t{min-width:72px}
+.brk .base{font-weight:600}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.copy{align-self:flex-start;font:500 .85rem var(--body);padding:8px 14px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.notes{grid-template-columns:1fr}}
+.notes section{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.notes h2{font:500 .95rem var(--display);margin:0}
+.notes p,.notes li{font-size:.86rem;color:var(--muted);margin:0}
+.notes ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px}
+.mono{font-family:var(--mono)}
+.check{display:flex;flex-direction:column;gap:6px;padding-top:4px;border-top:1px solid var(--line)}
+.verdict{display:flex;gap:10px;align-items:flex-start;font-size:.86rem}
+.audit{display:flex;flex-direction:column;gap:16px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:20px;min-width:0}
+.audit h2{font:500 1.15rem var(--display);margin:0}
+.audit h3{font-size:.95rem;margin:0 0 8px}
+.ahead{display:flex;flex-direction:column;gap:4px}
+.dist{display:flex;height:22px;border-radius:4px;overflow:hidden;gap:2px}
+.d1{background:var(--bad)}.d2{background:color-mix(in srgb,var(--good) 55%,var(--paper))}.d3{background:var(--good)}.d4{background:color-mix(in srgb,var(--warn) 60%,var(--paper))}.d5{background:var(--warn)}
+.dlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;color:var(--muted)}
+.dlegend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.two>div{min-width:0}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+.tbl table{border-collapse:collapse;width:100%;font-size:.84rem;min-width:420px}
+.tbl th,.tbl td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th{font:500 .7rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.tbl .r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl a{color:var(--accent)}
+.tbl a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">unegui.mn · 2026 онд орж ирсэн, дугаар аваагүй 661 зар · 2026.10.01 + 10.04 + 10.11 · загвар v8</div>
+    <h1>Toyota үнэлгээний тооцоолуур</h1>
+    <p class="sub">2026 онд гаалиас гарсан, дугаар аваагүй Prius 40/41, 50/51, Camry, Harrier-ийн зах зээлийн үнийг он, гүйлт, комплектац, опшн, өнгөөр нь тооцно. Зарын үнийг оруулбал хямд эсвэл үнэтэй эсэхийг шалгана. Тооцоолол нь unegui.mn дээрх зарын үнэд суурилсан.</p>
+  </header>
+
+  <div class="grid">
+    <form class="panel" id="f" autocomplete="off">
+      <fieldset>
+        <legend>Загвар</legend>
+        <div class="seg" id="models"></div>
+      </fieldset>
+
+      <div class="row2">
+        <div><label class="lbl" for="year">Үйлдвэрлэсэн он</label><select id="year"></select><div class="hint" id="yearHint"></div></div>
+        <div><label class="lbl" for="km">Гүйлт, км</label><input id="km" type="number" min="0" max="500000" step="5000" value="150000"></div>
+      </div>
+
+      <div class="fixed"><span class="lbl">Нөхцөл</span><span>Дугаар аваагүй · 2026 онд орж ирсэн</span></div>
+
+      <div class="row2">
+        <div id="engWrap"><label class="lbl" for="eng">Хөдөлгүүр</label><select id="eng"></select></div>
+        <div><label class="lbl" for="grade">Комплектац</label><select id="grade"></select></div>
+      </div>
+
+      <div id="genWrap" hidden><label class="lbl" for="gen">Camry-ийн үе (2017 онд хоёулаа гарсан)</label>
+        <select id="gen"><option value="">Мэдэхгүй</option><option value="50">Camry 50 (XV50, 2017.06 хүртэл)</option><option value="70">Camry 70 (XV70, 2017.07-оос)</option></select>
+        <div class="hint">Зар, гэрчилгээнээс шалгана: AVV50 = 50, AXVH70 = 70. Мэдэхгүй бол 2026 онд орж ирсэн 2017 оны Camry-ийн дийлэнх нь 70 үеийнх байдаг.</div></div>
+
+      <fieldset>
+        <legend>Опшн</legend>
+        <div class="checks" id="opts"></div>
+      </fieldset>
+
+      <div class="row3">
+        <div><label class="lbl" for="wheel">Хүрд</label>
+          <select id="wheel"><option value="r">Буруу (Япон)</option><option value="l">Зөв</option></select></div>
+        <div><label class="lbl" for="lease">Лизинг</label>
+          <select id="lease"><option value="">Лизинггүй</option><option value="ББСБ лизингтэй">ББСБ лизингтэй</option><option value="Банкны лизингтэй">Банкны лизингтэй</option><option value="Хувь лизингтэй">Хувь лизингтэй</option></select></div>
+      </div>
+
+      <div class="row2">
+        <div><label class="lbl" for="color">Өнгө</label>
+          <select id="color"><option value="black">Хар (суурь)</option><option value="pearl">Сувдан цагаан</option><option value="white">Цагаан</option><option value="gray">Саарал / хар саарал</option><option value="blue">Хөх / цэнхэр</option><option value="brown">Хүрэн / бор / боронзон</option><option value="red">Улаан</option><option value="other">Бусад өнгө</option></select></div>
+        <div><label class="lbl" for="score">Японы аукционы үнэлгээ</label>
+          <select id="score"><option value="">Мэдэхгүй</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option></select></div>
+      </div>
+      <div>
+        <label class="lbl" for="wgt">Комплектац, өнгөний жин</label>
+        <select id="wgt"><option value="1">×1, өгөгдлөөр тогтоосон (алдаа 5.1%)</option><option value="1.5">×1.5 (алдаа 5.8%)</option><option value="2">×2 (алдаа 7.3%)</option><option value="3">×3 (алдаа 10.7%)</option></select>
+        <div class="hint">Өөрийн туршлагаар комплектац, өнгө илүү нөлөөлдөг гэж үзвэл жинг өсгөнө. Зарын өгөгдөл дээр шалгахад жин өсөх тусам нарийвчлал буурсан.</div>
+      </div>
+    </form>
+
+    <aside class="panel res" aria-live="polite">
+      <div class="price"><span>Зах зээлийн үнэ</span><b id="pMid">—</b><span id="pRange"></span></div>
+      <div class="band" aria-hidden="true"><div class="rail"></div><div class="p80" id="bP80"></div><div class="iqr" id="bIqr"></div><div class="mid" id="bMid"></div></div>
+      <div class="tri">
+        <div><b id="pLow">—</b><span>Хурдан зарах үнэ</span></div>
+        <div><b id="pMid2">—</b><span>Зах зээлийн дундаж</span></div>
+        <div><b id="pHigh">—</b><span>Зарын дээд хязгаар</span></div>
+      </div>
+      <div class="conf"><span class="pill" id="confPill"></span><span id="confTxt"></span></div>
+      <div>
+        <div class="lbl">Үнэ хэрхэн бүрдсэн бэ</div>
+        <div class="brk" id="brk"></div>
+      </div>
+      <div class="check">
+        <label class="lbl" for="ask">Зарын үнэ шалгах, сая ₮</label>
+        <input id="ask" type="number" min="1" max="500" step="0.1" placeholder="Жишээ нь 28.5" form="f">
+        <div class="verdict" id="verdict" hidden><span class="pill" id="vPill"></span><span id="vTxt"></span></div>
+      </div>
+      <button type="button" class="copy" id="copyBtn">Үнэлгээг хуулах</button>
+      <div class="hint" id="copyMsg"></div>
+    </aside>
+  </div>
+
+  <div class="notes">
+    <section>
+      <h2>Хэр нарийвчлалтай вэ</h2>
+      <p>Зөвхөн 2026 онд орж ирсэн, дугаар аваагүй 654 зар дээр сургасан (10.01, 10.04, 10.11-ний татлагыг нэгтгэсэн). Сургалтад ороогүй зар дээр шалгахад үнийн дундаж зөрүү <b>5.1%</b> гарсан. Таамгийн 76% нь 10%-иас бага зөрүүтэй. Өмнөх v6 загварыг 10.04-өөс хойш шинээр гарсан 121 зар дээр шалгахад 4.1% зөрүүтэй байсан. <a href="https://claude.ai/artifact/PSkwCjrVN2pc4wne2T4xiN" target="_blank" rel="noopener">Үнийн өөрчлөлтийн тайлан</a></p>
+      <ul><li>Prius 50/51: 6.0%</li><li>Prius α: 4.7%</li><li>Prius 55: 6.2% (23 зар)</li><li>Harrier: 5.2%</li><li>Camry: 6.6% (v7: 8.1%, 2017 оны 50/70 үеийг ялгасны дараа)</li></ul>
+    </section>
+    <section>
+      <h2>Юу хамгийн их нөлөөлдөг вэ</h2>
+      <ul>
+        <li><b>Он ба загварын үе.</b> Prius α 2015→2016 онд 20 орчим хувь өснө.</li>
+        <li><b>Комплектац (суурьтай харьцуулж):</b> Prius α G's +15.9%, S Touring +4.9%, G Touring +5.8%; Prius 50 A Touring +11.0%, S Safety Plus +8.9%, A Premium +6.3%, S Touring +4.8%; Harrier Z Leather +6.8%; Camry G Leather +8.3%, X −20.9%.</li>
+        <li><b>Өнгө (хартай харьцуулж):</b> сувдан цагаан +6.4%, цагаан +3.2%, хөх +2.1%, саарал +2.4%, улаан +0.6%.</li>
+        <li><b>Люк</b> +3.9%, <b>360° камер</b> +3.9%, Modellista/GR +5.5%.</li>
+        <li><b>Зөв хүрдтэй</b> Camry +9.8%, <b>хувь лизингтэй</b> −3.6%, "яаралтай" гэсэн зар −4.8%.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Анхаарах зүйл</h2>
+      <ul>
+        <li>Зарын үнэ дээр сургасан. Бодит хэлцэл ихэвчлэн хэдэн хувь доогуур хаагддаг.</li>
+        <li>Шинэ гарсан зарын 49% нь комплектацаа бичсэн. Цөөн зартай комплектацын (0–5 зар) нөлөөг болгоомжтой хүлээж ав. L, A Premium Touring-д зар байхгүй тул нөлөөг 0 гэж тооцно.</li>
+        <li>Дугаар авсан, Монголд унасан машины үнийг энэ хувилбар тооцохгүй.</li>
+        <li>Мөргөлдөөн, будаг, бичиг баримтыг загвар тооцоогүй. Машиныг биечлэн шалгана.</li>
+      </ul>
+    </section>
+  </div>
+
+  <section class="audit" id="audit">
+    <div class="ahead">
+      <h2>unegui.mn зарын шалгалт</h2>
+      <p class="sub">Үнийн хуваарилалт ба жагсаалт: 2026.10.11-ний байдлаар 2026 онд орж ирсэн, дугаар аваагүй 442 зар. Мэдээллийн зөрчлийн хүснэгт: 2026.10.01-ний бүх 2,037 зар.</p>
+    </div>
+    <div class="dist" role="img" aria-label="Үнийн хуваарилалт: 20%-иас хямд 0, 10–20% хямд 17, зохистой 381, 10–25% үнэтэй 41, 25%-иас үнэтэй 3">
+      <div class="d1" style="flex:0"></div><div class="d2" style="flex:17"></div><div class="d3" style="flex:381"></div><div class="d4" style="flex:41"></div><div class="d5" style="flex:3"></div>
+    </div>
+    <div class="dlegend">
+      <span><i class="d1"></i>20%-иас хямд · 0</span><span><i class="d2"></i>10–20% хямд · 17</span><span><i class="d3"></i>Зохистой ±10% · 381 (86%)</span><span><i class="d4"></i>10–25% үнэтэй · 41</span><span><i class="d5"></i>25%-иас үнэтэй · 3</span>
+    </div>
+
+    <h3>Мэдээллийн зөрчил</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Илэрсэн зүйл</th><th class="r">Зар</th><th>Тайлбар</th></tr></thead>
+      <tbody>
+        <tr><td>Гүйлтийг мянгаар бичсэн</td><td class="r">183</td><td>"198 км" гэх мэт. Бодитоор 198,000 км. Хайлтын шүүлтүүрт эдгээр машин "бага гүйлттэй" мэт харагдана.</td></tr>
+        <tr><td>Давхар зар</td><td class="r">152</td><td>Ижил машиныг 71 удаа давхар оруулсан. 39 тохиолдолд нэг машин өөр өөр үнэтэй байна.</td></tr>
+        <tr><td>Боломжгүй гүйлт</td><td class="r">75</td><td>450,000 км-ээс их эсвэл 123456, 111111 гэх мэт хуурамч тоо.</td></tr>
+        <tr><td>Зар тавьсны дараа оныг өөрчилсөн</td><td class="r">49</td><td>Зарын холбоос дахь он, одоогийн оноос өөр. 25-д нь үйлдвэрлэсэн оныг сольсон (жишээ нь 2012 → 2020). Зарыг өөр машинаар сольсон байх магадлалтай.</td></tr>
+        <tr><td>Тайлбар ба талбарын гүйлт зөрсөн</td><td class="r">14</td><td>Тайлбарт бичсэн гүйлт талбарынхаас 25%-иас их зөрүүтэй.</td></tr>
+        <tr><td>Тайлбар дахь үнэ өөр</td><td class="r">9</td><td>Жишээ нь талбарт 16 сая, тайлбарт "Үнэ 18 саяас".</td></tr>
+        <tr><td>Тайлбар ба талбарын он зөрсөн</td><td class="r">8</td><td>Тайлбарт өөр үйлдвэрлэсэн он бичсэн.</td></tr>
+        <tr><td>Prius-ийн хөдөлгүүрийг буруу бөглөсөн</td><td class="r">247</td><td>Prius 40/41/50/51 бүгд хайбрид боловч 978 зарын 25% нь "Бензин" гэж бөглөгдсөн. Шүүлтүүрээр "Хайбрид" сонгоход эдгээр зар харагдахгүй.</td></tr>
+        <tr><td>Prius-ийн мотор багтаамж буруу</td><td class="r">143</td><td>1.8 л байх ёстой ч 1.5, 2.0, "Цахилгаан" гэх мэтээр бөглөсөн.</td></tr>
+        <tr><td>Орж ирсэн он үйлдвэрлэснээсээ өмнө</td><td class="r">4</td><td>Талбарыг буруу бөглөсөн.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>unegui.mn шүүлтүүр тус бүрийн тест</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Шүүлтүүр</th><th>Үнэд нөлөө</th><th class="r">Алдаа</th><th>Шийдвэр</th></tr></thead>
+      <tbody>
+        <tr><td>Он, гүйлт, нөхцөл (Монголд унасан жил), өнгө, комплектац, опшн</td><td>Суурь загвар</td><td class="r">6.15%</td><td>Орсон</td></tr>
+        <tr><td>Хүрд</td><td>Зөв хүрд: Prius +10–11% (6 зар), Camry +9.8% (31), Harrier +3.6%</td><td class="r">6.14%</td><td>Орсон</td></tr>
+        <tr><td>Дотор өнгө</td><td>Бор +2.5%, шаргал −1.8%, саарал −1.1% (хартай харьцуулж)</td><td class="r">6.12%</td><td>Орсон</td></tr>
+        <tr><td>Лизинг</td><td>Хувь лизинг −5.5%, ББСБ, банк ≈ 0</td><td class="r">6.20%</td><td>Орсон</td></tr>
+        <tr><td>Нөхцөл (дугаартай нь / авсан)</td><td>Дугаартай нь зарна +0.5%</td><td class="r">6.15%</td><td>Орсон</td></tr>
+        <tr><td>Дүүрэг</td><td>Хан-Уул +0.8%, Чингэлтэй −0.7%</td><td class="r">6.12%</td><td>Ороогүй, нөлөөгүй</td></tr>
+        <tr><td>Хурдны хайрцаг</td><td>Механик 10 зар л байна</td><td class="r">6.16%</td><td>Ороогүй, өгөгдөл цөөн</td></tr>
+        <tr><td>Төрөл, хаалга</td><td>Загвараас шууд хамаардаг, ±1%</td><td class="r">6.16–6.18%</td><td>Ороогүй, давхардал</td></tr>
+        <tr><td>Хөдөлгүүр, мотор багтаамж (талбар)</td><td>Prius-ийн 25% нь буруу бөглөгдсөн</td><td class="r">6.14–6.17%</td><td>Ороогүй, тайлбараас уншина</td></tr>
+        <tr><td>Хөтлөгч (талбар)</td><td>Harrier FWD −2.8%</td><td class="r">6.24%</td><td>Ороогүй, нарийвчлал буурсан</td></tr>
+        <tr><td>Гадна өнгө 17 ангиллаар</td><td>Ягаан, улаан −7%</td><td class="r">6.24%</td><td>7 ангиллаар үлдээсэн</td></tr>
+        <tr><td>Бүх 13 шүүлтүүр нэг дор</td><td>Хэт тохируулга</td><td class="r">6.37%</td><td>Ороогүй</td></tr>
+        <tr><td><b>Сонгосон хослол</b></td><td>Нөхцөл + хүрд + лизинг + дотор өнгө</td><td class="r"><b>6.08%</b></td><td><b>Ашиглаж байна</b></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="two">
+      <div>
+        <h3>Хамгийн хямд (2026, дугаар аваагүй)</h3>
+        <div class="tbl"><table id="tUnder"></table></div>
+      </div>
+      <div>
+        <h3>Хамгийн үнэтэй (2026, дугаар аваагүй)</h3>
+        <div class="tbl"><table id="tOver"></table></div>
+      </div>
+    </div>
+    <p class="hint">Шинэ гарсан машинуудын үнэ нэг цэгт төвлөрсөн: 86% нь үнэлгээнээс ±10%-ийн дотор. 10.01-ээс 10.11-ний хооронд зарын үнэ өсөөгүй: ижил 1,241 зарын 115 нь үнээ буулгаж, 11 нь өсгөсөн, дундаж өөрчлөлт −0.4%. Холбоос нь unegui.mn дээрх зарыг нээнэ. Зар устсан бол нээгдэхгүй.</p>
+  </section>
+</div>
+
+<script>
+const C={"int_alpha":3.4467,"yr_alpha":0.0791,"km_alpha":0.016,"y_alpha_2011":0.0557,"y_alpha_2012":-0.0272,"y_alpha_2013":-0.0645,"y_alpha_2014":-0.0457,"y_alpha_2015":-0.0175,"y_alpha_2016":0.0939,"y_alpha_2017":0.0357,"y_alpha_2018":0.0224,"y_alpha_2019":-0.0116,"y_alpha_2020":-0.0271,"y_alpha_2021":-0.014,"g_alpha_gs":0.1476,"g_alpha_gtour":0.0567,"g_alpha_stour":0.0477,"g_alpha_tune":-0.0036,"g_alpha_lsel":0.0,"g_alpha_g":0.0309,"g_alpha_l":0.0,"g_alpha_unk":0.0154,"lhd_alpha":0.1792,"ymnf_alpha":0.0,"int_p50":3.2945,"yr_p50":0.0592,"km_p50":0.0579,"y_p50_2015":0.0251,"y_p50_2016":-0.0071,"y_p50_2017":-0.0229,"y_p50_2018":-0.0284,"y_p50_2019":0.0282,"y_p50_2020":0.0051,"g_p50_apt":0.0683,"g_p50_aprem":0.0615,"g_p50_atour":0.1046,"g_p50_stour":0.0467,"g_p50_ssafe":0.0856,"g_p50_a":0.0614,"g_p50_e":0.1154,"g_p50_unk":0.0857,"lhd_p50":0.1918,"ymnf_p50":0.0,"int_camry":3.5699,"yr_camry":0.063,"km_camry":0.0151,"y_camry_2011":0.04,"y_camry_2012":0.0022,"y_camry_2013":-0.0876,"y_camry_2014":0.0202,"y_camry_2015":0.0172,"y_camry_2016":0.0204,"y_camry_2017":0.0116,"y_camry_2018":0.0154,"y_camry_2019":-0.0198,"y_camry_2020":-0.0467,"y_camry_2021":0.009,"y_camry_2025":0.018,"g_camry_wsl":0.0392,"g_camry_ws":0.177,"g_camry_gl":0.0796,"g_camry_x":-0.234,"g_camry_unk":0.0078,"lhd_camry":0.0934,"ymnf_camry":0.0,"int_harrier":3.9803,"yr_harrier":0.0617,"km_harrier":0.0272,"y_harrier_2005":0.0578,"y_harrier_2006":0.0234,"y_harrier_2007":-0.0051,"y_harrier_2008":-0.0085,"y_harrier_2009":-0.0288,"y_harrier_2010":-0.0128,"y_harrier_2011":-0.0296,"y_harrier_2012":-0.0214,"y_harrier_2014":-0.011,"y_harrier_2015":-0.0502,"y_harrier_2016":0.0441,"y_harrier_2017":0.0224,"y_harrier_2018":-0.0147,"y_harrier_2019":-0.0422,"y_harrier_2020":0.0426,"y_harrier_2021":0.0404,"y_harrier_2022":0.0025,"y_harrier_2023":0.0127,"y_harrier_2024":-0.0215,"g_harrier_zl":0.0662,"g_harrier_z":0.0092,"g_harrier_gl":0.0,"g_harrier_pmetal":0.0027,"g_harrier_progress":-0.0126,"g_harrier_padv":-0.0145,"g_harrier_elegance":-0.0446,"g_harrier_grand":0.0,"g_harrier_airs":0.0,"g_harrier_lpkg":-0.0087,"g_harrier_g":-0.0371,"g_harrier_s":-0.0983,"g_harrier_unk":-0.0194,"lhd_harrier":0.0,"ymnf_harrier":0.0,"gas_camry":-0.0413,"gas_harrier":0.0128,"cc35_harrier":0.0251,"cc20_harrier":-0.0981,"ub":0.0,"roof":0.038,"jbl":-0.0143,"cam360":0.0383,"hud":-0.0,"leather":-0.0051,"radar":-0.0075,"is40":0.0498,"is51":0.0732,"awd":0.03,"winter":0.001,"led":-0.0137,"modellista":0.0533,"battery":0.0,"dealer":-0.0032,"urgent":-0.0492,"nego":0.0044,"swap":0.0,"c_pearl":0.0045,"c_white":-0.0263,"c_black":-0.0576,"c_gray":-0.0334,"c_red":-0.0512,"c_blue":-0.037,"c_brown":0.0253,"lease=ББСБ лизингтэй":-0.0002,"lease=Банкны лизингтэй":0.0131,"lease=Хувь лизингтэй":-0.0365,"cond=withplate":0.0,"cond=z00":0.0,"hasScore":0.0022,"score":0.0385,"ymn_1":0.0,"ymn_2":0.0,"ymn_3":0.0,"ymn_4":0.0,"ymn_6":0.0,"plated0":0.0,"cc24_camry":-0.0378,"cam70":0.1014,"cam17unk":0.158,"is55":0.1292,"kmpy":-0.1191,"lowkm":0.0956};
+const RQ={p10:-0.086,p25:-0.047,p75:0.041,p90:0.09};
+const YC={"alpha":{"2011":22,"2012":54,"2013":44,"2014":23,"2015":25,"2016":38,"2017":31,"2018":13,"2019":10,"2020":3,"2021":2},"p50":{"2015":3,"2016":41,"2017":43,"2018":10,"2019":21,"2020":1},"camry":{"2011":6,"2012":11,"2013":5,"2014":3,"2015":4,"2016":6,"2017":18,"2018":8,"2019":7,"2020":6,"2021":8,"2025":1},"harrier":{"2005":3,"2006":7,"2007":3,"2008":6,"2009":3,"2010":2,"2011":2,"2012":1,"2014":27,"2015":14,"2016":25,"2017":31,"2018":16,"2019":10,"2020":8,"2021":18,"2022":7,"2023":3,"2024":1}};
+const MODELS=[
+ {id:"p40",name:"Prius 40",sub:"α · 7 суудал",fam:"alpha",dflt:2013},
+ {id:"p41",name:"Prius 41",sub:"α · 5 суудал",fam:"alpha",dflt:2013},
+ {id:"p50",name:"Prius 50",sub:"4-р үе",fam:"p50",dflt:2016},
+ {id:"p51",name:"Prius 51",sub:"4-р үе",fam:"p50",dflt:2016},
+ {id:"p55",name:"Prius 55",sub:"4-р үе · E-Four 4WD",fam:"p50",dflt:2016},
+ {id:"camry",name:"Camry",sub:"хайбрид / бензин",fam:"camry",dflt:2017},
+ {id:"harrier",name:"Harrier",sub:"хайбрид / бензин",fam:"harrier",dflt:2017}];
+// [код, нэр, зарын тоо]: зарын тоо бага бол нөлөөг нь болгоомжтой хүлээж ав
+const GRADES={alpha:[["s","S (суурь)",52],["","Тодорхойгүй",124],["l","L",0],["g","G",35],["stour","S Touring Selection",17],["gtour","G Touring Selection",14],["tune","S Tune Black",22],["gs","G's",5]],
+ p50:[["s","S (суурь)",22],["","Тодорхойгүй",61],["ssafe","S Safety Plus",5],["stour","S Touring Selection",7],["a","A",9],["atour","A Touring Selection",11],["aprem","A Premium",2],["apt","A Premium Touring",1]],
+ camry:[["g","G (суурь)",17],["","Тодорхойгүй",58],["x","X",1],["gl","G Leather Package",4],["ws","WS",2],["wsl","WS Leather Package",1]],
+ harrier:[["premium","Premium (суурь)",40],["","Тодорхойгүй",94],["s","S",4],["g","G",7],["lpkg","L Package (30-р цуврал)",2],["elegance","Elegance",3],["padv","Premium Advanced",24],["progress","Progress",4],["pmetal","Progress Metal & Leather",1],["z","Z",6],["zl","Z Leather",4]]};
+const GNAME={};Object.values(GRADES).forEach(l=>l.forEach(([v,n])=>{if(v)GNAME[v]=n.replace(" (суурь)","")}));
+const BASEG={alpha:"s",p50:"s",camry:"g",harrier:"premium"};
+const ENG={camry:[["hyb","2.5 хайбрид"],["hyb24","2.4 хайбрид (2007–2011)"],["gas","Бензин"]],
+ harrier:[["hyb","2.5 хайбрид"],["hyb35","3.3 / 3.5 хайбрид"],["gas20","2.0 бензин"],["gas","2.4 / 3.0 бензин"],["gas35","3.5 бензин"]]};
+const OPTS=[["roof","Люк / Skylight"],["jbl","JBL аудио"],["leather","Арьсан суудал"],["radar","Радар / Safety Sense"],["cam360","360° камер"],["hud","HUD дэлгэц"],["winter","Winter package"],["modellista","Modellista / GR / обвес"],["awd","4WD / E-Four"]];
+const COLOR={pearl:"Сувдан цагаан",white:"Цагаан",black:"Хар",gray:"Саарал",blue:"Хөх",brown:"Хүрэн",red:"Улаан",other:"Бусад өнгө"};
+const $=id=>document.getElementById(id);
+const fmt=v=>(v>=100?v.toFixed(0):v.toFixed(1))+" сая ₮";
+const fmtS=v=>(v>=100?v.toFixed(0):v.toFixed(1));
+const normCdf=z=>{const t=1/(1+0.2316419*Math.abs(z)),d=0.3989423*Math.exp(-z*z/2),p=d*t*(0.3193815+t*(-0.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p};
+const pct=c=>{const p=(Math.exp(c)-1)*100;return (p>0?"+":p<0?"−":"")+Math.abs(p).toFixed(1)+"%"};
+
+$("models").innerHTML=MODELS.map((m,i)=>`<input type="radio" name="model" id="m_${m.id}" value="${m.id}" ${i===1?"checked":""}><label for="m_${m.id}">${m.name}<small>${m.sub}</small></label>`).join("");
+$("opts").innerHTML=OPTS.map(([k,n])=>`<label id="lo_${k}"><input type="checkbox" id="o_${k}">${n}</label>`).join("");
+const NOW=2026;
+
+const model=()=>MODELS.find(m=>m.id===document.querySelector("input[name=model]:checked").value);
+let curFam=null;
+function setupModel(){
+  const m=model(),f=m.fam;
+  const years=Object.keys(YC[f]).map(Number).sort((a,b)=>a-b);
+  const prev=+$("year").value;
+  $("year").innerHTML=years.map(y=>`<option value="${y}">${y}</option>`).join("");
+  $("year").value=String(years.includes(prev)&&curFam===f?prev:m.dflt);
+  if(curFam!==f){
+    $("grade").innerHTML=GRADES[f].map(([v,n,c])=>`<option value="${v}">${n} · ${c} зар</option>`).join("");$("grade").value="";
+    const e=ENG[f];$("engWrap").hidden=!e;
+    if(e)$("eng").innerHTML=e.map(([v,n])=>`<option value="${v}">${n}</option>`).join("");
+  }
+  $("lo_awd").hidden=!(f==="harrier"||f==="p50")||m.id==="p55";
+  $("genWrap").hidden=!(f==="camry"&&+$("year").value===2017);
+  if($("lo_awd").hidden)$("o_awd").checked=false;
+  curFam=f;
+}
+function compute(){
+  const m=model(),f=m.fam,y=+$("year").value;
+  const km=Math.min(Math.max(+$("km").value||150000,10000),400000);
+  const parts=[];
+  // гүйлтийн нөлөө: нийт гүйлт + жилд дунджаар явсан км (20 мянга = хэвийн), 150 мянган км-тэй харьцуулна
+  const kmTerm=k=>{const age=Math.max(1,NOW-y);return C["km_"+f]*Math.log(k/150000)+C.kmpy*(Math.min(k/age/20000,3)-1)+(k<5000?C.lowkm:0)};
+  // суурь үнэ нь 150 мянган км-ийн гүйлтийн нөлөөг (жилд явсан км-ийг оруулаад) агуулна
+  const base=C["int_"+f]+C["yr_"+f]*(y-2015)+(C[`y_${f}_${y}`]||0)+C.c_black+kmTerm(150000);
+  const add=(label,c)=>{if(c)parts.push([label,c])};
+  if(m.id==="p40")add("7 суудалтай хувилбар",C.is40);
+  if(m.id==="p51")add("Prius 51 (ZVW51)",C.is51);
+  if(m.id==="p55")add("Prius 55 (E-Four 4WD)",(C.is55||0)+(C.awd||0));
+  if(f==="camry"){const gv=$("gen").value;$("genWrap").hidden=y!==2017;
+    if(y>=2018||(y===2017&&gv==="70"))add("Camry 70 үе",C.cam70||0);
+    else if(y===2017&&!gv)add("2017, үе тодорхойгүй (70 гэж тооцов)",C.cam70||0);}
+  add(`Гүйлт ${Math.round(km/1000)} мянган км`,kmTerm(km)-kmTerm(150000));
+  const eng=$("engWrap").hidden?null:$("eng").value;
+  if(f==="camry"&&eng==="gas")add("Бензин хөдөлгүүр",C.gas_camry);
+  if(f==="camry"&&eng==="hyb24")add("2.4 хайбрид",C.cc24_camry);
+  if(f==="harrier"){
+    if(eng==="hyb35")add("3.3/3.5 хайбрид",C.cc35_harrier);
+    if(eng==="gas20")add("2.0 бензин",C.gas_harrier+C.cc20_harrier);
+    if(eng==="gas")add("Бензин хөдөлгүүр",C.gas_harrier);
+    if(eng==="gas35")add("3.5 бензин",C.gas_harrier+C.cc35_harrier);
+  }
+  const W=+$("wgt").value;
+  const g=$("grade").value;if(g!==BASEG[f])add(g?"Комплектац: "+GNAME[g]:"Комплектац тодорхойгүй",W*(C[`g_${f}_${g||"unk"}`]||0));
+  OPTS.forEach(([k,n])=>{if($("o_"+k).checked&&!$("lo_"+k).hidden)add(n,C[k])});
+  const col=$("color").value;if(col!=="black")add("Өнгө: "+COLOR[col],W*((C["c_"+col]||0)-C.c_black));
+  const sc=$("score").value;if(sc)add("Аукционы үнэлгээ "+sc,C.hasScore+C.score*(+sc-4));
+  const cond="fresh";
+  if($("wheel").value==="l")add("Зөв хүрд",C["lhd_"+f]);
+  const ls=$("lease").value;if(ls)add(ls,C["lease="+ls]);
+  const total=base+parts.reduce((s,p)=>s+p[1],0);
+  const mid=Math.exp(total);
+  const lo=mid*Math.exp(RQ.p25),hi=mid*Math.exp(RQ.p75),l80=mid*Math.exp(RQ.p10),h80=mid*Math.exp(RQ.p90);
+  $("pMid").textContent=fmt(mid);$("pMid2").textContent=fmtS(mid);
+  $("pLow").textContent=fmtS(lo);$("pHigh").textContent=fmtS(hi);
+  $("pRange").textContent=`Ийм машины 80% нь ${fmtS(l80)}–${fmtS(h80)} сая ₮-д зарагдаж байна`;
+  const sMin=l80*0.9,sMax=h80*1.1,P=v=>((v-sMin)/(sMax-sMin)*100)+"%";
+  Object.assign($("bP80").style,{left:P(l80),width:`calc(${P(h80)} - ${P(l80)})`});
+  Object.assign($("bIqr").style,{left:P(lo),width:`calc(${P(hi)} - ${P(lo)})`});
+  $("bMid").style.left=P(mid);
+  const n=YC[f][y]||0;const pill=$("confPill");
+  pill.className="pill "+(n>=30?"good":n>=10?"warn":"bad");pill.textContent=n>=30?"Найдвартай":n>=10?"Дунд зэрэг":"Өгөгдөл цөөн";
+  $("confTxt").textContent=`${m.fam==="alpha"?"Prius α":m.fam==="p50"?"Prius 50/51":m.name} ${y} оны ${n} зар дээр суурилсан`;
+  let run=Math.exp(base);
+  let html=`<div class="base"><span>Суурь: ${m.name} ${y}, ${GNAME[BASEG[f]]} грейд, хар өнгө, 150 мянган км</span><span class="p"></span><span class="t">${fmtS(run)}</span></div>`;
+  for(const [label,c] of parts){const d=run*(Math.exp(c)-1);run+=d;if(Math.abs(c)<0.0005)continue;
+    html+=`<div><span>${label}</span><span class="p ${c>0?"pos":"neg"}">${pct(c)}</span><span class="t ${c>0?"pos":"neg"}">${d>0?"+":"−"}${Math.abs(d).toFixed(1)}</span></div>`}
+  $("brk").innerHTML=html;
+  const ask=parseFloat($("ask").value);
+  $("verdict").hidden=!(ask>0);
+  if(ask>0){
+    const r=ask/mid,lr=Math.log(r);
+    const [cls,lab]=r<0.8?["bad","Хэт хямд"]:r<0.9?["good","Хямд"]:r<=1.1?["good","Зохистой"]:r<=1.25?["warn","Үнэтэй"]:["bad","Хэт үнэтэй"];
+    $("vPill").className="pill "+cls;$("vPill").textContent=lab;
+    const share=Math.round(100*normCdf(lr/0.085));
+    $("vTxt").textContent=`Үнэлгээнээс ${r>=1?"+":"−"}${Math.abs((r-1)*100).toFixed(0)}% зөрүүтэй. Ижил төстэй зарын ${share}% нь үүнээс хямд.`+(r<0.8?" Ийм хямд бол мөргөлдөөн, бичиг баримт, гүйлтийг сайн шалгаарай.":"");
+  }
+  window._summary=`${m.name} ${y}, ${Math.round(km/1000)} мянган км, ${cond==="fresh"?"дугаар аваагүй":cond==="withplate"?"дугаартай нь":"дугаар авсан"}${g?", "+GNAME[g]:""}. Зах зээлийн үнэ ${fmt(mid)} (хурдан зарах ${fmtS(lo)}, дээд хязгаар ${fmtS(hi)} сая ₮).`;
+}
+$("f").addEventListener("input",e=>{if(e.target.name==="model")setupModel();compute()});
+$("f").addEventListener("submit",e=>e.preventDefault());
+$("ask").addEventListener("input",compute);
+$("copyBtn").addEventListener("click",()=>{
+  const t=window._summary||"";
+  navigator.clipboard.writeText(t).then(()=>{$("copyMsg").textContent="Хуулагдлаа."},()=>{$("copyMsg").textContent=t});
+});
+const LISTS={"under":[["10802829","toyota-harrier-2017-2026","Harrier",2017,300,42.3,51.8],["10807416","toyota-harrier-2011-2026","Harrier",2011,84,36.7,42.7],["10799898","toyota-prius-50-2018-2026","Prius 50",2018,145,29.8,34.6],["10568120","toyota-harrier-2014-2026","Harrier",2014,170,42.5,49.1],["10807930","toyota-prius-41-2014-2026","Prius 41",2014,147,23.8,27.4],["10521982","toyota-prius-40-2026-2017","Prius 40",2017,94,36.5,41.9],["10744701","toyota-prius-41-2015-2026","Prius 41",2015,201,27,31.0],["10807061","toyota-prius-41-2014-2026","Prius 41",2014,284,21.9,25.0],["10801408","toyota-prius-41-2014-2026","Prius 41",2014,164,23.8,27.0],["10650804","toyota-prius-51-2017-2026","Prius 51",2017,152,29.6,33.4]],"over":[["10760927","toyota-harrier-2014-2026","Harrier",2014,202,66.5,46.2],["10807493","toyota-prius-41-2014-2026","Prius 41",2014,200,39.5,28.8],["10749229","toyota-prius-51-2016-2026","Prius 51",2016,211,43.2,32.9],["10805491","toyota-prius-41-2017-2026","Prius 41",2017,154,47,38.2],["10769257","toyota-prius-55-2017-2026","Prius 55",2017,180,44,36.1],["10795594","toyota-prius-40-2014-2026","Prius 40",2014,90,39,32.4],["10807796","toyota-prius-40-2011-2026","Prius 40",2011,130,32,26.7],["10769219","toyota-prius-55-2017-2026","Prius 55",2017,120,45,37.6],["10767289","toyota-harrier-2014-2026","Harrier",2014,120,64,53.7],["10803396","toyota-prius-41-2014-2026","Prius 41",2014,118,32.8,27.9]]};
+const listTable=rows=>`<thead><tr><th>Зар</th><th class="r">Гүйлт</th><th class="r">Зарын үнэ</th><th class="r">Үнэлгээ</th><th class="r">Зөрүү</th></tr></thead><tbody>`+rows.map(([id,slug,n,y,km,p,e])=>{const d=(p/e-1)*100;return `<tr><td><a href="https://www.unegui.mn/adv/${id}_${slug}/" target="_blank" rel="noopener">${n} ${y}</a><br><span class="hint">дугаар аваагүй</span></td><td class="r">${km}K</td><td class="r">${p}</td><td class="r">${e}</td><td class="r ${d<0?"neg":"pos"}" style="color:var(${d<0?"--bad":"--warn"})">${d>0?"+":"−"}${Math.abs(d).toFixed(0)}%</td></tr>`}).join("")+"</tbody>";
+$("tUnder").innerHTML=listTable(LISTS.under);$("tOver").innerHTML=listTable(LISTS.over);
+setupModel();compute();
+</script>
