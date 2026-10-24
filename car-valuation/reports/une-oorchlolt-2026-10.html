@@ -1,0 +1,235 @@
+<title>Toyota үнийн хяналт 10.01–10.04</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, figures and tables break out to a wider measure; summary first, method last */
+:root{
+  --bg:#f6f7f8;--surface:#ffffff;--sunk:#eceff2;--fg:#1b232b;--muted:#5b6670;--line:#d6dce1;
+  --accent:#1d5d86;--down:#2f6fa8;--up:#c0662a;--good:#2e7d4f;--warn:#a96a12;
+  --sans:"IBM Plex Sans",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13181d;--surface:#1a2027;--sunk:#212932;--fg:#e4e9ee;--muted:#9aa6b1;--line:#2e3842;
+  --accent:#6fb0dc;--down:#6aa6dc;--up:#e3955c;--good:#6cc191;--warn:#e0aa55;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13181d;--surface:#1a2027;--sunk:#212932;--fg:#e4e9ee;--muted:#9aa6b1;--line:#2e3842;
+  --accent:#6fb0dc;--down:#6aa6dc;--up:#e3955c;--good:#6cc191;--warn:#e0aa55;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans)}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:32px 64px;display:grid;gap:40px}
+header{display:grid;gap:10px}
+.eyebrow{font:500 .75rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.15;margin:0;text-wrap:balance;font-weight:700}
+h2{font-size:1.3rem;margin:0;text-wrap:balance}
+h3{font-size:1rem;margin:0;font-weight:600}
+p{margin:0;max-width:68ch}
+.lede{font-size:1.1rem;color:var(--fg)}
+section{display:grid;gap:16px;min-width:0}
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px;display:grid;gap:14px}
+.verdict .big{font-size:1.25rem;font-weight:600;line-height:1.35;max-width:60ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.kpi{border-top:2px solid var(--line);padding-top:10px;display:grid;gap:2px;min-width:0}
+.kpi b{font:500 1.6rem var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{color:var(--muted);font-size:.88rem}
+ul{margin:0;padding-left:1.2em;display:grid;gap:6px;max-width:70ch}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font:500 .72rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+td.r,th.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.neg{color:var(--down)}.pos{color:var(--up)}
+.hint{color:var(--muted);font-size:.88rem}
+/* diverging bar figure */
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:10px}
+.fig .cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;align-items:baseline}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:minmax(90px,150px) 1fr 64px;gap:10px;align-items:center;position:relative}
+.bar .lab{font-size:.9rem}
+.bar .val{font:500 .88rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.track{position:relative;height:18px;background:linear-gradient(var(--line),var(--line)) center/1px 100% no-repeat}
+.track i{position:absolute;top:3px;height:12px;border-radius:0}
+.track i.d{background:var(--down);border-radius:4px 0 0 4px}
+.track i.u{background:var(--up);border-radius:0 4px 4px 0}
+.axis{display:grid;grid-template-columns:minmax(90px,150px) 1fr 64px;gap:10px}
+.axis div{display:flex;justify-content:space-between;font:400 .72rem var(--mono);color:var(--muted)}
+.bar:hover .track,.bar:focus-within .track{background-color:var(--sunk)}
+.tip{position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:var(--fg);color:var(--bg);font:400 .78rem var(--sans);padding:3px 8px;border-radius:4px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .12s}
+.bar:hover .tip,.bar:focus .tip{opacity:1}
+.bar:focus{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.two>*{min-width:0}
+.pill{display:inline-block;font:500 .72rem var(--mono);padding:1px 8px;border-radius:999px;border:1px solid currentColor}
+.pill.good{color:var(--good)}.pill.warn{color:var(--warn)}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code{font-family:var(--mono);font-size:.88em;background:var(--sunk);padding:1px 5px;border-radius:3px}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">unegui.mn · Toyota Prius 40/41, 50/51, Camry, Harrier · 2026.10.01 → 2026.10.04</div>
+    <h1>Машины үнэ өссөн үү, буурсан уу?</h1>
+    <p class="lede">Үнэлгээний загварыг 10.01-нд хийсэн. 10.04-нд unegui.mn-ээс бүх зарыг дахин татаж харьцуулсан. Дараа нь хоёр татлагыг нэгтгэж загварыг дахин сургаж тестэлсэн.</p>
+  </header>
+
+  <section class="verdict" aria-labelledby="v">
+    <h2 id="v" class="hint" style="font-size:.8rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-weight:500">Дүгнэлт</h2>
+    <p class="big">Гурван хоногийн дотор үнэ өсөөгүй, мэдэгдэхүйц буураагүй. Ижил зарын 97% нь үнээ хэвээр үлдээсэн, дундаж өөрчлөлт −0.1%. Үнэ тогтвортой байна.</p>
+    <div class="kpis">
+      <div class="kpi"><b>−0.1%</b><span>ижил 1,755 зарын дундаж үнийн өөрчлөлт</span></div>
+      <div class="kpi"><b>47 / 4</b><span>үнээ буулгасан / өсгөсөн зар</span></div>
+      <div class="kpi"><b>±0.6%</b><span>загвараар тооцсон үнийн түвшний хамгийн их өөрчлөлт (Prius 50)</span></div>
+      <div class="kpi"><b>5.1%</b><span>шинэ v6 загварын дундаж алдаа (v5: 5.1%, ижил түвшин)</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1">1. Ижил зарын үнийн өөрчлөлт</h2>
+    <p>10.01-нд байсан 2,042 зарын 1,755 нь 10.04-нд хэвээр байсан. 287 зар алга болсон (зарагдсан эсвэл устгасан), 226 шинэ зар нэмэгдсэн. Хэвээр байгаа зарууд дээр үнийг шууд харьцуулав.</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Загвар</th><th class="r">Ижил зар</th><th class="r">Буулгасан</th><th class="r">Өсгөсөн</th><th class="r">Хэвээр</th><th class="r">Дундаж өөрчлөлт</th><th class="r">Буулгасан зарын хэмжээ</th></tr></thead>
+      <tbody>
+        <tr><td>Prius α (40/41)</td><td class="r">708</td><td class="r">17</td><td class="r">4</td><td class="r">97.0%</td><td class="r neg">−0.06%</td><td class="r">−1.8%</td></tr>
+        <tr><td>Prius 50/51</td><td class="r">131</td><td class="r">4</td><td class="r">0</td><td class="r">96.9%</td><td class="r neg">−0.09%</td><td class="r">−2.8%</td></tr>
+        <tr><td>Camry</td><td class="r">235</td><td class="r">7</td><td class="r">0</td><td class="r">97.0%</td><td class="r neg">−0.16%</td><td class="r">−5.0%</td></tr>
+        <tr><td>Harrier</td><td class="r">681</td><td class="r">19</td><td class="r">0</td><td class="r">97.2%</td><td class="r neg">−0.13%</td><td class="r">−4.3%</td></tr>
+        <tr><td><b>Бүгд</b></td><td class="r"><b>1,755</b></td><td class="r"><b>47</b></td><td class="r"><b>4</b></td><td class="r"><b>97.1%</b></td><td class="r neg"><b>−0.10%</b></td><td class="r"><b>−2.8%</b></td></tr>
+      </tbody>
+    </table></div>
+    <p class="hint">"Буулгасан зарын хэмжээ" нь үнээ өөрчилсөн зарын медиан. Хамгийн их буулгалт: Harrier 2005 13.5 → 11 сая (−19%), Camry 2015 36 → 31.5 сая (−13%). Өсгөсөн 4 зар бүгд Prius 41, хамгийн ихдээ +4%.</p>
+
+    <div class="tbl"><table>
+      <thead><tr><th>Загвар</th><th class="r">Медиан үнэ 10.01</th><th class="r">Медиан үнэ 10.04</th><th class="r">Алга болсон зар</th><th class="r">Шинэ зар</th></tr></thead>
+      <tbody>
+        <tr><td>Prius α (40/41)</td><td class="r">24.5</td><td class="r">24.5</td><td class="r">118 · 24.5</td><td class="r">91 · 24.0</td></tr>
+        <tr><td>Prius 50/51</td><td class="r">29.0</td><td class="r">29.5</td><td class="r">23 · 29.0</td><td class="r">31 · 29.6</td></tr>
+        <tr><td>Camry</td><td class="r">29.0</td><td class="r">29.0</td><td class="r">47 · 27.2</td><td class="r">33 · 28.0</td></tr>
+        <tr><td>Harrier</td><td class="r">40.0</td><td class="r">40.0</td><td class="r">99 · 42.0</td><td class="r">71 · 44.0</td></tr>
+      </tbody>
+    </table></div>
+    <p class="hint">Сая ₮. "Алга болсон", "шинэ" баганад зарын тоо · медиан үнэ. Медиан үнэ зарын бүрэлдэхүүнээс хамаарна. Жишээ нь Harrier-ийн шинэ зарууд илүү шинэ онтой байсан учраас медиан нь өндөр гарсан. Иймд доорх загварт суурилсан харьцуулалт илүү найдвартай.</p>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2">2. Он, гүйлт, комплектацыг тэнцүүлсэн үнийн өөрчлөлт</h2>
+    <p>Хоёр татлагыг нэг загварт оруулж, "10.04-ний зар" гэсэн хувьсагч нэмсэн. Энэ хувьсагч нь он, гүйлт, комплектац, өнгө, опшн ижил машины үнэ хэдэн хувиар өөрчлөгдсөнийг харуулна.</p>
+    <div class="two">
+      <figure class="fig" style="margin:0" aria-labelledby="f1c">
+        <div class="cap"><h3 id="f1c">Бүх зар</h3><span class="hint">10.01-тэй харьцуулсан</span></div>
+        <div class="bars" id="f1"></div>
+        <div class="axis"><span></span><div><span>−1%</span><span>0</span><span>+1%</span></div><span></span></div>
+      </figure>
+      <figure class="fig" style="margin:0" aria-labelledby="f2c">
+        <div class="cap"><h3 id="f2c">2026 онд орж ирсэн, дугаар аваагүй</h3><span class="hint">10.01-тэй харьцуулсан</span></div>
+        <div class="bars" id="f2"></div>
+        <div class="axis"><span></span><div><span>−1%</span><span>0</span><span>+1%</span></div><span></span></div>
+      </figure>
+    </div>
+    <div class="legend"><span><i style="background:var(--down)"></i>Буурсан</span><span><i style="background:var(--up)"></i>Өссөн</span></div>
+    <p>Бүх өөрчлөлт ±0.7%-иас бага. Энэ нь зарын үнийн ердийн хэлбэлзлээс (±4–8%) хэд дахин бага. Иймд 10.01-ээс хойш үнэ өөрчлөгдсөн гэж хэлэх үндэслэлгүй.</p>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 id="s3">3. Хуучин үнэлгээ (v5) шинэ зар дээр хэр таарч байна</h2>
+    <p>10.01-ээс хойш шинээр тавигдсан, 2026 онд орж ирсэн, дугаар аваагүй 69 зарыг v5 загвараар үнэлсэн. Эдгээр зар загварыг сургахад ороогүй тул бодит урагшлах тест болно.</p>
+    <div class="kpis">
+      <div class="kpi"><b>5.6%</b><span>шинэ 69 зар дээрх дундаж алдаа (сургалтын CV: 5.0%)</span></div>
+      <div class="kpi"><b>75%</b><span>нь үнэлгээнээс ±10%-ийн дотор</span></div>
+      <div class="kpi"><b>−1.1%</b><span>шинэ зарууд үнэлгээнээс дунджаар бага</span></div>
+      <div class="kpi"><b>4.3%</b><span>10.04-нд байгаа бүх 467 шинэ зар дээрх алдаа</span></div>
+    </div>
+    <figure class="fig" style="margin:0" aria-labelledby="f3c">
+      <div class="cap"><h3 id="f3c">Шинэ зарын үнэ v5 үнэлгээнээс хэдэн хувь зөрсөн (медиан)</h3><span class="hint">зарын тоо хаалтанд</span></div>
+      <div class="bars" id="f3"></div>
+      <div class="axis"><span></span><div><span>−6%</span><span>0</span><span>+6%</span></div><span></span></div>
+    </figure>
+    <p>Загвар хуучраагүй байна. Camry (−4.8%), Harrier (+3.4%)-ийн зөрүү 10–20 зар дээр гарсан тул санамсаргүй хэлбэлзэл байх магадлалтай. Алга болсон (зарагдсан байж болох) зарууд загвараас дунджаар 0.5% хямд, үлдсэн зарууд 0.3% үнэтэй байсан. Хямд үнэтэй машин бага зэрэг хурдан зарагддаг ч ялгаа бага.</p>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 id="s4">4. Загварыг шинэчилж тестэлсэн нь</h2>
+    <p>10.01 ба 10.04-ний татлагыг нэгтгэв. Давхардсан зар дээр сүүлийн үнийг авсан. 2026 онд орж ирсэн, дугаар аваагүй зарын тоо 470-аас 544 болж өссөн. Дараах сайжруулалтуудыг туршсан:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Туршилт</th><th class="r">Зар</th><th class="r">Алдаа (5-fold)</th><th class="r">±10%-д</th><th>Шийдвэр</th></tr></thead>
+      <tbody>
+        <tr><td>v5 тохиргоо, зөвхөн 10.01-ний өгөгдөл</td><td class="r">470</td><td class="r">5.11%</td><td class="r">77.9%</td><td>Харьцуулах суурь</td></tr>
+        <tr><td><b>v6: нэгтгэсэн өгөгдөл, λ = 1</b></td><td class="r"><b>539</b></td><td class="r"><b>5.09%</b></td><td class="r"><b>76.4%</b></td><td><span class="pill good">Сонгосон</span></td></tr>
+        <tr><td>Регуляризаци λ = 0.25 / 0.5 / 2 (10 удаагийн CV, λ = 1 нь 5.08%)</td><td class="r">539</td><td class="r">5.13 / 5.15 / 5.12%</td><td class="r">—</td><td>Ялгаагүй, CV-ийн хэлбэлзэл (4.8–5.4%) дотор</td></tr>
+        <tr><td>Регуляризаци λ = 4</td><td class="r">539</td><td class="r">5.44%</td><td class="r">77.0%</td><td>Ороогүй, алдаа өссөн</td></tr>
+        <tr><td>Дотор өнгө нэмэх</td><td class="r">540</td><td class="r">5.42%</td><td class="r">78.1%</td><td>Ороогүй, алдаа өссөн</td></tr>
+        <tr><td>Зарын нас (хуучин зар үнэтэй үлддэг эсэх)</td><td class="r">539</td><td class="r">5.17%</td><td class="r">—</td><td>Ороогүй, нөлөө 0</td></tr>
+        <tr><td>Бүх зар (дугаар авсан машиныг оруулаад)</td><td class="r">2,090</td><td class="r">6.0%</td><td class="r">—</td><td>v4-ийн 6.1%-тай ижил</td></tr>
+      </tbody>
+    </table></div>
+    <p>Шинэ өгөгдөл нэмэхэд нарийвчлал ижил түвшинд үлдсэн. Гурван хоногийн дотор шинээр гарсан зар цөөн (226) тул ингэх нь хэвийн. Харин коэффициентүүд илүү олон зар дээр тогтсон тул тогтвортой болсон.</p>
+
+    <h3>Комплектац, өнгөний нөлөө хэрхэн өөрчлөгдсөн</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Шинж (суурьтай харьцуулж)</th><th class="r">v5</th><th class="r">v6</th></tr></thead>
+      <tbody>
+        <tr><td>Prius α G's</td><td class="r">+16.8%</td><td class="r">+16.8%</td></tr>
+        <tr><td>Prius 50 A Touring Selection</td><td class="r">+9.9%</td><td class="r">+13.5%</td></tr>
+        <tr><td>Harrier Z Leather</td><td class="r">+11.5%</td><td class="r">+8.8%</td></tr>
+        <tr><td>Camry G Leather Package</td><td class="r">+12.3%</td><td class="r">+10.0%</td></tr>
+        <tr><td>Camry X</td><td class="r">−18.8%</td><td class="r">−16.6%</td></tr>
+        <tr><td>Сувдан цагаан (хартай харьцуулж)</td><td class="r">+6.2%</td><td class="r">+6.1%</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 id="s5">5. Тооцоолуурт олдсон алдааг зассан</h2>
+    <p>Тестийн явцад тооцоолуурын үнэ Python загварынхаас 3–5% зөрж байгааг илрүүлсэн. Шалтгаан нь "жилд дунджаар явсан км" гэсэн шинжийн суурь нөлөө тооцоолуурт ороогүй байсан. Энэ алдаа v5 хувилбарт ч байсан.</p>
+    <ul>
+      <li>2005–2016 оны машиныг <b>3–7% доогуур</b> үнэлж байсан. Жишээ нь 2013 оны Prius-ийг −4.4%.</li>
+      <li>2021–2023 оны машиныг <b>5–17% дээгүүр</b> үнэлж байсан.</li>
+      <li>Засварын дараа 10.04-ний 467 зар дээрх тооцоолуурын алдаа <b>4.8% → 4.3%</b> болж буурсан.</li>
+      <li>Тооцоолуур одоо Python загвартай 5 жишээн дээр яг таарч байна.</li>
+    </ul>
+    <div class="tbl"><table>
+      <thead><tr><th>Жишээ машин (дугаар аваагүй)</th><th class="r">v5 тооцоолуур</th><th class="r">v6 тооцоолуур</th></tr></thead>
+      <tbody>
+        <tr><td>Prius 41, 2016, 150 мянган км, хар</td><td class="r">35.8</td><td class="r">37.1</td></tr>
+        <tr><td>Prius 41 G's, 2013, 120 мянган км, сувдан цагаан</td><td class="r">30.6</td><td class="r">31.7</td></tr>
+        <tr><td>Prius 50 A Touring, 2017, 80 мянган км, цагаан</td><td class="r">32.4</td><td class="r">33.8</td></tr>
+        <tr><td>Harrier Z Leather, 2017, 100 мянган км, сувдан цагаан</td><td class="r">74.5</td><td class="r">74.0</td></tr>
+        <tr><td>Camry X, 2018, 60 мянган км, цагаан</td><td class="r">37.8</td><td class="r">39.9</td></tr>
+      </tbody>
+    </table></div>
+    <p class="hint">Сая ₮. v5 баганыг хуучин тооцоолуурын томьёогоор (алдаатай хувилбараар) тооцсон.</p>
+  </section>
+
+  <section aria-labelledby="s6">
+    <h2 id="s6">6. Анхаарах зүйл ба дараагийн алхам</h2>
+    <ul>
+      <li>Хоёр татлагын хооронд ердөө 3 хоног байна. Энэ нь "үнэ огцом өөрчлөгдөөгүй" гэдгийг харуулна. Сарын чиг хандлагыг харахын тулд 11-р сарын эхээр дахин татаж харьцуулах хэрэгтэй.</li>
+      <li>Энэ бол зарын үнэ. Бодит хэлцлийн үнэ ихэвчлэн хэдэн хувь доогуур хаагддаг.</li>
+      <li>Camry-ийн алдаа (9%) бусдаас 2 дахин их хэвээр байна. 2017 оноос өмнөх ба хойших үе холилдсон, зар цөөн байгаа нь шалтгаан.</li>
+      <li>Дараагийн удаа <code>tools/compare_and_refit.py</code>-г шинэ огноогоор ажиллуулахад энэ тайлангийн бүх тоог дахин гаргана.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s7">
+    <h2 id="s7">Арга зүй</h2>
+    <p class="hint">Эх сурвалж: unegui.mn, Toyota Prius 40/41/50/51, Camry, Harrier-ийн бүх зарын дэлгэрэнгүй хуудас. 2026.10.01-нд 2,042 зар, 2026.10.04-нд 1,981 зар. Загвар: log(үнэ) дээрх Ridge регресс. Он, загварын үе, гүйлт, жилд явсан км, комплектац, өнгө, опшн, лизинг, хүрдийг шинж болгосон. Алдааг 5-fold cross-validation-ий медиан үнэмлэхүй хувийн алдаагаар хэмжсэн. Урагшлах тестэд 10.01-ний дараа гарсан, загварт ороогүй зарыг ашигласан. Түүхий өгөгдөл: <code>car-valuation/data/</code>.</p>
+  </section>
+</div>
+
+<script>
+const FIG={
+  f1:{max:1,unit:"%",rows:[["Prius α",-0.07],["Prius 50/51",0.63],["Camry",-0.34],["Harrier",-0.12]]},
+  f2:{max:1,unit:"%",rows:[["Prius α",-0.28],["Prius 50/51",0.08],["Camry",-0.37],["Harrier",0.08]]},
+  f3:{max:6,unit:"%",rows:[["Prius α (25)",-1.72],["Prius 50/51 (14)",-1.13],["Camry (10)",-4.77],["Harrier (20)",3.43]]}
+};
+for(const [id,{max,rows}] of Object.entries(FIG)){
+  document.getElementById(id).innerHTML=rows.map(([n,v])=>{
+    const w=Math.min(Math.abs(v)/max,1)*50, s=(v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(v>=1||v<=-1?1:2)+"%";
+    const style=v<0?`left:${50-w}%;width:${w}%`:`left:50%;width:${w}%`;
+    return `<div class="bar" tabindex="0" aria-label="${n}: ${s}"><span class="lab">${n}</span><div class="track"><i class="${v<0?"d":"u"}" style="${style}"></i><span class="tip">${n}: ${s}</span></div><span class="val">${s}</span></div>`;
+  }).join("");
+}
+</script>

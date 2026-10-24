@@ -1,0 +1,422 @@
+<title>Монголын авто зах зээл 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: нэг баганатай тайлан, үнийн хүрээг замын тэмдэглэгээ шиг хэвтээ шугамаар харуулна */
+:root{
+  --bg:#f3f5f7; --paper:#ffffff; --ink:#18232e; --muted:#5b6b7a; --line:#d8dfe6;
+  --fuel:#c9780a; --fuel-soft:#f6e6cc; --green:#2f7d4f; --green-soft:#dcefe3; --red:#b8402f;
+  --c1:#c9780a; --c2:#8a5a00; --c3:#2c6fb0; --c4:#7a4fa8; --c5:#2f7d4f;
+  --display:"Unbounded","IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11171d; --paper:#18212a; --ink:#e4eaf0; --muted:#94a3b1; --line:#2b3743;
+  --fuel:#e6a03a; --fuel-soft:#3a2c17; --green:#5fbf86; --green-soft:#1c3326; --red:#e07a68; --c1:#e6a03a; --c2:#f3d08a; --c3:#6aa8e6; --c4:#b58ee0; --c5:#5fbf86; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11171d; --paper:#18212a; --ink:#e4eaf0; --muted:#94a3b1; --line:#2b3743;
+  --fuel:#e6a03a; --fuel-soft:#3a2c17; --green:#5fbf86; --green-soft:#1c3326; --red:#e07a68; --c1:#e6a03a; --c2:#f3d08a; --c3:#6aa8e6; --c4:#b58ee0; --c5:#5fbf86; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body)}
+.wrap{max-width:880px;margin:0 auto;padding:40px 16px 64px;display:flex;flex-direction:column;gap:44px}
+h1,h2{font-family:var(--display);text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(1.6rem,4.5vw,2.4rem);font-weight:700}
+h2{font-size:1.25rem;font-weight:500}
+h3{font-size:1rem;margin:0}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 .75rem var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fuel)}
+.lede{color:var(--muted);font-size:1.05rem}
+section{display:flex;flex-direction:column;gap:16px}
+.head{display:flex;flex-direction:column;gap:12px}
+.meta{font:.8rem var(--mono);color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.kpi{background:var(--paper);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi b{font:500 1.5rem var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:.82rem;color:var(--muted);line-height:1.35}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;max-width:70ch}
+.note{font-size:.85rem;color:var(--muted)}
+/* range chart */
+.chart{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px 16px 12px;overflow-x:auto}
+.rows{min-width:560px;display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.row:last-child{border-bottom:0}
+.row .nm{font-size:.88rem;line-height:1.25}
+.row .nm small{display:block;color:var(--muted);font:.72rem var(--mono)}
+.row.hl .nm{font-weight:600}
+.track{position:relative;height:18px}
+.bar{position:absolute;top:7px;height:4px;border-radius:2px;background:var(--muted);opacity:.45}
+.row.hl .bar{background:var(--fuel);opacity:1}
+.row.ev .bar{background:var(--green);opacity:1}
+.dot{position:absolute;top:3px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--ink);border:2px solid var(--paper)}
+.row.hl .dot{background:var(--fuel)}
+.row.ev .dot{background:var(--green)}
+.med{font:500 .9rem var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.axis{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;min-width:560px}
+.ticks{position:relative;height:22px;border-top:1px solid var(--line)}
+.ticks span{position:absolute;top:4px;transform:translateX(-50%);font:.72rem var(--mono);color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:4px;border-radius:2px;vertical-align:middle;margin-right:6px}
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .72rem var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+/* share bar */
+.share{display:flex;height:28px;border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.share div{display:flex;align-items:center;padding:0 8px;font:500 .75rem var(--mono);color:#fff;white-space:nowrap;overflow:hidden}
+.s-gas{background:#5b6b7a}.s-hyb{background:var(--fuel)}.s-oth{background:var(--muted);opacity:.6}.s-ev{background:var(--green)}
+.timeline{display:flex;flex-direction:column;border-left:2px solid var(--fuel);padding-left:16px;gap:12px}
+.timeline div{display:flex;flex-direction:column}
+.timeline b{font:500 .8rem var(--mono);color:var(--fuel)}
+.ops{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media (max-width:640px){.ops{grid-template-columns:1fr}}
+.op{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tag{align-self:flex-start;font:500 .7rem var(--mono);padding:2px 8px;border-radius:99px;background:var(--fuel-soft);color:var(--fuel)}
+.tag.g{background:var(--green-soft);color:var(--green)}
+.op p{font-size:.9rem}
+.callout{background:var(--fuel-soft);border-radius:6px;padding:14px 16px;font-size:.92rem}
+.sources{font-size:.82rem;color:var(--muted)}
+.sources a{color:var(--muted)}
+a{color:var(--fuel)}
+.toc{display:flex;flex-wrap:wrap;gap:8px}
+.toc a{font:500 .78rem var(--mono);padding:4px 10px;border:1px solid var(--line);border-radius:99px;color:var(--ink);text-decoration:none;background:var(--paper)}
+.toc a:hover{border-color:var(--fuel)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+@media (max-width:700px){.two{grid-template-columns:1fr}}
+.two>*{min-width:0}
+.mini{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.mini h3{font-size:.9rem}
+.vbars{display:flex;align-items:flex-end;gap:12px;height:170px;border-bottom:1px solid var(--line)}
+.vbars>div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:4px;position:relative;padding-bottom:22px}
+.vbars i{display:block;width:100%;max-width:56px;background:var(--muted);opacity:.55;border-radius:3px 3px 0 0;height:calc((100% - 44px)*var(--f,1))}
+.vbars i.hi{background:var(--fuel);opacity:1}
+.vbars i.part{background:repeating-linear-gradient(45deg,var(--fuel) 0 4px,transparent 4px 8px);opacity:1;border:1px solid var(--fuel)}
+.vbars .v{font:500 .75rem var(--mono);font-variant-numeric:tabular-nums}
+.vbars .y{position:absolute;bottom:2px;font:.7rem var(--mono);color:var(--muted);white-space:nowrap}
+td.up{color:var(--green)} td.down{color:var(--red)}
+.lc-wrap{overflow-x:auto}
+#lc{display:block;width:100%;min-width:520px;height:auto}
+#lc text{font-family:var(--mono);font-size:11px;fill:var(--muted)}
+a:focus-visible{outline:2px solid var(--fuel);outline-offset:2px}
+</style>
+
+<div class="wrap">
+
+<header class="head">
+  <div class="eyebrow">Зах зээлийн судалгаа · 2026.10.01</div>
+  <h1>Монголын авто зах зээл 2026</h1>
+  <p class="lede">Машины тоо ба импорт, гаалиас шууд гарсан Prius 40/50, Camry, Crown, Harrier-ийн үнэ ба опшны нөлөө, шатахууны хомсдлын үеийн эрэлт, бизнесийн боломж.</p>
+  <nav class="toc"><a href="#fleet">Машины тоо, импорт</a><a href="#fresh">Гаалиас гарсан машин</a><a href="#options">Опшны нөлөө</a><a href="#prius">Prius үеүд</a><a href="#fuel">Шатахууны хомсдол</a><a href="#ops">Боломжууд</a></nav>
+  <p class="meta">Үнийн өгөгдөл: unegui.mn-ийн идэвхтэй зарууд, 2026.10.01-нд татсан. Үнэ = зарын үнэ, хэлцлийн үнэ биш.</p>
+</header>
+
+<section>
+  <div class="kpis">
+    <div class="kpi"><b>12,019</b><span>unegui.mn дээрх суудлын машины зар</span></div>
+    <div class="kpi"><b>41%</b><span>зарын хайбрид эзлэх хувь (4,903)</span></div>
+    <div class="kpi"><b>1.1%</b><span>цахилгаан машины хувь (129 зар)</span></div>
+    <div class="kpi"><b>62%</b><span>Toyota брэндийн хувь (7,424)</span></div>
+  </div>
+  <div class="share" role="img" aria-label="Түлшний төрлөөр: бензин 53%, хайбрид 41%, дизель ба газ 5%, цахилгаан 1%">
+    <div class="s-gas" style="width:53.4%">Бензин 53%</div>
+    <div class="s-hyb" style="width:40.8%">Хайбрид 41%</div>
+    <div class="s-oth" style="width:4.8%"></div>
+    <div class="s-ev" style="width:1.1%"></div>
+  </div>
+  <p class="note">Бензин 6,415 · хайбрид 4,903 · дизель 508 · газ 68 · цахилгаан 129. Улсын хэмжээнд 1.3 сая машины 553 мянга орчим нь хайбрид, цахилгаан машин 2025 оны 10-р сард ердөө 2,011 бүртгэлтэй байв.</p>
+</section>
+
+<section id="fleet">
+  <h2>Машины тоо ба импорт</h2>
+  <div class="two">
+    <div class="mini">
+      <h3>Бүртгэлтэй тээврийн хэрэгсэл (жилийн эцэст)</h3>
+      <div class="vbars" role="img" aria-label="2023: 1.19 сая, 2024: 1.34 сая, 2025: 1.42 сая">
+        <div><span class="v">1.19 сая</span><i style="--f:.84"></i><span class="y">2023</span></div>
+        <div><span class="v">1.34 сая</span><i style="--f:.94"></i><span class="y">2024</span></div>
+        <div><span class="v">1.42 сая</span><i style="--f:1"></i><span class="y">2025</span></div>
+      </div>
+      <p class="note">2024 онд +146,436 (+12.3%), 2025 онд +79,935 (+6.0%). 2023 оны тоог 2024 оны өсөлтөөс тооцсон.</p>
+    </div>
+    <div class="mini">
+      <h3>Импортолсон суудлын машин (ширхэг)</h3>
+      <div class="vbars" role="img" aria-label="2023: ойролцоогоор 73.6 мянга, 2024: 123.1 мянга, 2025: 90.2 мянга, 2026 1-6 сар: 43.1 мянга">
+        <div><span class="v">~73.6К</span><i style="--f:.60"></i><span class="y">2023</span></div>
+        <div><span class="v">123.1К</span><i class="hi" style="--f:1"></i><span class="y">2024</span></div>
+        <div><span class="v">90.2К</span><i style="--f:.73"></i><span class="y">2025</span></div>
+        <div><span class="v">43.1К</span><i class="part" style="--f:.35"></i><span class="y">2026 I–VI</span></div>
+      </div>
+      <p class="note">2024 оны огцом өсөлт нь Улаанбаатарын дугаарын хязгаарлалт эхлэхээс өмнө машин оруулах гэсэн давалгаа байв. 2015–2025 онд нийт 718,190 суудлын машин импортолсон.</p>
+    </div>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Үзүүлэлт</th><th style="text-align:right">Тоо</th><th>Тайлбар</th></tr></thead>
+    <tbody>
+      <tr><td>Нийт бүртгэлтэй тээврийн хэрэгсэл</td><td class="n">1,418,891</td><td>2025 оны эцэс</td></tr>
+      <tr><td>Үүнээс хайбрид</td><td class="n">~553,000</td><td>2026 оны байдлаар, 39% орчим</td></tr>
+      <tr><td>Улаанбаатарт бүртгэлтэй</td><td class="n">798,000</td><td>2024.11. Хотын тогтоосон дээд хязгаар 730,000</td></tr>
+      <tr><td>Prius-ийн импортод эзлэх хувь</td><td class="n">47%</td><td>2019 – 2024.03 хооронд орж ирсэн 349,545 суудлын машинаас</td></tr>
+      <tr><td>Суудлын машины импортын дүн</td><td class="n">$395.6 сая</td><td>2024 он, гаалийн үнэлгээгээр, машин тутамд дунджаар $3,200</td></tr>
+      <tr><td>Цахилгаан машины импорт</td><td class="n">320</td><td>2025 он, суудлын машины импортын 0.4%</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Зах зээлийн багтаамж</h3>
+  <ul>
+    <li><b>Шинэ орж ирэх машин:</b> жилд 90–120 мянга. Нэг машины жижиглэнгийн дундаж үнийг 20–30 сая гэж үзвэл <b>жилд 1.8–3.6 их наяд төгрөгийн</b> зах зээл. Энэ нь тооцоолол, албан ёсны тоо биш.</li>
+    <li><b>Хоёрдогч зах зээл:</b> unegui.mn дээр нэгэн зэрэг 12 мянга орчим машин зарагдаж байна. Үүний 2,365 нь гаалиас гарсан, дугаар аваагүй машин.</li>
+    <li><b>Хязгаарлагч хүчин зүйл:</b> 2024.11-ээс Улаанбаатарт шинэ дугаар олгохоо зогсоож, хасагдсан машины дугаарыг шилжүүлдэг болсон. 2015 оноос өмнө үйлдвэрлэсэн машинд УБ дугаар олгохгүй. Нэг жилд 50 мянга гаруй машиныг УБ-ын бүртгэлээс хассан. Иймд хуучин машины импорт буурч, 2015 оноос хойшхи машин руу эрэлт шилжинэ.</li>
+  </ul>
+</section>
+
+<section id="fresh">
+  <h2>Гаалиас шууд гарсан машины үнэ</h2>
+  <p>unegui.mn дээр "Дугаар аваагүй" гэж ангилсан, 2025–2026 онд орж ирсэн 641 зарын дэлгэрэнгүй мэдээллийг нэг бүрчлэн уншсан. Эдгээр машин Монголд явж үзээгүй, Японы гүйлттэйгээ буусан байдаг.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Загвар</th><th style="text-align:right">Зар</th><th style="text-align:right">Хямд 10%</th><th style="text-align:right">Дундаж</th><th style="text-align:right">Үнэтэй 10%</th><th style="text-align:right">Дундаж гүйлт</th></tr></thead>
+    <tbody>
+      <tr><td>Prius 40 (α, 7 суудал)</td><td class="n">27</td><td class="n">23.8</td><td class="n"><b>27</b></td><td class="n">39.5</td><td class="n">180,000</td></tr>
+      <tr><td>Prius 41 (α, 5 суудал)</td><td class="n">200</td><td class="n">23.8</td><td class="n"><b>30</b></td><td class="n">40.9</td><td class="n">160,000</td></tr>
+      <tr><td>Prius 50</td><td class="n">49</td><td class="n">27.9</td><td class="n"><b>30</b></td><td class="n">35</td><td class="n">154,000</td></tr>
+      <tr><td>Prius 51</td><td class="n">28</td><td class="n">30</td><td class="n"><b>34</b></td><td class="n">39.5</td><td class="n">153,000</td></tr>
+      <tr><td>Camry</td><td class="n">65</td><td class="n">28</td><td class="n"><b>42</b></td><td class="n">52.8</td><td class="n">150,000</td></tr>
+      <tr><td>Crown</td><td class="n">123</td><td class="n">38</td><td class="n"><b>55</b></td><td class="n">70</td><td class="n">140,000</td></tr>
+      <tr><td>Harrier</td><td class="n">149</td><td class="n">36.5</td><td class="n"><b>62</b></td><td class="n">75.5</td><td class="n">120,000</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Үнэ сая төгрөгөөр. Эдгээр 641 зарын нийт үнийн дүн 28.2 тэрбум төгрөг.</p>
+
+  <h3>Үйлдвэрлэсэн оноор (дундаж үнэ, сая ₮)</h3>
+  <div class="chart">
+    <div class="lc-wrap"><svg id="lc" viewBox="0 0 640 300" role="img" aria-label="Гаалиас гарсан машины дундаж үнэ үйлдвэрлэсэн оноор"></svg></div>
+    <div class="legend" id="lcleg"></div>
+  </div>
+  <ul>
+    <li><b>Prius α (41):</b> 2011–2014 он 25–28.5 сая, 2015 онд 30.8 сая, 2016 онд 38 сая болж огцом үсэрнэ. 2015 оноос хойшхи машинд УБ дугаар олгодог нь энэ зааг дээр нэмэлт үнэ бий болгож байна.</li>
+    <li><b>Prius 50/51:</b> 2016–2017 онынх 30–33 сая. Ижил үнээр 2016 оны Prius α авч болно. Prius 50 хэмнэлттэй, α нь том биетэй.</li>
+    <li><b>Camry:</b> 2012 он 28.8 сая, 2017 он 46 сая, 2021 он 58 сая. 2017 оноос шинэ үе (70-р цуврал) эхэлдэг тул үнэ үсэрнэ.</li>
+    <li><b>Crown:</b> 2013–2015 он ~40 сая, 2018–2019 он (шинэ үе) 57–63 сая, 2022 оноос хойшхи шинэ загвар 99–109 сая. 3.5 хайбрид (65.5 сая) нь 2.5 хайбридаас (52.5 сая) 13 сая үнэтэй.</li>
+    <li><b>Harrier:</b> 2014–2015 он 53 сая, 2016–2019 он 62–67 сая, 2020 оноос (80-р цуврал) 74–78 сая. Хамгийн үнэтэй сегмент.</li>
+  </ul>
+
+  <h3>Гаалиас гарсан машин, дугаартай машин хоёрын харьцуулалт</h3>
+  <p>Ижил загвар, ижил онд гаалиас шинээр гарсан машин нь Монголд унаж байсан дугаартай машинаас <b>дунджаар 3–7 сая төгрөгөөр үнэтэй</b> байна. Худалдан авагч Монголын замд эдэлгээ аваагүй, Японы гүйлттэй машинд нэмэлт мөнгө төлдөг.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Загвар, он</th><th style="text-align:right">Гаалиас гарсан</th><th style="text-align:right">Дугаартай</th><th style="text-align:right">Зөрүү</th></tr></thead>
+    <tbody>
+      <tr><td>Prius 41, 2012</td><td class="n">25 (42)</td><td class="n">21.5 (162)</td><td class="n">+3.5</td></tr>
+      <tr><td>Prius 41, 2016</td><td class="n">38 (36)</td><td class="n">33.8 (30)</td><td class="n">+4.2</td></tr>
+      <tr><td>Prius 50, 2017</td><td class="n">30 (22)</td><td class="n">25.5 (10)</td><td class="n">+4.5</td></tr>
+      <tr><td>Prius 51, 2016</td><td class="n">32.8 (11)</td><td class="n">28.5 (21)</td><td class="n">+4.3</td></tr>
+      <tr><td>Camry, 2017</td><td class="n">46 (14)</td><td class="n">40 (16)</td><td class="n">+6.0</td></tr>
+      <tr><td>Crown, 2016</td><td class="n">54 (15)</td><td class="n">43 (46)</td><td class="n">+11.0</td></tr>
+      <tr><td>Crown, 2019</td><td class="n">63 (22)</td><td class="n">63 (36)</td><td class="n">0</td></tr>
+      <tr><td>Harrier, 2014</td><td class="n">53 (21)</td><td class="n">46 (100)</td><td class="n">+7.0</td></tr>
+      <tr><td>Harrier, 2018</td><td class="n">66.8 (15)</td><td class="n">60 (15)</td><td class="n">+6.8</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Дугуй хаалтанд зарын тоо. Дугаартай машинууд нь "Дугаар авсан" ба "Дугаартай нь зарна" ангиллын зарууд. Шинэ үеийн машинуудад (Crown 2019+) зөрүү бараг арилдаг.</p>
+</section>
+
+<section id="options">
+  <h2>Опшн ба комплектацын нөлөө</h2>
+  <p>Зарын тайлбараас опшныг түлхүүр үгээр ялгаж, ижил загвар, ижил онтой машинуудын дундаж үнэтэй харьцуулсан. Үнийг хамгийн их тодорхойлдог нь <b>загварын үе, үйлдвэрлэсэн он, комплектац</b>. Тусдаа опшн үнийг хэдхэн хувиар л өөрчилнө.</p>
+  <div class="two">
+    <div class="tbl"><table>
+      <thead><tr><th>Опшн / шинж</th><th style="text-align:right">Зар</th><th style="text-align:right">Үнийн нөлөө</th></tr></thead>
+      <tbody>
+        <tr><td>Аукционы үнэлгээ 4.5</td><td class="n">6</td><td class="n up">+8.8%</td></tr>
+        <tr><td>Люк / sunroof</td><td class="n">15</td><td class="n up">+4.3%</td></tr>
+        <tr><td>Сувдан цагаан өнгө</td><td class="n">149</td><td class="n up">+3.2%</td></tr>
+        <tr><td>JBL аудио</td><td class="n">26</td><td class="n up">+3.1%</td></tr>
+        <tr><td>Гүйлт 100,000 км-ээс доош</td><td class="n">112</td><td class="n up">+2.5%</td></tr>
+        <tr><td>Аукционы үнэлгээ 4</td><td class="n">44</td><td class="n up">+1.8%</td></tr>
+        <tr><td>360° камер</td><td class="n">60</td><td class="n">+1.1%</td></tr>
+        <tr><td>HUD (шилэн дэлгэц)</td><td class="n">40</td><td class="n">+1.0%</td></tr>
+        <tr><td>Радар, эгнээ мэдрэгч</td><td class="n">66–106</td><td class="n">≈0%</td></tr>
+        <tr><td>Арьсан суудал</td><td class="n">89</td><td class="n">≈0%</td></tr>
+        <tr><td>Хар өнгө</td><td class="n">201</td><td class="n down">−1.7%</td></tr>
+        <tr><td>Гүйлт 200,000 км-ээс дээш</td><td class="n">107</td><td class="n down">−1.0%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Комплектац</th><th style="text-align:right">Зар</th><th style="text-align:right">Дундаж</th></tr></thead>
+      <tbody>
+        <tr><td>Harrier Z Leather</td><td class="n">5</td><td class="n">89</td></tr>
+        <tr><td>Harrier Progress</td><td class="n">3</td><td class="n">69</td></tr>
+        <tr><td>Harrier Advanced</td><td class="n">7</td><td class="n">64.5</td></tr>
+        <tr><td>Harrier Premium</td><td class="n">41</td><td class="n">59</td></tr>
+        <tr><td>Crown RS Limited</td><td class="n">2</td><td class="n">68.5</td></tr>
+        <tr><td>Crown Executive</td><td class="n">5</td><td class="n">68</td></tr>
+        <tr><td>Crown RS</td><td class="n">7</td><td class="n">65.5</td></tr>
+        <tr><td>Crown Athlete S</td><td class="n">9</td><td class="n">56</td></tr>
+        <tr><td>Crown Royal Saloon</td><td class="n">5</td><td class="n">43.8</td></tr>
+        <tr><td>Prius 50 A Touring</td><td class="n">2</td><td class="n">39.5</td></tr>
+        <tr><td>Prius 50 S Safety Plus</td><td class="n">3</td><td class="n">32.3</td></tr>
+        <tr><td>Prius α Ser 2 / Ser 1</td><td class="n">16 / 2</td><td class="n">35.5 / 27.5</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <ul>
+    <li><b>Радар, арьсан суудал үнэ нэмэхгүй байгаа нь</b> эдгээр нь шинэ онд аль хэдийн стандарт болсонтой холбоотой. Худалдан авагч тэдгээрт тусад нь мөнгө төлдөггүй.</li>
+    <li><b>Харагдах, мэдрэгдэх опшн</b> (люк, JBL, сувдан цагаан өнгө) болон <b>аукционы өндөр үнэлгээ</b> үнийг илүү өсгөнө.</li>
+    <li><b>Комплектацын зөрүү том:</b> Harrier Z Leather нь Premium-аас 30 сая, Crown RS нь Royal Saloon-аас 22 сая үнэтэй. Энэ зөрүүнд он бас нөлөөлсөн.</li>
+  </ul>
+  <p class="note">Аргачлал: зар бүрийн үнийг ижил загвар, ижил онтой зарын дундаж үнэтэй харьцуулж (дор хаяж 3 зартай бүлэг), опшнтой ба опшгүй зарын дундаж зөрүүг тооцсон. Опшныг зарын тайлбараас уншсан тул дурдаагүй опшн "байхгүй" гэж тооцогдсон. Комплектацын жижиг бүлгүүдэд (2–7 зар) он ч нөлөөлсөн.</p>
+</section>
+
+<section id="prius">
+  <h2>Prius-ийн үе бүрийн үнэ (бүх зар)</h2>
+  <p>Монголд зарын сайтууд Prius-ийг явах эд ангийн кодоор нь ангилдаг. <b>Prius 40/41</b> гэдэг нь Prius α (Альфа) буюу том биетэй хувилбар: 40 нь 7 суудалтай, 41 нь 5 суудалтай. <b>Prius 50/51</b> нь 4 дэх үе. Хамгийн их зартай нь Prius 41 (722) ба Prius 30 (686).</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Загвар</th><th>Үйлдвэрлэсэн он</th><th style="text-align:right">Зар</th><th style="text-align:right">Дундаж үнэ</th><th style="text-align:right">Хямд 10% – Үнэтэй 10%</th><th style="text-align:right">Дундаж гүйлт</th></tr></thead>
+    <tbody>
+      <tr><td>Prius 20</td><td>2003–2011</td><td class="n">188</td><td class="n">9.5 сая</td><td class="n">6.5 – 15.5</td><td class="n">200,000 км</td></tr>
+      <tr><td><b>Prius 30</b></td><td>2009–2015</td><td class="n">686</td><td class="n">16.5 сая</td><td class="n">11.5 – 22</td><td class="n">191,000 км</td></tr>
+      <tr><td><b>Prius 40</b> (α, 7 суудал)</td><td>2011–2017</td><td class="n">113</td><td class="n">24.8 сая</td><td class="n">19.5 – 35</td><td class="n">171,000 км</td></tr>
+      <tr><td><b>Prius 41</b> (α, 5 суудал)</td><td>2011–2020</td><td class="n">722</td><td class="n">26 сая</td><td class="n">19 – 38.5</td><td class="n">175,000 км</td></tr>
+      <tr><td><b>Prius 50</b></td><td>2015–2018</td><td class="n">97</td><td class="n">28.9 сая</td><td class="n">25 – 33.3</td><td class="n">168,000 км</td></tr>
+      <tr><td>Prius 51</td><td>2016–2019</td><td class="n">63</td><td class="n">32 сая</td><td class="n">27 – 37.3</td><td class="n">155,000 км</td></tr>
+      <tr><td>Prius 60 (шинэ үе)</td><td>2023+</td><td class="n">13</td><td class="n">72 сая</td><td class="n">69 – 90</td><td class="n">—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Он тус бүрийн дундаж үнэ: Prius 30 — 2010: 13.8 сая, 2012: 18.5 сая, 2015: 22.5 сая. Prius 41 — 2012: 23 сая, 2015: 30 сая, 2018: 38.6 сая. Prius 50 — 2016: 28.5 сая, 2018: 32 сая. Prius 30-аас 50 руу шилжихэд дунджаар 12 сая төгрөг нэмж төлнө.</p>
+</section>
+
+<section>
+  <h2>Дундаж худалдан авагчийн сонголт</h2>
+  <p>Цэг нь дундаж зарын үнэ, шугам нь хямд 10%-иас үнэтэй 10% хүртэлх хүрээ. Ихэнх айл өрх 10–30 сая төгрөгийн хүрээнд сонголт хийдэг бөгөөд энэ бүсэд бараг бүх загвар нь хайбрид.</p>
+  <div class="chart">
+    <div class="rows" id="rows"></div>
+    <div class="axis"><div></div><div class="ticks" id="ticks"></div><div></div></div>
+    <div class="legend">
+      <span><i style="background:var(--fuel)"></i>Prius гэр бүл</span>
+      <span><i style="background:var(--muted);opacity:.45"></i>Бусад загвар</span>
+      <span><i style="background:var(--green)"></i>Цахилгаан</span>
+      <span>Сая ₮</span>
+    </div>
+  </div>
+  <ul>
+    <li><b>15 саяас доош:</b> Prius 20, Aqua, хуучин Prius 30. Батерей нь насжсан, 200,000 км орчим гүйлттэй тул батерейн эрсдэл өндөр.</li>
+    <li><b>15–25 сая:</b> Prius 30 (2012+), Toyota Sai, Fielder хайбрид. Хамгийн их эрэлттэй, хамгийн хурдан зарагддаг бүс.</li>
+    <li><b>25–35 сая:</b> Prius 41/α, Prius 50/51, Camry хайбрид. Гэр бүлд том бие, илүү шинэ он.</li>
+    <li><b>35 саяас дээш:</b> Harrier, Crown, C-HR, RAV4. Дунд ангийн дээд хэсэг.</li>
+  </ul>
+</section>
+
+<section id="fuel">
+  <h2>2026 оны шатахууны хомсдол</h2>
+  <div class="timeline">
+    <div><b>2026.05.01</b>Цэвэр цахилгаан болон залгууртай (PHEV/EREV) машинд ногоон дугаар олгож, дугаарын хязгаарлалтаас чөлөөлж эхэлсэн. Prius, Aqua зэрэг энгийн хайбрид хамаарахгүй.</div>
+    <div><b>2026.07</b>ОХУ-ын экспорт 186.4 мянгаас 173 мянган тонн болж буурав. Монгол шатахууныхаа 95–97%-ийг ОХУ-аас авдаг, өөрийн боловсруулах үйлдвэргүй.</div>
+    <div><b>2026.08.04</b>Тэгш/сондгой дугаараар шатахуун олгож, нэг удаад 50,000₮-өөр хязгаарлав. Олон цагийн дараалал үүссэн.</div>
+    <div><b>2026.08.11</b>ОХУ яаралтай 25,000 тонн АИ-92 нийлүүлэхээр тохиров. Хятад, Өмнөд Солонгосоос нэмэлт нийлүүлэлт авсан.</div>
+    <div><b>2026.09</b>Дизель 4,000–4,200₮-өөс 15 хоногт 4,600–4,700₮ болов. ОХУ бензиний экспортын хоригоо 2026 оны эцэс хүртэл сунгасан тул эрсдэл үргэлжилнэ. Боловсруулах үйлдвэр 2028 онд ашиглалтад орох төлөвтэй.</div>
+  </div>
+</section>
+
+<section>
+  <h2>Шатахуун хомсдоход хүмүүс юу авч байна</h2>
+  <div class="callout">Хомсдол 8-р сард эхэлсэн тул түүнээс хойших импорт, борлуулалтын албан ёсны статистик хараахан гараагүй. Доорх дүгнэлт нь зарын өгөгдөл, бодлогын өөрчлөлт, мэдээнд тулгуурласан.</div>
+  <ul>
+    <li><b>Хайбрид давамгайлсаар байна.</b> Prius 30/41, Aqua зэрэг нь 100 км-т 4–5 литр зарцуулдаг тул нэг удаагийн 50,000₮-ийн хязгаар дотор хамгийн хол явдаг. Энэ нь хуучин хайбридын эрэлт, үнийг дэмжинэ.</li>
+    <li><b>PHEV ба EREV (залгууртай) сонирхол өсч байна.</b> Ногоон дугаараар дугаарын хязгаарлалтаас чөлөөлөгддөг, шатахуунгүй үед цахилгаанаар явж, цахилгаан тасарвал бензинээр явдаг давхар хамгаалалттай. Албан ёсны дилерүүд ногоон лизинг санал болгож эхэлсэн.</li>
+    <li><b>Цэвэр цахилгаан машин бага хэвээр.</b> Зарын 1.1% л эзэлж, дундаж үнэ нь 86 сая (Nissan Leaf хамгийн хямд нь, ~25 сая). Импорт 2024 онд 504 ширхэгт хүрээд 2025 онд 336, 2026 оны 1-р улиралд 88 болж буурсан. Үүний 76% нь Хятадаас.</li>
+    <li><b>Газ (LPG) бол жижиг сегмент.</b> 68 зарын ихэнх нь Hyundai Sonata, Grandeur, Kia K5/K7 зэрэг такси маягийн Солонгос машин.</li>
+  </ul>
+  <div class="tbl"><table>
+    <thead><tr><th>Цахилгаан зарын загвар</th><th style="text-align:right">Зар</th><th style="text-align:right">Дундаж үнэ</th></tr></thead>
+    <tbody>
+      <tr><td>BYD (төрөл бүр)</td><td class="n">18+</td><td class="n">67 сая</td></tr>
+      <tr><td>Toyota bZ3</td><td class="n">12</td><td class="n">88 сая</td></tr>
+      <tr><td>Nissan Leaf</td><td class="n">11</td><td class="n">25 сая</td></tr>
+      <tr><td>Mitsubishi Outlander PHEV</td><td class="n">8</td><td class="n">40.8 сая</td></tr>
+      <tr><td>Tesla Model Y</td><td class="n">6</td><td class="n">195 сая</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="ops">
+  <h2>Зах зээлийн боломжууд</h2>
+  <div class="ops">
+    <div class="op"><span class="tag">Үйлчилгээ</span><h3>Хайбрид батерейн засвар, сэргээлт</h3><p>Prius 20/30-ийн дундаж гүйлт 190–200 мянган км. Улсын хэмжээнд 553 мянга орчим хайбрид байгаагийн ихэнх нь насжсан тул батерей нь ойрын жилүүдэд солих шаардлагатай болно. Батерейн оношилгоо, сэргээлт, баталгаат солилт, хаягдал батерейн дахин боловсруулалтын эрэлт өснө.</p></div>
+    <div class="op"><span class="tag">Итгэлцэл</span><h3>Хуучин машины батерейн гэрчилгээ</h3><p>Ижил оны Prius-ийн үнэ 2 дахин зөрүүтэй байгаа нь худалдан авагч машины бодит байдлыг мэдэхгүй байгааг харуулна. Батерейн эрүүл мэнд, гүйлтийг баталгаажуулсан шалгалтын үйлчилгээ худалдан авагч, зарагч хоёуланд хэрэгтэй.</p></div>
+    <div class="op"><span class="tag g">Цэнэглэлт</span><h3>Худалдааны төвийн зогсоолын цэнэглэгч</h3><p>Нийслэлд 2026 онд 80, орон нутагт 30 цэгт цэнэглэгч барихаар төлөвлөж, хувийн хэвшлийг урьж байна. Хүнсний дэлгүүр, худалдааны төвийн зогсоол бол хүмүүс 30–60 минут саатдаг байгалийн цэнэглэх цэг.</p></div>
+    <div class="op"><span class="tag g">Импорт, санхүү</span><h3>PHEV/EREV + ногоон лизинг</h3><p>Ногоон дугаар, давхар түлшний хамгаалалт хоёр нь хомсдлын үед хамгийн хүчтэй худалдааны аргумент. Хятадад BYD-ийн PHEV загварууд 10–12 мянган доллар байгаа нь Монгол дахь үнэтэй томоохон зөрүүтэй.</p></div>
+    <div class="op"><span class="tag">Солилт</span><h3>Trade-in хөтөлбөр</h3><p>Prius 20/30-ийн эзэмшигчдийг (900 орчим зар) шинэ үе эсвэл PHEV рүү шилжүүлэх солилтын санал. Хуучин машиныг үнэлээд урьдчилгаанд тооцох.</p></div>
+    <div class="op"><span class="tag">Бүтээгдэхүүн</span><h3>Гэрийн цэнэглэгч, нөөц эрчим хүч</h3><p>Цахилгааны тасалдал түгээмэл тул гэрийн цэнэглэгч суурилуулалт, нарны хавтан, нөөц батерей хослуулсан багц эрэлттэй болох боломжтой.</p></div>
+  </div>
+  <h3>Анхаарах эрсдэл</h3>
+  <ul>
+    <li>Өвлийн −30°C хүйтэнд цахилгаан машины явах зай мэдэгдэхүйц буурдаг.</li>
+    <li>Цахилгааны тасалдал, цэнэглэх дэд бүтэц хөдөө орон нутагт бараг байхгүй.</li>
+    <li>Ногоон дугаар, татварын хөнгөлөлт зэрэг бодлого өөрчлөгдөж болно.</li>
+    <li>Хомсдол намжвал хүмүүс дахин хямд хайбрид руу буцах магадлалтай.</li>
+  </ul>
+</section>
+
+<section class="sources">
+  <h3>Эх сурвалж</h3>
+  <p>Үнийн өгөгдөл: <a href="https://www.unegui.mn/avto-mashin/-avtomashin-zarna/">unegui.mn</a> (2026.10.01, том загвар бүрээс сүүлийн ~250 зар).
+  Шатахуун: <a href="https://www.themoscowtimes.com/2026/08/11/mongolia-says-russia-agreed-to-send-emergency-fuel-supplies-amid-shortages-a93455">The Moscow Times</a>,
+  <a href="https://www.france24.com/en/live-news/20260908-mongolians-wait-hours-for-fuel-as-reliance-on-russia-bites">France 24</a>,
+  <a href="http://www.news.cn/english/20260810/b2ecdd73029148a990f142ba126db2be/c.html">Xinhua</a>.
+  Ногоон дугаар: <a href="https://news.mn/r/2864138/">news.mn</a>, <a href="https://mrt.gov.mn/i/5014">Зам, тээврийн яам</a>.
+  Цахилгаан машины импорт: <a href="https://ikon.mn/n/3my2">ikon.mn (ГЕГ)</a>.
+  Цэнэглэгч: <a href="https://asianews.network/green-charging-stations-to-be-established-at-80-locations-in-mongolian-capital-this-year/">Asia News Network</a>.
+  Хайбридын эзлэх хувь: <a href="https://www.frontiersin.org/journals/sustainability/articles/10.3389/frsus.2026.1664408/xml">Frontiers in Sustainability</a>, <a href="https://www.wbgkggtf.org/sites/default/files/2025-11/Study%20and%20Recommendation%20for%20Application%20of%20E-Mobility%20in%20Mongolia.pdf">World Bank KGGTF</a>.
+  Хятадын үнэ: <a href="http://www.analiz.mn/postview/71415">analiz.mn</a>.
+  Машины тоо: <a href="https://mrt.gov.mn/up/news_new/2025%20STATISTIC_LAST%20EDIT-02.25-1.pdf">ЗТЯ статистик 2025</a>.
+  Импорт: <a href="https://ikon.mn/n/3bsv">ikon.mn (2024, ҮСХ)</a>, <a href="https://news.mn/r/2843890/">news.mn (2025)</a>, <a href="https://news.mnb.mn/i/350325">mnb.mn (2026 I–VI)</a>, <a href="https://ikon.mn/n/33y6">ikon.mn (Prius 47%)</a>.
+  УБ дугаар: <a href="https://ikon.mn/n/3a16">ikon.mn (2024.11)</a>, <a href="https://ikon.mn/n/3leb">ikon.mn (2026.02)</a>.
+  Гаалиас гарсан машины үнэ, опшн: unegui.mn-ийн "Дугаар аваагүй" 641 зарын дэлгэрэнгүй хуудас, дугаартай 2,175 зар (2026.10.01).</p>
+</section>
+
+</div>
+
+<script>
+const MAX=90;
+const data=[
+ ["Prius 20","2003–2011",6.5,9.5,15.5,"hl"],
+ ["Toyota Aqua","2012–2020",9.5,13.8,22.5,""],
+ ["Prius 30","2009–2015",11.5,16.5,22,"hl"],
+ ["Toyota Sai","2010–2017",14.8,20,31,""],
+ ["Fielder","2006–2020",10,21.3,29.8,""],
+ ["Prius 40 (α)","2011–2017",19.5,24.8,35,"hl"],
+ ["Prius 41 (α)","2011–2020",19,26,38.5,"hl"],
+ ["Prius 50","2015–2018",25,28.9,33.3,"hl"],
+ ["Camry","бүх он",20,29,48,""],
+ ["Prius 51","2016–2019",27,32,37.3,"hl"],
+ ["Crown","бүх он",20,40,68,""],
+ ["C-HR","бүх он",36,42,58,""],
+ ["Harrier","бүх он",22,46,68,""],
+ ["Nissan Leaf","цахилгаан",null,25,null,"ev"],
+ ["Prius 60","2023+",68.9,72,90,"hl"]
+];
+const pct=v=>(v/MAX*100)+"%";
+document.getElementById("rows").innerHTML=data.map(([n,y,lo,md,hi,c])=>
+ `<div class="row ${c}"><div class="nm">${n}<small>${y}</small></div><div class="track">${lo!=null?`<div class="bar" style="left:${pct(lo)};width:${(hi-lo)/MAX*100}%"></div>`:""}<div class="dot" style="left:${pct(md)}"></div></div><div class="med">${md}</div></div>`).join("");
+(function(){
+ const S=[
+  ["Prius 41","--c1",{2011:25.5,2012:25,2013:25.5,2014:28.5,2015:30.8,2016:38,2017:38.5,2018:42,2019:39.8,2020:40.9}],
+  ["Prius 50","--c2",{2016:30,2017:30,2018:33.3}],
+  ["Camry","--c3",{2011:28,2012:28.8,2013:26.5,2015:36,2016:39.8,2017:46,2018:47,2019:50,2020:48.5,2021:58}],
+  ["Crown","--c4",{2013:40,2014:40,2015:41.5,2016:54,2017:49,2018:57.5,2019:63,2020:66.5,2021:70,2022:109,2023:99}],
+  ["Harrier","--c5",{2014:53,2015:52.9,2016:62.8,2017:62,2018:66.8,2019:65.5,2020:74,2021:77.7,2022:73.8}]
+ ];
+ const W=640,H=300,L=40,R=16,T=12,B=30,x0=2011,x1=2023,yMax=120;
+ const X=y=>L+(y-x0)/(x1-x0)*(W-L-R), Y=v=>T+(1-v/yMax)*(H-T-B);
+ let g="";
+ for(let v=0;v<=yMax;v+=20){g+=`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-6}" y="${Y(v)+4}" text-anchor="end">${v}</text>`}
+ for(let y=x0;y<=x1;y+=2){g+=`<text x="${X(y)}" y="${H-10}" text-anchor="middle">${y}</text>`}
+ g+=`<line x1="${X(2015)}" x2="${X(2015)}" y1="${T}" y2="${H-B}" stroke="var(--muted)" stroke-dasharray="3 4" stroke-width="1"/><text x="${X(2015)+5}" y="${T+10}">2015: УБ дугаар авах зааг</text>`;
+ for(const [n,c,d] of S){const pts=Object.entries(d).map(([y,v])=>[X(+y),Y(v)]);
+  g+=`<polyline fill="none" stroke="var(${c})" stroke-width="2.25" stroke-linejoin="round" points="${pts.map(p=>p.join(",")).join(" ")}"/>`;
+  g+=pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(${c})"/>`).join("");}
+ document.getElementById("lc").innerHTML=g;
+ document.getElementById("lcleg").innerHTML=S.map(([n,c])=>`<span><i style="background:var(${c})"></i>${n}</span>`).join("")+"<span>Он байхгүй цэг = 3-аас цөөн зар</span>";
+})();
+document.getElementById("ticks").innerHTML=[0,20,40,60,80].map(t=>`<span style="left:${pct(t)}">${t}</span>`).join("");
+</script>
