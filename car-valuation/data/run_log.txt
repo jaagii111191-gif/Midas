@@ -1,0 +1,303 @@
+﻿{
+ "old_date": "2026-10-01",
+ "new_date": "2026-10-04",
+ "counts": {
+  "old": 2042,
+  "new": 1981
+ },
+ "same_listing": {
+  "same": 1755,
+  "gone": 287,
+  "added": 226,
+  "by_fam": {
+   "alpha": {
+    "n": 708,
+    "up": 4,
+    "down": 17,
+    "unchanged": 687,
+    "mean_change_all": -0.0006,
+    "median_change_moved": -0.0183,
+    "gone": 118,
+    "added": 91,
+    "median_price_old": 24.5,
+    "median_price_new": 24.5,
+    "median_price_gone": 24.5,
+    "median_price_added": 24
+   },
+   "p50": {
+    "n": 131,
+    "up": 0,
+    "down": 4,
+    "unchanged": 127,
+    "mean_change_all": -0.0009,
+    "median_change_moved": -0.0283,
+    "gone": 23,
+    "added": 31,
+    "median_price_old": 29,
+    "median_price_new": 29.5,
+    "median_price_gone": 29,
+    "median_price_added": 29.6
+   },
+   "camry": {
+    "n": 235,
+    "up": 0,
+    "down": 7,
+    "unchanged": 228,
+    "mean_change_all": -0.0016,
+    "median_change_moved": -0.05,
+    "gone": 47,
+    "added": 33,
+    "median_price_old": 29,
+    "median_price_new": 29,
+    "median_price_gone": 27.2,
+    "median_price_added": 28
+   },
+   "harrier": {
+    "n": 681,
+    "up": 0,
+    "down": 19,
+    "unchanged": 662,
+    "mean_change_all": -0.0013,
+    "median_change_moved": -0.0426,
+    "gone": 99,
+    "added": 71,
+    "median_price_old": 40,
+    "median_price_new": 40,
+    "median_price_gone": 42,
+    "median_price_added": 44
+   },
+   "all": {
+    "n": 1755,
+    "up": 4,
+    "down": 47,
+    "unchanged": 1704,
+    "mean_change_all": -0.001,
+    "median_change_moved": -0.0283,
+    "gone": 287,
+    "added": 226,
+    "median_price_old": 28.5,
+    "median_price_new": 28.5,
+    "median_price_gone": 28,
+    "median_price_added": 28.5
+   }
+  },
+  "biggest_cuts": [
+   {
+    "u": "/adv/10781016_toyota-harrier-2005-2014/",
+    "old": 13.5,
+    "new": 11,
+    "pct": -0.185
+   },
+   {
+    "u": "/adv/10653367_toyota-camry-2015-2026/",
+    "old": 36,
+    "new": 31.5,
+    "pct": -0.125
+   },
+   {
+    "u": "/adv/10781351_toyota-harrier-2004-2013/",
+    "old": 20,
+    "new": 18,
+    "pct": -0.1
+   },
+   {
+    "u": "/adv/10783470_toyota-camry-2013-2022/",
+    "old": 25,
+    "new": 23,
+    "pct": -0.08
+   },
+   {
+    "u": "/adv/10744280_toyota-prius-41-2015-2023/",
+    "old": 32,
+    "new": 29.5,
+    "pct": -0.078
+   },
+   {
+    "u": "/adv/10669961_toyota-camry-2011-2021/",
+    "old": 21,
+    "new": 19.5,
+    "pct": -0.071
+   },
+   {
+    "u": "/adv/10771014_toyota-prius-41-2011-2022/",
+    "old": 22,
+    "new": 20.5,
+    "pct": -0.068
+   },
+   {
+    "u": "/adv/10560235_toyota-harrier-2005-2014/",
+    "old": 16,
+    "new": 15,
+    "pct": -0.062
+   }
+  ],
+  "biggest_raises": [
+   {
+    "u": "/adv/10769304_toyota-prius-41-2012-2025/",
+    "old": 23,
+    "new": 24,
+    "pct": 0.043
+   },
+   {
+    "u": "/adv/10743657_toyota-prius-41-2012-2024/",
+    "old": 24.5,
+    "new": 25,
+    "pct": 0.02
+   },
+   {
+    "u": "/adv/10713782_toyota-prius-41-2013-2026/",
+    "old": 27.5,
+    "new": 28,
+    "pct": 0.018
+   },
+   {
+    "u": "/adv/10749931_toyota-prius-41-2012-2026/",
+    "old": 24.5,
+    "new": 24.8,
+    "pct": 0.012
+   },
+   {
+    "u": "/adv/10774865_toyota-harrier-2017-2026/",
+    "old": 59,
+    "new": 58.8,
+    "pct": -0.003
+   },
+   {
+    "u": "/adv/10540761_toyota-prius-41-2016-2026/",
+    "old": 39,
+    "new": 38.8,
+    "pct": -0.005
+   },
+   {
+    "u": "/adv/10561217_toyota-prius-41-2019-2026/",
+    "old": 37,
+    "new": 36.8,
+    "pct": -0.005
+   },
+   {
+    "u": "/adv/10783929_toyota-harrier-2014-2024/",
+    "old": 46,
+    "new": 45.5,
+    "pct": -0.011
+   }
+  ]
+ },
+ "v5_forward": {
+  "n": 69,
+  "mape": 0.0557,
+  "within10": 0.754,
+  "median_resid_pct": -0.0113,
+  "by_fam": {
+   "alpha": {
+    "n": 25,
+    "median_resid_pct": -0.0172
+   },
+   "p50": {
+    "n": 14,
+    "median_resid_pct": -0.0113
+   },
+   "camry": {
+    "n": 10,
+    "median_resid_pct": -0.0477
+   },
+   "harrier": {
+    "n": 20,
+    "median_resid_pct": 0.0343
+   }
+  }
+ },
+ "v5_on_new_snapshot": {
+  "n": 467,
+  "mape": 0.0429,
+  "median_resid_pct": -0.0023
+ },
+ "hedonic_period_effect": {
+  "all": {
+   "alpha": -0.0007,
+   "p50": 0.0063,
+   "camry": -0.0034,
+   "harrier": -0.0012
+  },
+  "fresh": {
+   "alpha": -0.0028,
+   "p50": 0.0008,
+   "camry": -0.0037,
+   "harrier": 0.0008
+  }
+ },
+ "refit_tests": {
+  "v5_repro_old_only": {
+   "n": 470,
+   "mape": 0.0511,
+   "within10": 0.779,
+   "by_fam": {
+    "alpha": 0.05,
+    "p50": 0.0463,
+    "camry": 0.0904,
+    "harrier": 0.0488
+   }
+  },
+  "merged_lam0.5": {
+   "n": 539,
+   "mape": 0.0506,
+   "within10": 0.761,
+   "by_fam": {
+    "alpha": 0.0458,
+    "camry": 0.0959,
+    "harrier": 0.0492,
+    "p50": 0.0487
+   }
+  },
+  "merged_lam1": {
+   "n": 539,
+   "mape": 0.0509,
+   "within10": 0.764,
+   "by_fam": {
+    "alpha": 0.0459,
+    "camry": 0.0924,
+    "harrier": 0.05,
+    "p50": 0.0442
+   }
+  },
+  "merged_lam2": {
+   "n": 538,
+   "mape": 0.0501,
+   "within10": 0.775,
+   "by_fam": {
+    "alpha": 0.0459,
+    "camry": 0.0902,
+    "harrier": 0.0493,
+    "p50": 0.0443
+   }
+  },
+  "merged_lam4": {
+   "n": 539,
+   "mape": 0.0544,
+   "within10": 0.77,
+   "by_fam": {
+    "alpha": 0.0504,
+    "camry": 0.0969,
+    "harrier": 0.0562,
+    "p50": 0.0474
+   }
+  },
+  "merged_inner": {
+   "n": 540,
+   "mape": 0.0542,
+   "within10": 0.781,
+   "by_fam": {
+    "alpha": 0.0523,
+    "camry": 0.0896,
+    "harrier": 0.0511,
+    "p50": 0.0488
+   }
+  }
+ },
+ "forward_by_lambda": {
+  "lam0.5": 0.0507,
+  "lam1": 0.0561,
+  "lam2": 0.0629,
+  "lam4": 0.0683
+ },
+ "chosen": "merged_lam1"
+}

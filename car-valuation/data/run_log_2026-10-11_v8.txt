@@ -1,0 +1,88 @@
+﻿{
+ "dates": [
+  "2026-10-01",
+  "2026-10-04",
+  "2026-10-11"
+ ],
+ "counts": {
+  "2026-10-01": 2042,
+  "2026-10-04": 1981,
+  "2026-10-11": 1999
+ },
+ "prev_model_forward": {
+  "model": "model_2026-10-11_v8_2026fresh.json",
+  "n": 121,
+  "mape": 0.0414,
+  "within10": 0.835,
+  "median_resid_pct": -0.0029,
+  "by_fam": {
+   "alpha": {
+    "n": 50,
+    "median_resid_pct": -0.0029
+   },
+   "p50": {
+    "n": 19,
+    "median_resid_pct": 0.0093
+   },
+   "camry": {
+    "n": 14,
+    "median_resid_pct": -0.002
+   },
+   "harrier": {
+    "n": 38,
+    "median_resid_pct": -0.006
+   }
+  }
+ },
+ "prev_model_on_last_snapshot": {
+  "n": 442,
+  "mape": 0.0452,
+  "median_resid_pct": -0.0006
+ },
+ "refit": {
+  "lam0.5": {
+   "mape": 0.0528,
+   "lo": 0.0507,
+   "hi": 0.0551,
+   "n": 654,
+   "by_fam": {
+    "camry": 0.0666,
+    "alpha": 0.0502,
+    "harrier": 0.0524,
+    "p50": 0.051
+   }
+  },
+  "lam1": {
+   "mape": 0.0527,
+   "lo": 0.0498,
+   "hi": 0.0547,
+   "n": 654,
+   "by_fam": {
+    "camry": 0.0697,
+    "alpha": 0.0497,
+    "harrier": 0.0535,
+    "p50": 0.0494
+   }
+  },
+  "lam2": {
+   "mape": 0.052,
+   "lo": 0.0509,
+   "hi": 0.0543,
+   "n": 654,
+   "by_fam": {
+    "camry": 0.0704,
+    "alpha": 0.0486,
+    "harrier": 0.0519,
+    "p50": 0.0503
+   }
+  }
+ },
+ "chosen": "lam1",
+ "new_model": "model_2026-10-11_v9_2026fresh.json"
+}
+== 2026-10-01→2026-10-11 same 1242 gone 800 added 687
+   all {'n': 1241, 'up': 11, 'down': 115, 'mean_change_all': -0.0036, 'median_change_moved': -0.0335, 'median_price_old': 28.5, 'median_price_new': 28.5, 'gone': 800, 'added': 687}
+   hedonic {'all': {'alpha': -0.0004, 'p50': 0.0111, 'camry': -0.0066, 'harrier': -0.0073}, 'all_n': {'old': 1892, 'new': 1776}, 'fresh': {'alpha': -0.0053, 'p50': 0.0029, 'camry': -0.0079, 'harrier': -0.0029}, 'fresh_n': {'old': 475, 'new': 419}}
+== 2026-10-04→2026-10-11 same 1399 gone 582 added 530
+   all {'n': 1398, 'up': 9, 'down': 99, 'mean_change_all': -0.0027, 'median_change_moved': -0.0346, 'median_price_old': 28.5, 'median_price_new': 28.5, 'gone': 582, 'added': 530}
+   hedonic {'all': {'alpha': -0.0003, 'p50': 0.0049, 'camry': -0.0027, 'harrier': -0.0066}, 'all_n': {'old': 1830, 'new': 1776}, 'fresh': {'alpha': -0.0039, 'p50': 0.0025, 'camry': -0.0051, 'harrier': -0.0069}, 'fresh_n': {'old': 467, 'new': 419}}

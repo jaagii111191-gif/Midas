@@ -1,10 +1,9 @@
 # Монголын авто зах зээл ба Toyota үнэлгээний судалгаа
 
 
-> **midas repo-д нэмсэн (2026-10-24).** Энд байгаа файлууд: `README.md`, `unelgee.html`, `scrape_and_fit.js`,
-> `auction/mongol_buuh_une_2026-10-05*.xlsx` (JP аукционы машинуудын Монголд буух үнэ, үнэлгээтэй ба үнэлгээгүй),
-> `docs/onctsgoi-tatvar-2017-03.jpg` (суудлын машины импортын онцгой татварын хүснэгт).
-> Доор дурдсан `models/`, `tools/`, `data/`, `reports/` хавтаснууд одоогоор `E:\tttt\car-valuation\`-д л байгаа, энд нэмэгдээгүй.
+> **midas repo-д нэмсэн (2026-10-24).** `E:\tttt\car-valuation\` хавтсыг бүтнээр нь (models/, tools/, data/, reports/, auction/) энд хуулсан.
+> Нэмэлтээр: `auction/mongol_buuh_une_2026-10-05*.xlsx` (JP аукционы машинуудын Монголд буух үнэ) ба `docs/onctsgoi-tatvar-2017-03.jpg` (импортын онцгой татварын хүснэгт).
+> `jp-auction-unelgee` skill (`E:\tttt\.claude\skills\`) энд ороогүй.
 
 Хийсэн хугацаа: 2026-10-01 – 10-02. Өгөгдлийн эх сурвалж: unegui.mn (2026-10-01-ний зарууд).
 
