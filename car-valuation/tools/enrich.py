@@ -35,7 +35,7 @@ def main(dates):
     for d in dates:
         p = os.path.join(ROOT, 'data', f'prepped_{d}.json')
         rows = json.load(open(p, encoding='utf-8'))
-        raw = json.load(open(os.path.join(ROOT, 'data', f'unegui_toyota_{d}.json'), encoding='utf-8'))[RAWKEY[d]]
+        raw = json.load(open(os.path.join(ROOT, 'data', f'unegui_toyota_{d}.json'), encoding='utf-8'))[RAWKEY.get(d, 'D')]
         txt = {r['u']: r.get('desc') or '' for r in raw}
         p55 = os.path.join(ROOT, 'data', f'unegui_prius55_{d}.json')
         if os.path.exists(p55):
