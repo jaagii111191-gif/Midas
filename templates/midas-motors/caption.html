@@ -1,0 +1,340 @@
+<title>Midas тайлбар бичигч</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Tektur:wght@600;700&display=swap">
+<style>
+/* Layout: form on the left, a Facebook-post style preview on the right that stays in view; one column on phones. */
+:root {
+  --bg: #F1F2F7;
+  --panel: #FFFFFF;
+  --fg: #0B1028;
+  --muted: #5A6180;
+  --line: #D9DCE8;
+  --field: #F7F8FC;
+  --accent: #C8102E;
+  --accent-fg: #FFFFFF;
+  --ink: #050817;
+  --chrome: #F3F4F9;
+  --ok: #0E8A60;
+  --f-display: "Tektur", "Arial Narrow", sans-serif;
+  --f-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #050817; --panel: #0D1330; --fg: #F3F4F9; --muted: #A7ACC6; --line: #232B52; --field: #0A0F26;
+    --accent: #E0284A; --accent-fg: #FFFFFF; --ink: #03050F; --chrome: #F3F4F9; --ok: #33C28F; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #050817; --panel: #0D1330; --fg: #F3F4F9; --muted: #A7ACC6; --line: #232B52; --field: #0A0F26;
+  --accent: #E0284A; --accent-fg: #FFFFFF; --ink: #03050F; --chrome: #F3F4F9; --ok: #33C28F; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 var(--f-body); }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 0 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+header.band { background: var(--ink); color: var(--chrome); position: relative; overflow: hidden; }
+header.band::after { content: ""; position: absolute; right: -60px; top: 0; bottom: 0; width: 260px; background: var(--accent); transform: skewX(-24deg); opacity: .9; }
+header.band .wrap { padding-block: 22px 20px; position: relative; z-index: 1; }
+.brand { font: 700 13px/1 var(--f-display); letter-spacing: .22em; color: #A7ACC6; text-transform: uppercase; }
+h1 { font: 700 clamp(26px, 4vw, 36px)/1.1 var(--f-display); margin: 6px 0 4px; letter-spacing: .02em; text-wrap: balance; }
+header p { margin: 0; color: #C9CDE0; max-width: 60ch; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 24px; margin-top: 24px; align-items: start; }
+@media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+
+section.box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 14px; }
+.stack { display: grid; gap: 16px; min-width: 0; }
+h2 { font: 700 13px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; margin: 0; color: var(--muted); }
+.row { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+label.f { display: grid; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); min-width: 0; }
+label.f.wide { grid-column: 1 / -1; }
+input, select, textarea { font: 500 15px/1.3 var(--f-body); color: var(--fg); background: var(--field); border: 1px solid var(--line); border-radius: 6px; padding: 9px 10px; width: 100%; min-width: 0; }
+textarea { resize: vertical; min-height: 64px; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg label { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-weight: 600; font-size: 14px; background: var(--field); }
+.seg input { width: auto; margin: 0; accent-color: var(--accent); }
+.seg label:has(input:checked) { border-color: var(--accent); color: var(--accent); }
+.check { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+.check input { width: auto; accent-color: var(--accent); }
+
+.car { border: 1px solid var(--line); border-radius: 10px; padding: 14px; display: grid; gap: 12px; background: var(--panel); }
+.car-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.car-head b { font: 700 15px/1 var(--f-display); letter-spacing: .06em; }
+button { font: 700 14px/1 var(--f-body); border-radius: 6px; padding: 10px 14px; cursor: pointer; border: 1px solid var(--line); background: var(--field); color: var(--fg); }
+button.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+button.ghost { background: transparent; color: var(--muted); padding: 6px 8px; }
+button.ghost:hover { color: var(--accent); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+details summary { cursor: pointer; font-weight: 700; }
+details[open] summary { margin-bottom: 10px; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.msg { font-size: 13px; font-weight: 600; min-height: 1em; }
+.msg.err { color: var(--accent); }
+.msg.ok { color: var(--ok); }
+
+aside { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); display: grid; gap: 16px; min-width: 0; }
+@media (max-width: 900px) { aside { position: static; } }
+.post { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.post-top { display: flex; gap: 10px; align-items: center; padding: 12px 14px 8px; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; color: var(--chrome); font: 700 15px/1 var(--f-display); border: 2px solid var(--accent); }
+.post-top b { display: block; font-size: 14px; }
+.post-top span { font-size: 12px; color: var(--muted); }
+pre.out { margin: 0; padding: 4px 14px 14px; white-space: pre-wrap; word-break: break-word; font: 500 14px/1.5 var(--f-body); max-height: 62vh; overflow: auto; }
+.post-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--line); }
+.count { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.short pre.out { max-height: none; }
+@media (prefers-reduced-motion: no-preference) { button { transition: background .15s, color .15s; } }
+</style>
+
+<header class="band">
+  <div class="wrap">
+    <div class="brand">Midas Motors</div>
+    <h1>Постерын тайлбар бичигч</h1>
+    <p>Машины мэдээллээ бөглөхөд Facebook-ийн бэлэн тайлбар, story болон Marketplace-ийн богино хувилбар гарна. Хуулж аваад постертойгоо хамт нийтэлнэ.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <div class="stack">
+      <section class="box" aria-labelledby="h-common">
+        <h2 id="h-common">Зарын төрөл</h2>
+        <div class="seg" role="radiogroup" aria-label="Машины төлөв">
+          <label><input type="radio" name="status" id="st-arriving" value="arriving" checked> Замдаа · захиалгаар</label>
+          <label><input type="radio" name="status" id="st-customs" value="customs"> Гаалиас шууд</label>
+          <label><input type="radio" name="status" id="st-ready" value="ready"> УБ-д бэлэн</label>
+        </div>
+        <div class="row">
+          <label class="f" id="month-wrap">Ойролцоогоор буух сар
+            <select id="month"><option value="">Тодорхойгүй</option></select>
+          </label>
+          <label class="f">Утас
+            <input id="phone" value="9910-9653" inputmode="tel">
+          </label>
+        </div>
+        <label class="check"><input type="checkbox" id="loan" checked> Банк бус зээлд зуучилна гэж бичих</label>
+        <label class="f wide">Нэмэлт өгүүлбэр (заавал биш)
+          <input id="extra" placeholder="Жишээ: Бага гүйлттэй, гэр бүлийн хэрэглээнд тохиромжтой.">
+        </label>
+        <div class="row">
+          <label class="f" id="title-wrap">Гарчиг (олон машинтай үед)
+            <input id="title" placeholder="Жишээ: 2 ХАР PRIUS α">
+          </label>
+          <label class="f">Нэмэлт hashtag
+            <input id="tags" placeholder="#Хямдрал #Шинэирсэн">
+          </label>
+        </div>
+      </section>
+
+      <div id="cars" class="stack"></div>
+      <div class="actions">
+        <button type="button" id="add">+ Машин нэмэх</button>
+        <button type="button" id="clear" class="ghost">Бүгдийг цэвэрлэх</button>
+      </div>
+
+      <section class="box">
+        <details>
+          <summary>Постерын JSON-оос бөглөх</summary>
+          <p class="hint">Постер гаргагчийн <code>data/…json</code> эсвэл <code>data/generated/…json</code> файлын агуулгыг энд хуулж тавина. Эхний постер (эсвэл lineup) -оос машинуудыг уншина.</p>
+          <label class="f wide" for="json">JSON
+            <textarea id="json" rows="5" placeholder='{"cars":[{"model":"PRIUS","gen":"41", ...}]}'></textarea>
+          </label>
+          <div class="actions"><button type="button" id="import">Бөглөх</button></div>
+          <div class="msg" id="import-msg" role="status"></div>
+        </details>
+      </section>
+    </div>
+
+    <aside aria-label="Бэлэн тайлбар">
+      <div class="post">
+        <div class="post-top"><div class="avatar" aria-hidden="true">M</div><div><b>Midas Motors</b><span>Facebook пост</span></div></div>
+        <pre class="out" id="out-long"></pre>
+        <div class="post-foot"><span class="count" id="count-long"></span><button type="button" class="primary" data-copy="out-long">Хуулах</button></div>
+      </div>
+      <div class="post short">
+        <div class="post-top"><div><b>Богино хувилбар</b><span>Story, Marketplace</span></div></div>
+        <pre class="out" id="out-short"></pre>
+        <div class="post-foot"><span class="count" id="count-short"></span><button type="button" data-copy="out-short">Хуулах</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<template id="car-tpl">
+  <div class="car">
+    <div class="car-head"><b class="car-no"></b><button type="button" class="ghost rm">Хасах</button></div>
+    <div class="row">
+      <label class="f">Загвар
+        <select data-k="preset">
+          <option value="prius41">Prius α (41)</option>
+          <option value="prius30">Prius 30</option>
+          <option value="prius51">Prius 51</option>
+          <option value="camry50">Camry 50 Hybrid</option>
+          <option value="camry70">Camry 70 Hybrid</option>
+          <option value="">Бусад загвар</option>
+        </select>
+      </label>
+      <label class="f other">Бүтэн нэр<input data-k="name" placeholder="Toyota Aqua"></label>
+      <label class="f other">Постер дээрх нэр<input data-k="label" placeholder="AQUA"></label>
+      <label class="f">Хувилбар (grade)<input data-k="trim" placeholder="S Touring Selection"></label>
+      <label class="f">Арлын код<input data-k="frame" placeholder="ZVW41W"></label>
+      <label class="f">Үйлдвэрлэсэн он<input data-k="year_made" inputmode="numeric" placeholder="2012"></label>
+      <label class="f">Орж ирэх / ирсэн он<input data-k="year_import" inputmode="numeric" placeholder="2026"></label>
+      <label class="f">Явсан км<input data-k="km" inputmode="numeric" placeholder="198000"></label>
+      <label class="f">Мотор<input data-k="engine" placeholder="1.8 Hybrid"></label>
+      <label class="f">Хурдны хайрцаг
+        <select data-k="gearbox"><option>Автомат</option><option>Механик</option><option value="">Бичихгүй</option></select>
+      </label>
+      <label class="f">Хөтлөгч
+        <select data-k="drive"><option value="">Бичихгүй</option><option>2WD</option><option>4WD</option></select>
+      </label>
+      <label class="f">Жолоо
+        <select data-k="steering"><option value="Буруу (баруун талдаа)">Буруу</option><option>Зөв</option><option value="">Бичихгүй</option></select>
+      </label>
+      <label class="f">Суудал<input data-k="seats" inputmode="numeric" placeholder="5"></label>
+      <label class="f">Өнгө<input data-k="color" placeholder="Хар"></label>
+      <label class="f">Аукшн<input data-k="auction" placeholder="USS Tokyo"></label>
+      <label class="f">Аукшны үнэлгээ<input data-k="grade" placeholder="3.5"></label>
+      <label class="f">Үнэ, сая ₮<input data-k="price" inputmode="decimal" placeholder="23"></label>
+      <label class="f wide">Онцлог, нэг мөрөнд нэг (хоосон бол загварын бэлэн текст орно)
+        <textarea data-k="notes" rows="3" placeholder="Шинэ дугуйтай&#10;Навигаци, арын камертай"></textarea>
+      </label>
+    </div>
+  </div>
+</template>
+
+<script src="caption.js"></script>
+<script>
+(function () {
+  'use strict';
+  const C = window.MidasCaption;
+  const $ = id => document.getElementById(id);
+  const KEY = 'midas-caption-draft-v1';
+  const carsEl = $('cars');
+  const FIELDS = ['preset', 'name', 'label', 'trim', 'frame', 'year_made', 'year_import', 'km', 'engine', 'gearbox', 'drive', 'steering', 'seats', 'color', 'auction', 'grade', 'price', 'notes'];
+
+  // First-open example: one of the two black Prius α arriving in December.
+  const EXAMPLE = {
+    opts: { status: 'arriving', month: '12', phone: '9910-9653', loan: true, extra: '', tags: '', title: '' },
+    cars: [{ preset: 'prius41', trim: 'S Touring Selection', frame: 'ZVW41W', year_made: '2012', year_import: '2026', km: '198000',
+      engine: '1.8 Hybrid', gearbox: 'Автомат', steering: 'Буруу (баруун талдаа)', seats: '5', color: 'Хар', grade: '3.5', price: '23' }],
+    example: true,
+  };
+
+  for (let m = 1; m <= 12; m++) $('month').insertAdjacentHTML('beforeend', `<option value="${m}">${m} сар</option>`);
+
+  function addCar(data) {
+    const node = $('car-tpl').content.firstElementChild.cloneNode(true);
+    const idx = carsEl.children.length;
+    node.querySelectorAll('[data-k]').forEach(el => {
+      el.id = `car${idx}-${el.dataset.k}-${Math.random().toString(36).slice(2, 7)}`;
+      const v = data && data[el.dataset.k];
+      if (v != null) el.value = v;
+    });
+    node.querySelector('.rm').addEventListener('click', () => { node.remove(); renumber(); update(); });
+    carsEl.appendChild(node);
+    renumber();
+  }
+
+  function renumber() {
+    const list = [...carsEl.children];
+    list.forEach((n, i) => {
+      n.querySelector('.car-no').textContent = list.length > 1 ? `${i + 1}-р машин` : 'Машин';
+      n.querySelector('.rm').hidden = list.length < 2;
+      const other = n.querySelector('[data-k="preset"]').value === '';
+      n.querySelectorAll('.other').forEach(el => { el.hidden = !other; });
+    });
+    $('title-wrap').hidden = list.length < 2;
+  }
+
+  function readCars() {
+    return [...carsEl.children].map(n => {
+      const c = {};
+      n.querySelectorAll('[data-k]').forEach(el => { c[el.dataset.k] = el.value; });
+      if (c.preset === '' && !c.name && !c.label) c.name = 'Машин';
+      return c;
+    });
+  }
+
+  function readOpts() {
+    return {
+      status: document.querySelector('input[name="status"]:checked').value,
+      month: $('month').value, phone: $('phone').value.trim() || '9910-9653', loan: $('loan').checked,
+      extra: $('extra').value, tags: $('tags').value, title: $('title').value.trim(),
+    };
+  }
+
+  function fill(state) {
+    const o = state.opts || {};
+    const st = document.querySelector(`input[name="status"][value="${o.status || 'arriving'}"]`);
+    if (st) st.checked = true;
+    $('month').value = o.month || '';
+    $('phone').value = o.phone || '9910-9653';
+    $('loan').checked = o.loan !== false;
+    $('extra').value = o.extra || '';
+    $('tags').value = o.tags || '';
+    $('title').value = o.title || '';
+    carsEl.innerHTML = '';
+    (state.cars && state.cars.length ? state.cars : [{}]).forEach(addCar);
+  }
+
+  function update() {
+    renumber();
+    const o = readOpts();
+    $('month-wrap').hidden = o.status !== 'arriving';
+    const r = C.buildCaption(readCars(), o);
+    $('out-long').textContent = r.long || 'Машины мэдээллээ бөглөнө үү.';
+    $('out-short').textContent = r.short || '—';
+    $('count-long').textContent = `${r.long.length} тэмдэгт`;
+    $('count-short').textContent = `${r.short.length} тэмдэгт`;
+    try { localStorage.setItem(KEY, JSON.stringify({ opts: o, cars: readCars() })); } catch (e) { /* storage unavailable */ }
+  }
+
+  document.addEventListener('input', e => { if (e.target.id !== 'json') update(); });
+  document.addEventListener('change', e => { if (e.target.id !== 'json') update(); });
+
+  $('add').addEventListener('click', () => {
+    const last = readCars().slice(-1)[0] || {};
+    addCar({ preset: last.preset, gearbox: last.gearbox, steering: last.steering, year_import: last.year_import });
+    update();
+  });
+  $('clear').addEventListener('click', () => { fill({ opts: { phone: $('phone').value }, cars: [{}] }); update(); });
+
+  $('import').addEventListener('click', () => {
+    const msg = $('import-msg');
+    msg.className = 'msg';
+    try {
+      const data = JSON.parse($('json').value);
+      const entries = Array.isArray(data) ? data : data.cars || [data];
+      if (!entries.length) throw new Error('empty');
+      const { cars, opts } = C.fromPosterEntry(entries[0]);
+      fill({ opts: Object.assign(readOpts(), opts), cars: cars.map(c => Object.assign({ gearbox: 'Автомат' }, c)) });
+      update();
+      msg.textContent = `${cars.length} машины мэдээлэл бөглөгдлөө. Хувилбар, аукшн зэрэг дутуу талбарыг шалгаарай.`;
+      msg.classList.add('ok');
+    } catch (e) {
+      msg.textContent = 'JSON уншигдсангүй. Файлын агуулгыг бүтнээр нь, { тэмдэгтээс эхлүүлж хуулна уу.';
+      msg.classList.add('err');
+    }
+  });
+
+  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', () => {
+    const el = $(btn.dataset.copy);
+    const done = () => { const t = btn.textContent; btn.textContent = 'Хуулагдлаа'; setTimeout(() => { btn.textContent = t; }, 1400); };
+    const select = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    try {
+      navigator.clipboard.writeText(el.textContent).then(done, () => { select(); btn.textContent = 'Ctrl+C дарна уу'; });
+    } catch (e) { select(); btn.textContent = 'Ctrl+C дарна уу'; }
+  }));
+
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { saved = null; }
+  fill(saved && saved.cars ? saved : EXAMPLE);
+  update();
+})();
+</script>
