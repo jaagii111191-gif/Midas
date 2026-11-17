@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { root, DEFAULT_OUT, launchBrowser, newContext, renderEntries, readEntries } =
   require('../templates/midas-motors/render-posters.js');
+const { buildCaption, fromPosterEntry } = require('../templates/midas-motors/caption.js');
 
 const USAGE = `
 Midas Motors постер гаргагч
@@ -13,7 +14,11 @@ Midas Motors постер гаргагч
   npm run poster -- url <холбоос> --t1                   нэг машин, нэг зурагтай постер (T1)
   npm run poster -- lineup <холбоос> <холбоос> [...]     нэг постерт 2–6 машин (T8)
   npm run poster -- render <файл.json>                   JSON файлаас бүх постерыг гаргах
+  npm run poster -- caption <файл.json>                  зөвхөн Facebook тайлбар (хөтөч хэрэггүй)
   npm run poster -- demo                                  гурван загварыг жишээ утгаар гаргах
+
+url, lineup, render командууд постер бүрийн хажууд <id>-caption.txt тайлбар бичнэ.
+Тайлбарыг вэбээр бичих бол templates/midas-motors/caption.html-ийг хөтчөөр нээнэ.
 
 Сонголтууд:
   --badge "ГААЛИАС ШУУД"     статусын шошгоны бичиг (анхдагч: ШИНЭ ИРСЭН)
@@ -179,6 +184,24 @@ function saveGenerated(entries) {
   console.log('  өгөгдөл: ' + path.relative(process.cwd(), file));
 }
 
+// One caption per car: the -t1 and -multi posters of the same car share a caption file.
+function writeCaptions(entries, outDir, phone) {
+  fs.mkdirSync(outDir, { recursive: true });
+  const done = new Set();
+  for (const entry of entries) {
+    const base = String(entry.id || 'poster').replace(/-(t1|multi|standard)$/, '');
+    if (done.has(base)) continue;
+    done.add(base);
+    const { cars, opts } = fromPosterEntry(entry);
+    if (phone) opts.phone = phone;
+    const { long, short } = buildCaption(cars, opts);
+    if (!long) continue;
+    const file = path.join(outDir, base + '-caption.txt');
+    fs.writeFileSync(file, long + '\n\n--- Богино хувилбар (story, Marketplace) ---\n' + short + '\n');
+    console.log('  тайлбар: ' + path.relative(process.cwd(), file));
+  }
+}
+
 async function main() {
   const { cmd, args, flags } = parseArgs(process.argv.slice(2));
   const cfg = loadConfig();
@@ -188,17 +211,25 @@ async function main() {
     if (!args.length) throw new Error('Холбоос өгнө үү. Жишээ: npm run poster -- url https://www.1000mashin.mn/car-view/11918/x');
     const entries = (await fetchListings(args)).map(c => carEntry(c, flags, cfg));
     entries.forEach(e => saveGenerated([e]));
+    writeCaptions(entries, opts.out, flags.phone);
     return renderEntries(entries, opts);
   }
   if (cmd === 'lineup') {
     if (args.length < 2 || args.length > 6) throw new Error('lineup-д 2–6 холбоос хэрэгтэй.');
     const entry = lineupEntry(await fetchListings(args), flags, cfg);
     saveGenerated([entry]);
+    writeCaptions([entry], opts.out, flags.phone);
     return renderEntries([entry], opts);
   }
   if (cmd === 'render') {
     if (!args[0]) throw new Error('JSON файлын зам өгнө үү. Жишээ: npm run poster -- render data/midas-examples-1000mashin.json');
-    return renderEntries(readEntries(args[0]), opts);
+    const entries = readEntries(args[0]);
+    writeCaptions(entries, opts.out, flags.phone);
+    return renderEntries(entries, opts);
+  }
+  if (cmd === 'caption') {
+    if (!args[0]) throw new Error('JSON файлын зам өгнө үү. Жишээ: npm run poster -- caption data/midas-prius41-dec.json');
+    return writeCaptions(readEntries(args[0]), opts.out, flags.phone);
   }
   if (cmd === 'demo') {
     return renderEntries([
